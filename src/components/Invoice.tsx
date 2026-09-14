@@ -1,6 +1,6 @@
 import React from 'react'
 import { BRAND_ADDRESS, BRAND_EMAIL, BRAND_EN, BRAND_LOGO, BRAND_PHONE_DISPLAY } from '../lib/brand'
-import { formatCurrency, formatQuantityDisplay, normalizeStructuredOrderItem, formatInvoiceNo } from '../lib/retail'
+import { formatQuantityDisplay, normalizeStructuredOrderItem, formatInvoiceNo } from '../lib/retail'
 import { formatPhoneDisplay } from '../lib/phone'
 
 export interface InvoiceItem {
@@ -63,108 +63,190 @@ export const Invoice: React.FC<InvoiceProps> = ({
 }) => {
   const formattedInvoiceNo = formatInvoiceNo(invoiceNo)
   const dateStr = (() => {
-    try { return new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) }
-    catch { return new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) }
+    try {
+      return new Date(date).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric' })
+    } catch {
+      return new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric' })
+    }
   })()
 
-  const statusColor = status === 'completed' ? '#D6402E' : status === 'cancelled' ? '#dc2626' : '#d97706'
   const effectiveDelivery = deliveryCharge || shipping
+
+  // Project brand colors
+  const RED  = '#D6402E'
+  const DARK = '#141414'
+  const GRAY = '#555555'
+
+  const fmtRs = (val: number) => `Rs. ${val.toFixed(2)}`
 
   return (
     <div
       id="invoice-print-root"
-      className="w-full max-w-[680px] mx-auto bg-white text-[#1a1a2e] box-border flex flex-col p-3 sm:p-8 print:p-0 print:max-w-full overflow-hidden"
-      style={{
-        fontFamily: "'Inter', 'Segoe UI', sans-serif",
-      }}
+      className="w-full max-w-[680px] mx-auto bg-white box-border flex flex-col print:p-0 print:max-w-full overflow-hidden"
+      style={{ fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif", fontSize: 13, color: '#1a1a2e', padding: '24px 28px' }}
     >
-      {/* ── HEADER ────────────────────────────────────────────────── */}
-      <div style={{ textAlign: 'center', borderBottom: '1px solid #e5e7eb', paddingBottom: 20, marginBottom: 20 }}>
-        <div style={{ width: 80, height: 80, margin: '0 auto 12px auto', background: '#ffffff', borderRadius: 16, border: '1px solid #FDDBB4', padding: 6, boxShadow: '0 4px 12px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-          <img src={BRAND_LOGO} alt={`${BRAND_EN} logo`} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
-        </div>
-        <div style={{ fontSize: 22, fontWeight: 900, color: '#D6402E', letterSpacing: -0.5, textTransform: 'uppercase' }}>
-          {BRAND_EN}
-        </div>
-        <div style={{ fontSize: 11, color: '#4b5563', marginTop: 4, fontWeight: 500, paddingLeft: 8, paddingRight: 8 }}>
-          {BRAND_ADDRESS}
-        </div>
-        <div style={{ fontSize: 12, fontWeight: 800, color: '#111111', marginTop: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-          INVOICE: #{formattedInvoiceNo}
-        </div>
-        <div style={{ fontSize: 11, color: '#4b5563', marginTop: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <span>📞 {BRAND_PHONE_DISPLAY}</span>
-          <span>✉️ {BRAND_EMAIL}</span>
-        </div>
-        <div
-          style={{
-            display: 'inline-block', marginTop: 10, padding: '3px 14px', borderRadius: 99,
-            background: '#fff', color: statusColor, border: `1.5px solid ${statusColor}`,
-            fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase',
-          }}
-        >
-          {status}
-        </div>
+      {/* ── TOP BAR: TAX INVOICE | Invoice # ─────────────────────── */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '1px solid #d0d0d0',
+          paddingBottom: 7,
+          marginBottom: 16,
+        }}
+      >
+        <span style={{ fontSize: 11, fontWeight: 700, color: RED, letterSpacing: 0.6 }}>
+          TAX INVOICE
+        </span>
+        <span style={{ fontSize: 11, fontWeight: 600, color: RED }}>
+          Invoice: #{formattedInvoiceNo}
+        </span>
       </div>
 
-      {/* ── META ROW ──────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Order Date</div>
-          <div style={{ fontSize: 13, fontWeight: 700 }}>{dateStr}</div>
+      {/* ── BRAND ROW: Logo + Name/Address (left) | Date/Payment (right) ── */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 }}>
+        {/* Left: logo + brand info */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+          <div
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 8,
+              border: '1px solid #FDDBB4',
+              overflow: 'hidden',
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: '#fff',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+            }}
+          >
+            <img
+              src={BRAND_LOGO}
+              alt={`${BRAND_EN} logo`}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+            />
+          </div>
+          <div>
+            <div style={{ fontSize: 17, fontWeight: 800, color: RED, lineHeight: 1.2 }}>{BRAND_EN}</div>
+            <div style={{ fontSize: 10, color: '#4b5563', marginTop: 3, maxWidth: 290, lineHeight: 1.55 }}>{BRAND_ADDRESS}</div>
+            <div style={{ fontSize: 10, color: GRAY, marginTop: 2 }}>Phone: {BRAND_PHONE_DISPLAY}</div>
+            {BRAND_EMAIL && (
+              <div style={{ fontSize: 10, color: GRAY }}>Email: {BRAND_EMAIL}</div>
+            )}
+          </div>
+        </div>
+
+        {/* Right: Date / Payment / Status */}
+        <div style={{ textAlign: 'right', flexShrink: 0 }}>
+          <div style={{ fontSize: 11, color: GRAY }}>
+            <span style={{ fontWeight: 600 }}>Date: </span>{dateStr}
+          </div>
+          {paymentMode && (
+            <div style={{ fontSize: 11, color: GRAY, marginTop: 3 }}>
+              <span style={{ fontWeight: 600 }}>Payment: </span>{paymentMode}
+            </div>
+          )}
+          {status && (
+            <div style={{ fontSize: 10, marginTop: 4 }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '2px 10px',
+                  borderRadius: 99,
+                  border: `1.5px solid ${RED}`,
+                  color: RED,
+                  fontSize: 9,
+                  fontWeight: 800,
+                  letterSpacing: 0.8,
+                  textTransform: 'uppercase',
+                }}
+              >
+                {status}
+              </span>
+            </div>
+          )}
           {userId && (
-            <>
-              <div style={{ fontSize: 9, fontWeight: 800, color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4, marginTop: 10 }}>User ID</div>
-              <div style={{ fontSize: 10, fontWeight: 600, color: '#555', wordBreak: 'break-all', maxWidth: 200 }}>{userId}</div>
-            </>
+            <div style={{ fontSize: 9, color: '#999', marginTop: 4, maxWidth: 160, wordBreak: 'break-all' }}>
+              {userId}
+            </div>
           )}
         </div>
-        <div style={{ minWidth: 0, padding: '12px 14px', borderRadius: 10, background: '#FFF3E8', border: '1px solid #FDDBB4', overflowWrap: 'anywhere' }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Customer</div>
-          <div style={{ fontSize: 9, fontWeight: 800, color: '#888', textTransform: 'uppercase', letterSpacing: 0.7, marginTop: 6 }}>Customer Name</div>
-          <div style={{ fontSize: 13, fontWeight: 800, color: '#1a1a2e', lineHeight: 1.35, wordBreak: 'break-word' }}>{customerName || 'Walk-in Customer'}</div>
-          <div style={{ fontSize: 9, fontWeight: 800, color: '#888', textTransform: 'uppercase', letterSpacing: 0.7, marginTop: 6 }}>Mobile Number</div>
-          <div style={{ fontSize: 12, color: '#555', lineHeight: 1.4, wordBreak: 'break-word' }}>{phone ? formatPhoneDisplay(phone) : '—'}</div>
-          {address && <div style={{ fontSize: 11, color: '#777', marginTop: 4, lineHeight: 1.4, wordBreak: 'break-word' }}>{address}</div>}
-          {paymentMode && <div style={{ fontSize: 10, color: '#777', marginTop: 4 }}>Payment: {paymentMode}</div>}
-        </div>
       </div>
 
-      {/* ── DIVIDER ──────────────────────────────────────────────── */}
-      <div style={{ borderTop: '1px dashed #d0d0d0', marginBottom: 20 }} />
+      {/* ── BILL TO ────────────────────────────────────────────────── */}
+      <div
+        style={{
+          background: '#FFF8F6',
+          border: '1px solid #FDDBB4',
+          borderRadius: 6,
+          padding: '10px 14px',
+          marginBottom: 20,
+        }}
+      >
+        <div
+          style={{
+            fontSize: 9, fontWeight: 700, color: '#888',
+            textTransform: 'uppercase', letterSpacing: 1, marginBottom: 5,
+          }}
+        >
+          Bill To
+        </div>
+        <div style={{ fontSize: 14, fontWeight: 800, color: '#1a1a2e' }}>
+          {customerName || 'Walk-in Customer'}
+        </div>
+        <div style={{ fontSize: 11, color: '#4b5563', marginTop: 3 }}>
+          Mobile Number: {phone ? formatPhoneDisplay(phone) : '—'}
+        </div>
+        {address && (
+          <div style={{ fontSize: 11, color: '#4b5563', marginTop: 2 }}>
+            Address: {address}
+          </div>
+        )}
+      </div>
 
-      {/* ── ITEMS TABLE ──────────────────────────────────────────── */}
+      {/* ── ITEMS TABLE ───────────────────────────────────────────── */}
       <div className="w-full overflow-x-auto">
         <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 320 }}>
           <thead>
-            <tr style={{ background: '#141414' }}>
-              <th style={{ padding: '9px 10px', textAlign: 'left', fontSize: 10, fontWeight: 800, color: '#E2503B', textTransform: 'uppercase', letterSpacing: 0.8, width: 28 }}>#</th>
-              <th style={{ padding: '9px 10px', textAlign: 'left', fontSize: 10, fontWeight: 800, color: '#E2503B', textTransform: 'uppercase', letterSpacing: 0.8 }}>Item Description</th>
-              <th style={{ padding: '9px 10px', textAlign: 'center', fontSize: 10, fontWeight: 800, color: '#E2503B', textTransform: 'uppercase', letterSpacing: 0.8, width: 45 }}>Qty</th>
-              <th style={{ padding: '9px 10px', textAlign: 'right', fontSize: 10, fontWeight: 800, color: '#E2503B', textTransform: 'uppercase', letterSpacing: 0.8, width: 75 }}>Rate</th>
-              <th style={{ padding: '9px 10px', textAlign: 'right', fontSize: 10, fontWeight: 800, color: '#E2503B', textTransform: 'uppercase', letterSpacing: 0.8, width: 85 }}>Amount</th>
+            <tr style={{ background: DARK }}>
+              <th style={{ padding: '9px 10px', textAlign: 'left',   fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 28 }}>#</th>
+              <th style={{ padding: '9px 10px', textAlign: 'left',   fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8 }}>Item Description</th>
+              <th style={{ padding: '9px 10px', textAlign: 'center', fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 75 }}>Qty</th>
+              <th style={{ padding: '9px 10px', textAlign: 'right',  fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 85 }}>Rate</th>
+              <th style={{ padding: '9px 10px', textAlign: 'right',  fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 90 }}>Amount</th>
             </tr>
           </thead>
           <tbody>
             {items.map((item, idx) => {
               const normalized = normalizeStructuredOrderItem(item as unknown as Record<string, unknown>)
               const displayName = normalized.tamil_name || item.nameTa || normalized.name
+              const rowBg = idx % 2 === 0 ? '#ffffff' : '#fafafa'
               return (
-                <tr key={idx} style={{ borderBottom: '1px solid #f0f0f0' }}>
-                  <td style={{ padding: '10px 8px', fontSize: 11, color: '#999', verticalAlign: 'top' }}>{idx + 1}</td>
-                  <td style={{ padding: '10px 8px', verticalAlign: 'top' }}>
+                <tr key={idx} style={{ borderBottom: '1px solid #f0f0f0', background: rowBg }}>
+                  <td style={{ padding: '10px 10px', fontSize: 11, color: '#999', verticalAlign: 'top' }}>{idx + 1}</td>
+                  <td style={{ padding: '10px 10px', verticalAlign: 'top' }}>
                     <div style={{ fontSize: 12, fontWeight: 700, color: '#1a1a2e' }}>{normalized.name}</div>
-                    {displayName && displayName !== normalized.name && <div style={{ fontSize: 10, color: '#888', marginTop: 2 }}>{displayName}</div>}
-                    {item.offerPrice && item.price !== item.offerPrice && (
-                      <div style={{ fontSize: 10, color: '#aaa', textDecoration: 'line-through', marginTop: 2 }}>MRP ₹{item.price}</div>
+                    {displayName && displayName !== normalized.name && (
+                      <div style={{ fontSize: 10, color: '#888', marginTop: 2 }}>{displayName}</div>
                     )}
-                    <div style={{ fontSize: 10, color: '#6b7280', marginTop: 2 }}>
-                      {normalized.unit} · {formatCurrency(normalized.base_price)}
-                    </div>
+                    {item.offerPrice && item.price !== item.offerPrice && (
+                      <div style={{ fontSize: 10, color: '#aaa', textDecoration: 'line-through', marginTop: 2 }}>
+                        Rs. {item.price.toFixed(2)}
+                      </div>
+                    )}
                   </td>
-                  <td style={{ padding: '10px 8px', fontSize: 12, fontWeight: 600, textAlign: 'center', verticalAlign: 'top' }}>{formatQuantityDisplay(normalized.quantity, normalized.unit, normalized.unit_type)}</td>
-                  <td style={{ padding: '10px 8px', fontSize: 12, fontWeight: 600, textAlign: 'right', verticalAlign: 'top', color: '#555' }}>{formatCurrency(normalized.base_price)}</td>
-                  <td style={{ padding: '10px 8px', fontSize: 13, fontWeight: 800, textAlign: 'right', verticalAlign: 'top', color: '#1a1a2e' }}>{formatCurrency(normalized.line_total)}</td>
+                  <td style={{ padding: '10px 10px', fontSize: 12, fontWeight: 600, color: '#555', textAlign: 'center', verticalAlign: 'top' }}>
+                    {formatQuantityDisplay(normalized.quantity, normalized.unit, normalized.unit_type)}
+                  </td>
+                  <td style={{ padding: '10px 10px', fontSize: 12, fontWeight: 600, color: GRAY, textAlign: 'right', verticalAlign: 'top' }}>
+                    {fmtRs(normalized.base_price)}
+                  </td>
+                  <td style={{ padding: '10px 10px', fontSize: 13, fontWeight: 800, color: RED, textAlign: 'right', verticalAlign: 'top' }}>
+                    {fmtRs(normalized.line_total)}
+                  </td>
                 </tr>
               )
             })}
@@ -172,76 +254,95 @@ export const Invoice: React.FC<InvoiceProps> = ({
         </table>
       </div>
 
-      {/* ── TOTALS ───────────────────────────────────────────────── */}
-      <div style={{ marginTop: 24, borderTop: '2px solid #D6402E', paddingTop: 16 }}>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <div style={{ minWidth: 240, width: '100%', maxWidth: 300 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <span style={{ fontSize: 12, color: '#666' }}>Subtotal</span>
-              <span style={{ fontSize: 12, fontWeight: 700 }}>{formatCurrency(subtotal)}</span>
+      {/* ── TOTALS ────────────────────────────────────────────────── */}
+      <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ minWidth: 260, width: '100%', maxWidth: 320 }}>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #f0f0f0' }}>
+            <span style={{ fontSize: 12, color: GRAY }}>Subtotal</span>
+            <span style={{ fontSize: 12, fontWeight: 700 }}>{fmtRs(subtotal)}</span>
+          </div>
+
+          {discountAmount > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: 12, color: RED }}>
+                Coupon{couponCode ? ` (${couponCode})` : ''}
+              </span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: RED }}>-{fmtRs(discountAmount)}</span>
             </div>
-            {discountAmount > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 12, color: '#D6402E' }}>
-                  Coupon{couponCode ? ` (${couponCode})` : ''}
-                </span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: '#D6402E' }}>−{formatCurrency(discountAmount)}</span>
-              </div>
-            )}
-            {manualDiscountAmount > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 12, color: '#D6402E' }}>Manual Discount</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: '#D6402E' }}>−{formatCurrency(manualDiscountAmount)}</span>
-              </div>
-            )}
-            {gstAmount > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 12, color: '#666' }}>GST</span>
-                <span style={{ fontSize: 12, fontWeight: 700 }}>+{formatCurrency(gstAmount)}</span>
-              </div>
-            )}
-            {effectiveDelivery > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 12, color: '#666' }}>Delivery</span>
-                <span style={{ fontSize: 12, fontWeight: 700 }}>{formatCurrency(effectiveDelivery)}</span>
-              </div>
-            )}
-            {effectiveDelivery === 0 && discountAmount === 0 && manualDiscountAmount === 0 && gstAmount === 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 12, color: '#666' }}>Delivery</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: '#D6402E' }}>FREE</span>
-              </div>
-            )}
-            <div
-              style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                borderTop: '2px solid #D6402E', paddingTop: 10, marginTop: 4,
-              }}
-            >
-              <span style={{ fontSize: 15, fontWeight: 900, color: '#D6402E', textTransform: 'uppercase', letterSpacing: 0.5 }}>Total</span>
-              <span style={{ fontSize: 20, fontWeight: 900, color: '#D6402E' }}>{formatCurrency(total)}</span>
+          )}
+
+          {manualDiscountAmount > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: 12, color: RED }}>Manual Discount</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: RED }}>-{fmtRs(manualDiscountAmount)}</span>
             </div>
+          )}
+
+          {gstAmount > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: 12, color: GRAY }}>GST</span>
+              <span style={{ fontSize: 12, fontWeight: 700 }}>+{fmtRs(gstAmount)}</span>
+            </div>
+          )}
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #f0f0f0' }}>
+            <span style={{ fontSize: 12, color: GRAY }}>Delivery</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: effectiveDelivery > 0 ? '#1a1a2e' : RED }}>
+              {effectiveDelivery > 0 ? fmtRs(effectiveDelivery) : 'FREE'}
+            </span>
+          </div>
+
+          {/* TOTAL row */}
+          <div
+            style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              borderTop: `2px solid ${RED}`, paddingTop: 10, marginTop: 6,
+            }}
+          >
+            <span style={{ fontSize: 15, fontWeight: 900, color: RED, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              TOTAL
+            </span>
+            <span style={{ fontSize: 20, fontWeight: 900, color: RED }}>
+              {fmtRs(total)}
+            </span>
           </div>
         </div>
       </div>
 
-      {/* ── FOOTER ───────────────────────────────────────────────── */}
+      {/* ── FOOTER ────────────────────────────────────────────────── */}
       <div
         style={{
-          marginTop: 32, paddingTop: 16, borderTop: '1px dashed #d0d0d0',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+          marginTop: 32,
+          paddingTop: 14,
+          borderTop: '1px dashed #d0d0d0',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
         }}
       >
-        <div style={{ fontSize: 12, fontWeight: 800, color: '#D6402E' }}>Thank you for shopping at {BRAND_EN}!</div>
+        <div style={{ fontSize: 12, fontWeight: 800, color: RED, letterSpacing: 0.5, textTransform: 'uppercase' }}>
+          Thank you for shopping with us
+        </div>
         {onPrintReceipt && (
           <button
             type="button"
             onClick={onPrintReceipt}
             className="print:hidden"
             style={{
-              marginTop: 14, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              border: 0, borderRadius: 999, padding: '9px 18px',
-              background: '#D6402E', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer',
+              marginTop: 14,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: 0,
+              borderRadius: 999,
+              padding: '9px 18px',
+              background: RED,
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: 'pointer',
             }}
           >
             Print Receipt
@@ -251,4 +352,3 @@ export const Invoice: React.FC<InvoiceProps> = ({
     </div>
   )
 }
-

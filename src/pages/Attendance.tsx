@@ -138,7 +138,7 @@ export default function Attendance() {
   return (
     <div className="p-3 sm:p-6 space-y-3 sm:space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-        <h1 className="text-base sm:text-xl md:text-2xl font-black text-[#111111] flex items-center gap-1.5"><Users size={16} className="sm:size-6 shrink-0 text-[#B08A1C]" /> Attendance & Staff</h1>
+        <h1 className="text-base sm:text-xl md:text-2xl font-black text-[#111111] flex items-center gap-1.5"><Users size={16} className="sm:size-6 shrink-0 text-[#D6402E]" /> Attendance & Staff</h1>
       </div>
 
       {dbError && (
@@ -154,7 +154,7 @@ export default function Attendance() {
       <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto hide-scrollbar">
         {(['today', 'report', 'staff'] as const).map(t => (
           <button key={t} onClick={() => setTab(t)}
-            className={`shrink-0 px-3 sm:px-4 h-10 rounded-xl font-bold text-[13px] sm:text-sm whitespace-nowrap transition-colors ${tab === t ? 'bg-[#141414] text-[#D9A62E]' : 'bg-white border border-[#FDDBB4]/60 text-[#374151] hover:bg-orange-50'}`}>
+            className={`shrink-0 px-3 sm:px-4 h-10 rounded-xl font-bold text-[13px] sm:text-sm whitespace-nowrap transition-colors ${tab === t ? 'bg-[#141414] text-[#E2503B]' : 'bg-white border border-[#FDDBB4]/60 text-[#374151] hover:bg-orange-50'}`}>
             {t === 'today' ? "Today's Attendance" : t === 'report' ? 'Monthly Report' : 'Staff Management'}
           </button>
         ))}
@@ -194,7 +194,7 @@ export default function Attendance() {
                     <div key={member.id} className="bg-white rounded-2xl shadow-sm border border-[#FDDBB4]/60 p-3.5">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#B08A1C] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
+                          <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#D6402E] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
                           <div className="min-w-0">
                             <p className="font-bold text-[#111111] text-sm truncate">{member.name}</p>
                             <p className="text-[11px] text-[#6B7280]">{member.role}</p>
@@ -248,7 +248,7 @@ export default function Attendance() {
                           <tr key={member.id} className="border-b border-[#FDDBB4]/30 hover:bg-[#FAFAFA]">
                             <td className="px-4 py-3">
                               <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#B08A1C] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
+                                <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#D6402E] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
                                 <span className="font-bold text-[#111111] text-sm">{member.name}</span>
                               </div>
                             </td>
@@ -303,7 +303,7 @@ export default function Attendance() {
         <div className="space-y-5">
           <div className="flex justify-end">
             <button onClick={() => { setEditingStaff(null); setForm({ name: '', role: '', phone: '', base_salary: '' }); setShowModal(true) }} disabled={dbError}
-              className="h-10 bg-[#141414] border border-[#D9A62E] text-[#D9A62E] px-4 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-black disabled:opacity-50">
+              className="h-10 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-4 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-black disabled:opacity-50">
               <Plus size={16} /> Add Staff
             </button>
           </div>
@@ -319,7 +319,7 @@ export default function Attendance() {
                     <p className="text-[11px] text-[#6B7280]">{member.role}{member.phone ? ` · ${member.phone}` : ''}</p>
                   </div>
                   <button onClick={() => { setEditingStaff(member); setForm({ name: member.name, role: member.role, phone: member.phone || '', base_salary: String(member.base_salary) }); setShowModal(true) }}
-                    className="shrink-0 h-9 w-9 flex items-center justify-center text-[#374151] hover:text-[#B08A1C] bg-gray-50 hover:bg-[#FFF8F2] rounded-lg border border-transparent hover:border-[#FDDBB4] transition-colors">
+                    className="shrink-0 h-9 w-9 flex items-center justify-center text-[#374151] hover:text-[#D6402E] bg-gray-50 hover:bg-[#FFF8F2] rounded-lg border border-transparent hover:border-[#FDDBB4] transition-colors">
                     <Edit2 size={14} />
                   </button>
                 </div>
@@ -365,7 +365,7 @@ export default function Attendance() {
                       </td>
                       <td className="px-4 py-3 text-right">
                         <button onClick={() => { setEditingStaff(member); setForm({ name: member.name, role: member.role, phone: member.phone || '', base_salary: String(member.base_salary) }); setShowModal(true) }}
-                          className="text-[#374151] hover:text-[#B08A1C] p-1.5 bg-gray-50 hover:bg-[#FFF8F2] rounded-lg border border-transparent hover:border-[#FDDBB4] transition-colors">
+                          className="text-[#374151] hover:text-[#D6402E] p-1.5 bg-gray-50 hover:bg-[#FFF8F2] rounded-lg border border-transparent hover:border-[#FDDBB4] transition-colors">
                           <Edit2 size={14} />
                         </button>
                       </td>
@@ -401,7 +401,7 @@ export default function Attendance() {
               return (
                 <div key={member.id} className="bg-white rounded-2xl shadow-sm border border-[#FDDBB4]/60 p-3.5">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#B08A1C] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
+                    <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#D6402E] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
                     <div className="min-w-0">
                       <p className="font-bold text-[#111111] text-sm truncate">{member.name}</p>
                       <p className="text-[11px] text-[#6B7280]">{member.role}</p>
@@ -443,7 +443,7 @@ export default function Attendance() {
                       <tr key={member.id} className="border-b border-[#FDDBB4]/30 hover:bg-[#FAFAFA]">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#B08A1C] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
+                            <div className="w-8 h-8 rounded-full bg-[#FFF8F2] text-[#D6402E] border border-[#FDDBB4] flex items-center justify-center font-black text-sm shrink-0 uppercase">{member.name.charAt(0)}</div>
                             <span className="font-bold text-[#111111] text-sm">{member.name}</span>
                           </div>
                         </td>
@@ -472,23 +472,23 @@ export default function Attendance() {
             <form onSubmit={handleSaveStaff} className="space-y-4">
               <div>
                 <label className="block text-[10px] font-black uppercase text-[#374151] mb-1.5">Full Name *</label>
-                <input type="text" value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#B08A1C]" required />
+                <input type="text" value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#D6402E]" required />
               </div>
               <div>
                 <label className="block text-[10px] font-black uppercase text-[#374151] mb-1.5">Role / Job Title *</label>
-                <input type="text" value={form.role} onChange={e => setForm({...form, role: e.target.value})} placeholder="e.g. Tailor, Manager" className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#B08A1C]" required />
+                <input type="text" value={form.role} onChange={e => setForm({...form, role: e.target.value})} placeholder="e.g. Tailor, Manager" className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#D6402E]" required />
               </div>
               <div>
                 <label className="block text-[10px] font-black uppercase text-[#374151] mb-1.5">Phone Number</label>
-                <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} placeholder="+91" className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#B08A1C]" />
+                <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} placeholder="+91" className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#D6402E]" />
               </div>
               <div>
                 <label className="block text-[10px] font-black uppercase text-[#374151] mb-1.5">Base Salary (₹)</label>
-                <input type="number" step="0.01" min="0" value={form.base_salary} onChange={e => setForm({...form, base_salary: e.target.value})} className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#B08A1C]" placeholder="0.00" />
+                <input type="number" step="0.01" min="0" value={form.base_salary} onChange={e => setForm({...form, base_salary: e.target.value})} className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#D6402E]" placeholder="0.00" />
               </div>
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setShowModal(false)} className="flex-1 bg-gray-100 p-3 rounded-xl font-bold text-sm hover:bg-gray-200">Cancel</button>
-                <button type="submit" disabled={submitting} className="flex-1 bg-[#141414] border border-[#D9A62E] text-[#D9A62E] p-3 rounded-xl font-bold text-sm hover:bg-black disabled:opacity-50">{submitting ? 'Saving...' : 'Save Staff'}</button>
+                <button type="submit" disabled={submitting} className="flex-1 bg-[#141414] border border-[#E2503B] text-[#E2503B] p-3 rounded-xl font-bold text-sm hover:bg-black disabled:opacity-50">{submitting ? 'Saving...' : 'Save Staff'}</button>
               </div>
             </form>
           </div>

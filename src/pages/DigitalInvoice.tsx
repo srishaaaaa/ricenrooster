@@ -100,7 +100,7 @@ export default function DigitalInvoice() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f9faf6] flex items-center justify-center">
-        <span className="w-8 h-8 border-4 border-[#FDDBB4] border-t-[#B08A1C] rounded-full animate-spin" />
+        <span className="w-8 h-8 border-4 border-[#FDDBB4] border-t-[#D6402E] rounded-full animate-spin" />
       </div>
     )
   }
@@ -112,7 +112,7 @@ export default function DigitalInvoice() {
         <p className="text-gray-500 mb-6">The requested invoice could not be found.</p>
         <button
           onClick={handleBack}
-          className="inline-flex items-center gap-2 px-6 py-2 bg-[#141414] border border-[#D9A62E] text-[#D9A62E] rounded-full font-bold hover:bg-black transition cursor-pointer"
+          className="inline-flex items-center gap-2 px-6 py-2 bg-[#141414] border border-[#E2503B] text-[#E2503B] rounded-full font-bold hover:bg-black transition cursor-pointer"
         >
           <ArrowLeft size={16} /> Back
         </button>
@@ -237,7 +237,7 @@ export default function DigitalInvoice() {
         <div className="flex items-center gap-2">
           <button
             onClick={downloadPdf}
-            className="flex items-center gap-2 bg-[#141414] border border-[#D9A62E] text-[#D9A62E] px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-black transition-colors"
+            className="flex items-center gap-2 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-black transition-colors"
           >
             <Printer size={16} /> PDF
           </button>

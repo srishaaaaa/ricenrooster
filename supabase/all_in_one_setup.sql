@@ -1,7 +1,7 @@
 -- FILE: 20260716_0001_store_schema.sql
 -- ═══════════════════════════════════════════════════════════
--- JJ Signature billing schema.
--- Safe to run against a fresh project or the existing JJ Signature project.
+-- Rice n' Rooster billing schema.
+-- Safe to run against a fresh project or the existing Rice n' Rooster project.
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -183,11 +183,11 @@ ON CONFLICT (id) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS public.store_settings (
   id SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
-  name TEXT NOT NULL DEFAULT 'JJ Signature',
-  owner_name TEXT NOT NULL DEFAULT 'Fyasa',
-  phone TEXT NOT NULL DEFAULT '+91 63790 48966',
-  email TEXT NOT NULL DEFAULT 'safasignora@gmail.com',
-  address TEXT NOT NULL DEFAULT '31 A, Blue Star Building, Madurai Road Junction, Tirunelveli - 627001',
+  name TEXT NOT NULL DEFAULT 'Rice n'' Rooster',
+  owner_name TEXT NOT NULL DEFAULT 'Sankaranarayanan. S',
+  phone TEXT NOT NULL DEFAULT '+91 93634 00210',
+  email TEXT NOT NULL DEFAULT 'ricenrooster@gmail.com',
+  address TEXT NOT NULL DEFAULT '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106',
   gst_enabled BOOLEAN NOT NULL DEFAULT FALSE,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -195,11 +195,11 @@ CREATE TABLE IF NOT EXISTS public.store_settings (
 INSERT INTO public.store_settings (id, name, owner_name, phone, email, address)
 VALUES (
   1,
-  'JJ Signature',
-  'Fyasa',
-  '+91 63790 48966',
-  'safasignora@gmail.com',
-  '31 A, Blue Star Building, Madurai Road Junction, Tirunelveli - 627001'
+  'Rice n'' Rooster',
+  'Sankaranarayanan. S',
+  '+91 93634 00210',
+  'ricenrooster@gmail.com',
+  '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106'
 )
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
@@ -557,7 +557,7 @@ $$;
 
 -- FILE: 20260716_0002_store_catalog.sql
 -- ═══════════════════════════════════════════════════════════
--- JJ Signature initial catalog. Existing matching products are preserved.
+-- Rice n' Rooster initial catalog. Existing matching products are preserved.
 
 INSERT INTO public.categories (name_en, name_ta, is_active, sort_order)
 VALUES
@@ -1797,19 +1797,19 @@ DROP POLICY IF EXISTS "Enable all access for all authenticated users" ON public.
 CREATE POLICY "Enable all access for all authenticated users" ON public.attendance FOR ALL TO authenticated USING (true);
 
 
--- FILE: 20260904_0001_jj_signature_rebrand.sql
+-- FILE: 20260904_0001_tailoring_catalog_retired.sql
 -- ═══════════════════════════════════════════════════════════
--- Rebrand store settings and replace the tailoring catalog for JJ Signature.
+-- Rebrand store settings and replace the tailoring catalog for Rice n' Rooster.
 
 -- 1. Store settings (name, contact, address shown across invoices/UI)
 INSERT INTO public.store_settings (id, name, owner_name, phone, email, address)
 VALUES (
   1,
-  'JJ Signature',
-  'Fyasa',
-  '+91 63790 48966',
-  'safasignora@gmail.com',
-  '31 A, Blue Star Building, Madurai Road Junction, Tirunelveli - 627001'
+  'Rice n'' Rooster',
+  'Sankaranarayanan. S',
+  '+91 93634 00210',
+  'ricenrooster@gmail.com',
+  '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106'
 )
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
@@ -1837,7 +1837,7 @@ WHERE p.category_id = c.id
     'silk fabric per mtr', 'readymade blouse'
   );
 
--- 3. Retire categories not on the JJ Signature list — only Tailoring, Saree, Salwar,
+-- 3. Retire categories not on the Rice n' Rooster list — only Tailoring, Saree, Salwar,
 -- and Nighty should remain. Jewellery & Accessories and Posstore came from the old
 -- placeholder catalog and are not part of this business.
 UPDATE public.products p
@@ -1871,7 +1871,7 @@ WHERE c.name_en IN ('Saree', 'Salwar', 'Nighty')
   AND LOWER(BTRIM(p.name)) = LOWER(c.name_en)
   AND p.category_id IS DISTINCT FROM c.id;
 
--- 5. JJ Signature tailoring price list, split across Tailoring / Saree / Salwar /
+-- 5. Rice n' Rooster tailoring price list, split across Tailoring / Saree / Salwar /
 -- Nighty per the confirmed category mapping.
 WITH catalog(category_name, product_name, price, unit, unit_label, allow_decimal, sort_order) AS (
   VALUES
@@ -2385,7 +2385,7 @@ ALTER TABLE public.inventory_logs
 -- clock_out column.
 --
 -- (This duplicates the fix already merged in earlier via the
--- 20260904_0001_jj_signature_rebrand.sql section above; kept here too,
+-- 20260904_0001_tailoring_catalog_retired.sql section above; kept here too,
 -- idempotently, so this file matches the migrations/ directory 1:1.)
 
 DO $$
@@ -2406,3 +2406,174 @@ ALTER TABLE public.attendance ADD COLUMN IF NOT EXISTS clock_in TIMESTAMPTZ;
 ALTER TABLE public.attendance ADD COLUMN IF NOT EXISTS clock_out TIMESTAMPTZ;
 
 NOTIFY pgrst, 'reload schema';
+
+-- FILE: 20260914_0001_rice_n_rooster_rebrand.sql
+-- ═══════════════════════════════════════════════════════════
+-- Rebrand store settings and replace the tailoring catalog with the
+-- Rice n' Rooster fried rice / specialty chicken combo menu.
+
+-- 1. Store settings (name, contact, address shown across invoices/UI)
+INSERT INTO public.store_settings (id, name, owner_name, phone, email, address)
+VALUES (
+  1,
+  'Rice n'' Rooster',
+  'Sankaranarayanan. S',
+  '+91 93634 00210',
+  'ricenrooster@gmail.com',
+  '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106'
+)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  owner_name = EXCLUDED.owner_name,
+  phone = EXCLUDED.phone,
+  email = EXCLUDED.email,
+  address = EXCLUDED.address,
+  updated_at = NOW();
+
+-- 2. Retire the old tailoring catalog — Tailoring, Saree,
+-- Salwar, and Nighty are no longer part of this business.
+UPDATE public.products p
+SET is_active = FALSE, updated_at = NOW()
+FROM public.categories c
+WHERE p.category_id = c.id
+  AND c.name_en IN ('Tailoring', 'Saree', 'Salwar', 'Nighty');
+
+UPDATE public.categories
+SET is_active = FALSE, updated_at = NOW()
+WHERE name_en IN ('Tailoring', 'Saree', 'Salwar', 'Nighty');
+
+-- 3. New categories for the Rice n' Rooster menu.
+INSERT INTO public.categories (name_en, name_ta, is_active, sort_order)
+VALUES
+  ('Fried Rice', '', TRUE, 1),
+  ('Specialty Chicken Combos', '', TRUE, 2)
+ON CONFLICT (name_en) DO UPDATE SET
+  is_active = TRUE,
+  sort_order = EXCLUDED.sort_order,
+  updated_at = NOW();
+
+-- 4. Menu items.
+WITH catalog(category_name, product_name, price, sort_order) AS (
+  VALUES
+    -- Fried Rice
+    ('Fried Rice', 'Indo Chinese Fried Rice (Veg & Chicken)', 140, 101),
+    ('Fried Rice', 'Thai Street Fried Rice (Veg & Chicken)', 170, 102),
+    ('Fried Rice', 'Basil Fried Rice (Veg & Chicken)', 170, 103),
+    ('Fried Rice', 'Nasi Goreng (Veg & Chicken)', 170, 104),
+    ('Fried Rice', 'Hakka Fried Rice (Veg & Chicken)', 140, 105),
+    -- Specialty Chicken Combos
+    ('Specialty Chicken Combos', 'Gochujang Korean Fried Chicken with Kimchi Fried Rice', 300, 201),
+    ('Specialty Chicken Combos', 'Chicken 65 with Ghee Rice', 300, 202),
+    ('Specialty Chicken Combos', 'Thai Crispy Chicken Wings with Curried Fried Rice', 300, 203),
+    ('Specialty Chicken Combos', 'Shish Tawook with Middle Eastern Fried Rice', 300, 204),
+    ('Specialty Chicken Combos', 'Spicy Chicken Skewers with Mexican Fried Rice', 300, 205),
+    ('Specialty Chicken Combos', 'Desi Barbeque Chicken with Masala Fried Rice', 300, 206),
+    ('Specialty Chicken Combos', 'Spicy Chinese Chicken Balls with Pepper Fried Rice', 300, 207),
+    ('Specialty Chicken Combos', 'Jerk Chicken with Garlic Fried Rice', 300, 208)
+), resolved AS (
+  SELECT c.id AS category_id, c.name_en AS category_name, catalog.product_name, catalog.price,
+         catalog.sort_order
+  FROM catalog
+  JOIN public.categories c ON LOWER(c.name_en) = LOWER(catalog.category_name)
+)
+INSERT INTO public.products (
+  name, category, category_id, price, purchase_price, mrp, unit_type, unit_label,
+  unit, base_quantity, stock_quantity, opening_stock, stock, stock_unit,
+  allow_decimal_quantity, predefined_options, description, is_active, sort_order
+)
+SELECT
+  resolved.product_name,
+  resolved.category_name,
+  resolved.category_id,
+  resolved.price,
+  0,
+  0,
+  'unit',
+  'plate',
+  'plate',
+  1,
+  999,
+  999,
+  999,
+  'plate',
+  FALSE,
+  '[]'::JSONB,
+  resolved.product_name || ' — freshly prepared',
+  TRUE,
+  resolved.sort_order
+FROM resolved
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM public.products p
+  WHERE LOWER(BTRIM(p.name)) = LOWER(BTRIM(resolved.product_name))
+);
+
+WITH catalog(category_name, product_name, price, sort_order) AS (
+  VALUES
+    ('Fried Rice', 'Indo Chinese Fried Rice (Veg & Chicken)', 140, 101),
+    ('Fried Rice', 'Thai Street Fried Rice (Veg & Chicken)', 170, 102),
+    ('Fried Rice', 'Basil Fried Rice (Veg & Chicken)', 170, 103),
+    ('Fried Rice', 'Nasi Goreng (Veg & Chicken)', 170, 104),
+    ('Fried Rice', 'Hakka Fried Rice (Veg & Chicken)', 140, 105),
+    ('Specialty Chicken Combos', 'Gochujang Korean Fried Chicken with Kimchi Fried Rice', 300, 201),
+    ('Specialty Chicken Combos', 'Chicken 65 with Ghee Rice', 300, 202),
+    ('Specialty Chicken Combos', 'Thai Crispy Chicken Wings with Curried Fried Rice', 300, 203),
+    ('Specialty Chicken Combos', 'Shish Tawook with Middle Eastern Fried Rice', 300, 204),
+    ('Specialty Chicken Combos', 'Spicy Chicken Skewers with Mexican Fried Rice', 300, 205),
+    ('Specialty Chicken Combos', 'Desi Barbeque Chicken with Masala Fried Rice', 300, 206),
+    ('Specialty Chicken Combos', 'Spicy Chinese Chicken Balls with Pepper Fried Rice', 300, 207),
+    ('Specialty Chicken Combos', 'Jerk Chicken with Garlic Fried Rice', 300, 208)
+)
+UPDATE public.products p
+SET category = c.name_en,
+    category_id = c.id,
+    price = catalog.price,
+    unit = 'plate',
+    unit_label = 'plate',
+    stock_unit = 'plate',
+    sort_order = catalog.sort_order,
+    is_active = TRUE,
+    updated_at = NOW()
+FROM catalog
+JOIN public.categories c ON LOWER(c.name_en) = LOWER(catalog.category_name)
+WHERE LOWER(BTRIM(p.name)) = LOWER(BTRIM(catalog.product_name));
+
+-- 5. Flavour tags — powers the "Shop by Flavour" chips on the homepage,
+-- footer, and the Products page filter (public.products.remedy).
+WITH tags(product_name, occasion) AS (
+  VALUES
+    ('Indo Chinese Fried Rice (Veg & Chicken)', 'Fried Rice'),
+    ('Thai Street Fried Rice (Veg & Chicken)', 'Fried Rice'),
+    ('Basil Fried Rice (Veg & Chicken)', 'Fried Rice'),
+    ('Nasi Goreng (Veg & Chicken)', 'Fried Rice'),
+    ('Hakka Fried Rice (Veg & Chicken)', 'Fried Rice'),
+    ('Gochujang Korean Fried Chicken with Kimchi Fried Rice', 'Chicken Combo'),
+    ('Chicken 65 with Ghee Rice', 'Chicken Combo'),
+    ('Thai Crispy Chicken Wings with Curried Fried Rice', 'Chicken Combo'),
+    ('Shish Tawook with Middle Eastern Fried Rice', 'Chicken Combo'),
+    ('Spicy Chicken Skewers with Mexican Fried Rice', 'Chicken Combo'),
+    ('Desi Barbeque Chicken with Masala Fried Rice', 'Chicken Combo'),
+    ('Spicy Chinese Chicken Balls with Pepper Fried Rice', 'Chicken Combo'),
+    ('Jerk Chicken with Garlic Fried Rice', 'Chicken Combo')
+)
+UPDATE public.products p
+SET remedy = ARRAY[tags.occasion],
+    updated_at = NOW()
+FROM tags
+WHERE LOWER(BTRIM(p.name)) = LOWER(BTRIM(tags.product_name));
+
+-- Secondary flavour tags (appended) for items that fit more than one chip.
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Korean'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Gochujang Korean Fried Chicken with Kimchi Fried Rice');
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Bestseller'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Chicken 65 with Ghee Rice');
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Spicy'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Thai Crispy Chicken Wings with Curried Fried Rice');
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Middle Eastern'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Shish Tawook with Middle Eastern Fried Rice');
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Spicy'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Spicy Chicken Skewers with Mexican Fried Rice');
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Bestseller'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Desi Barbeque Chicken with Masala Fried Rice');
+UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Spicy'], updated_at = NOW()
+  WHERE LOWER(BTRIM(name)) = LOWER('Spicy Chinese Chicken Balls with Pepper Fried Rice');

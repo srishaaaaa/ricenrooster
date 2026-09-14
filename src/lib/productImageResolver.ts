@@ -1,8 +1,8 @@
 /**
  * productImageResolver.ts — Local per-product asset resolver
  *
- * No product photography has been supplied yet for the JJ Signature
- * tailoring/boutique catalog, so this always returns null (the caller in
+ * No product photography has been supplied yet for the Rice n' Rooster
+ * menu, so this always returns null (the caller in
  * productImages.ts falls through to the admin-uploaded image, then the
  * branded placeholder).
  *

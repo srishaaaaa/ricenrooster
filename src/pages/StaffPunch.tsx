@@ -117,17 +117,17 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
             {embedded ? (
               <div className="bg-white rounded-2xl border border-[#FDDBB4]/60 p-4 shadow-sm flex items-center justify-between mb-5">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-[#B08A1C] mb-0.5">Attendance</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-[#D6402E] mb-0.5">Attendance</p>
                   <h2 className="text-xl font-black text-[#111111]">{currentDate}</h2>
                   <p className="text-[13px] text-[#6B7280] font-medium mt-0.5">Select your name to punch</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-black text-[#B08A1C]">{currentTime}</p>
+                  <p className="text-2xl font-black text-[#D6402E]">{currentTime}</p>
                 </div>
               </div>
             ) : (
               <>
-                <p className="text-[12px] font-black uppercase tracking-widest text-[#B08A1C] mb-1">Today</p>
+                <p className="text-[12px] font-black uppercase tracking-widest text-[#D6402E] mb-1">Today</p>
                 <h1 className="text-2xl font-black text-[#111111]">{currentDate}</h1>
                 <p className="text-[13px] text-[#6B7280] mt-1 font-medium">Select your name to mark attendance</p>
               </>
@@ -135,16 +135,16 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
           </div>
 
           {loading ? (
-            <div className="flex justify-center py-16"><span className="h-10 w-10 animate-spin rounded-full border-4 border-[#FDDBB4] border-t-[#B08A1C]" /></div>
+            <div className="flex justify-center py-16"><span className="h-10 w-10 animate-spin rounded-full border-4 border-[#FDDBB4] border-t-[#D6402E]" /></div>
           ) : staff.length === 0 ? (
             <div className="text-center py-16"><p className="text-[#6B7280] font-bold">No staff found. Ask admin to add staff members.</p></div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {staff.map(s => (
                 <button key={s.id} onClick={() => void selectStaff(s)}
-                  className="bg-white rounded-2xl border border-[#FDDBB4]/60 p-4 text-left shadow-sm hover:border-[#B08A1C]/40 hover:shadow-md active:scale-95 transition-all">
+                  className="bg-white rounded-2xl border border-[#FDDBB4]/60 p-4 text-left shadow-sm hover:border-[#D6402E]/40 hover:shadow-md active:scale-95 transition-all">
                   <div className="h-12 w-12 rounded-xl bg-[#FFF0E6] flex items-center justify-center mb-3">
-                    <span className="text-2xl font-black text-[#B08A1C]">{s.name.charAt(0).toUpperCase()}</span>
+                    <span className="text-2xl font-black text-[#D6402E]">{s.name.charAt(0).toUpperCase()}</span>
                   </div>
                   <p className="font-black text-[#111111] text-[15px] leading-tight">{s.name}</p>
                   <p className="text-[11px] text-[#9BAB9A] font-semibold mt-0.5">{s.role}</p>
@@ -158,16 +158,16 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
       {/* STEP: PUNCH */}
       {step === 'punch' && selectedStaff && (
         <div className="flex flex-col items-center">
-          <button onClick={reset} className="self-start flex items-center gap-1 text-[#B08A1C] font-bold text-sm mb-6">
+          <button onClick={reset} className="self-start flex items-center gap-1 text-[#D6402E] font-bold text-sm mb-6">
             <ChevronLeft size={18} /> Back
           </button>
           {loading ? (
-            <div className="flex justify-center py-16"><span className="h-10 w-10 animate-spin rounded-full border-4 border-[#FDDBB4] border-t-[#B08A1C]" /></div>
+            <div className="flex justify-center py-16"><span className="h-10 w-10 animate-spin rounded-full border-4 border-[#FDDBB4] border-t-[#D6402E]" /></div>
           ) : (
             <div className="w-full max-w-sm mx-auto">
               <div className="bg-white rounded-2xl border border-[#FDDBB4]/60 p-6 shadow-sm mb-6 text-center">
                 <div className="h-20 w-20 rounded-2xl bg-[#FFF0E6] flex items-center justify-center mx-auto mb-4">
-                  <span className="text-4xl font-black text-[#B08A1C]">{selectedStaff.name.charAt(0).toUpperCase()}</span>
+                  <span className="text-4xl font-black text-[#D6402E]">{selectedStaff.name.charAt(0).toUpperCase()}</span>
                 </div>
                 <h2 className="text-2xl font-black text-[#111111]">{selectedStaff.name}</h2>
                 <p className="text-[#6B7280] font-semibold">{selectedStaff.role}</p>
@@ -199,7 +199,7 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
 
               {!todayRecord?.clock_in ? (
                 <button onClick={() => void punchIn()} disabled={saving}
-                  className="w-full bg-[#141414] border border-[#D9A62E] hover:bg-black text-[#D9A62E] rounded-2xl py-5 text-xl font-black shadow-lg shadow-black/20 active:scale-95 transition-all disabled:opacity-60 flex items-center justify-center gap-3">
+                  className="w-full bg-[#141414] border border-[#E2503B] hover:bg-black text-[#E2503B] rounded-2xl py-5 text-xl font-black shadow-lg shadow-black/20 active:scale-95 transition-all disabled:opacity-60 flex items-center justify-center gap-3">
                   <LogIn size={24} />{saving ? 'Recording...' : 'PUNCH IN'}
                 </button>
               ) : !todayRecord?.clock_out ? (
@@ -234,7 +234,7 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
           </div>
           <h2 className="text-2xl font-black text-[#111111] mb-1">{notice === 'punch_in' ? 'Punched In!' : 'Punched Out!'}</h2>
           <p className="text-[#6B7280] font-semibold mb-1">{selectedStaff.name}</p>
-          <p className="text-lg font-black text-[#B08A1C] mb-6">
+          <p className="text-lg font-black text-[#D6402E] mb-6">
             {notice === 'punch_in' ? formatTime(todayRecord?.clock_in ?? null) : formatTime(todayRecord?.clock_out ?? null)}
           </p>
           {todayRecord?.clock_in && todayRecord?.clock_out && (
@@ -249,7 +249,7 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
             <p className="text-[13px] text-[#9BAB9A] mb-6">Remember to punch out when you leave!</p>
           )}
           <button onClick={reset}
-            className="bg-[#141414] border border-[#D9A62E] text-[#D9A62E] px-8 py-3 rounded-xl font-black hover:bg-black active:scale-95 transition-all">
+            className="bg-[#141414] border border-[#E2503B] text-[#E2503B] px-8 py-3 rounded-xl font-black hover:bg-black active:scale-95 transition-all">
             Done
           </button>
         </div>
@@ -263,11 +263,11 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
 
   return (
     <div className="min-h-screen bg-[#FFF8F3] flex flex-col">
-      <div className="bg-[#B08A1C] px-5 py-4 flex items-center justify-between shadow-md">
+      <div className="bg-[#D6402E] px-5 py-4 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-3">
           <img src="/logo.png" alt="Logo" className="h-9 w-9 rounded-xl object-cover bg-white" onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
           <div>
-            <p className="text-white font-black text-base leading-tight">JJ Signature</p>
+            <p className="text-white font-black text-base leading-tight">Rice n' Rooster</p>
             <p className="text-white/70 text-[11px] font-bold">Staff Attendance</p>
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function StaffPunch({ embedded = false }: StaffPunchProps) {
         </div>
       </div>
       {inner}
-      <div className="text-center py-3"><p className="text-[10px] text-[#9BAB9A]">Powered by JJ Signature Billing System</p></div>
+      <div className="text-center py-3"><p className="text-[10px] text-[#9BAB9A]">Powered by Rice n' Rooster Billing System</p></div>
     </div>
   )
 }

@@ -18,7 +18,7 @@ const StaffPunch = lazy(() => import('./pages/StaffPunch'))
 function LoadingSpinner() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-bgMain">
-      <span className="h-10 w-10 animate-spin rounded-full border-4 border-[#FDDBB4] border-t-[#B08A1C]" />
+      <span className="h-10 w-10 animate-spin rounded-full border-4 border-[#FDDBB4] border-t-[#D6402E]" />
     </div>
   )
 }

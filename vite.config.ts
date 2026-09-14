@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       includeAssets: [
-        'jj-signature-logo.jpeg',
+        'rice-n-rooster-logo.jpeg',
         'pwa-192x192.png',
         'pwa-512x512.png',
         'maskable-icon-512x512.png',
@@ -18,10 +18,10 @@ export default defineConfig({
         'robots.txt',
       ],
       manifest: {
-        name: 'JJ Signature Billing',
-        short_name: 'JJ Signature',
-        description: "JJ Signature Billing – POS, advance orders, catalog, invoices, and analytics.",
-        theme_color: '#B08A1C',
+        name: "Rice n' Rooster Billing",
+        short_name: "Rice n' Rooster",
+        description: "Rice n' Rooster Billing – POS, advance orders, catalog, invoices, and analytics.",
+        theme_color: '#D6402E',
         background_color: '#FBFAF6',
         display: 'standalone',
         orientation: 'any',

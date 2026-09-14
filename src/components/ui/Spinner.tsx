@@ -22,7 +22,7 @@ export function Spinner({ size = 'md', className, inverted = false }: SpinnerPro
         'inline-block shrink-0 animate-spin rounded-full',
         inverted
           ? 'border-white/30 border-t-white'
-          : 'border-[#FDDBB4] border-t-[#B08A1C]',
+          : 'border-[#FDDBB4] border-t-[#D6402E]',
         SIZES[size],
         className,
       )}

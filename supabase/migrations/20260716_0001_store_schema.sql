@@ -1,5 +1,5 @@
--- JJ Signature billing schema.
--- Safe to run against a fresh project or the existing JJ Signature project.
+-- Rice n' Rooster billing schema.
+-- Safe to run against a fresh project or the existing Rice n' Rooster project.
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -181,11 +181,11 @@ ON CONFLICT (id) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS public.store_settings (
   id SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
-  name TEXT NOT NULL DEFAULT 'JJ Signature',
-  owner_name TEXT NOT NULL DEFAULT 'Fyasa',
-  phone TEXT NOT NULL DEFAULT '+91 63790 48966',
-  email TEXT NOT NULL DEFAULT 'safasignora@gmail.com',
-  address TEXT NOT NULL DEFAULT '31 A, Blue Star Building, Madurai Road Junction, Tirunelveli - 627001',
+  name TEXT NOT NULL DEFAULT 'Rice n'' Rooster',
+  owner_name TEXT NOT NULL DEFAULT 'Sankaranarayanan. S',
+  phone TEXT NOT NULL DEFAULT '+91 93634 00210',
+  email TEXT NOT NULL DEFAULT 'ricenrooster@gmail.com',
+  address TEXT NOT NULL DEFAULT '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106',
   gst_enabled BOOLEAN NOT NULL DEFAULT FALSE,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -193,11 +193,11 @@ CREATE TABLE IF NOT EXISTS public.store_settings (
 INSERT INTO public.store_settings (id, name, owner_name, phone, email, address)
 VALUES (
   1,
-  'JJ Signature',
-  'Fyasa',
-  '+91 63790 48966',
-  'safasignora@gmail.com',
-  '31 A, Blue Star Building, Madurai Road Junction, Tirunelveli - 627001'
+  'Rice n'' Rooster',
+  'Sankaranarayanan. S',
+  '+91 93634 00210',
+  'ricenrooster@gmail.com',
+  '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106'
 )
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,

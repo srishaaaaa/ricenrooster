@@ -33,14 +33,12 @@ const preferWebpAsset = (url: string) => (url.match(/\.png$/i) ? url.replace(/\.
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CATEGORY_MAP — category-level fallback. No dedicated photography yet, so
-// every JJ Signature category currently points at the same branded placeholder.
+// every Rice n' Rooster category currently points at the same branded placeholder.
 // Swap individual entries for a real representative photo as they become available.
 // ─────────────────────────────────────────────────────────────────────────────
 export const CATEGORY_MAP: Record<string, string> = {
-  'Tailoring': '/product-placeholder.svg',
-  'Saree':     '/product-placeholder.svg',
-  'Salwar':    '/product-placeholder.svg',
-  'Nighty':    '/product-placeholder.svg',
+  'Fried Rice':                 '/product-placeholder.svg',
+  'Specialty Chicken Combos':   '/product-placeholder.svg',
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

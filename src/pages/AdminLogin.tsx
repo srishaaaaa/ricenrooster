@@ -36,25 +36,25 @@ export default function AdminLogin() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#F9FAFB] px-4 py-8 font-sans text-[#111111] sm:px-6 lg:flex lg:items-center lg:justify-center">
-      <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-[#B08A1C]/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -right-24 h-96 w-96 rounded-full bg-[#B08A1C]/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-[#D6402E]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-24 h-96 w-96 rounded-full bg-[#D6402E]/20 blur-3xl" />
       <div className="relative grid w-full max-w-5xl overflow-hidden rounded-[32px] border border-[#FDDBB4] bg-white shadow-[0_24px_80px_rgba(44,57,42,0.14)] lg:grid-cols-[0.9fr_1.1fr]">
         <div className="hidden flex-col justify-between bg-[#141414] p-10 text-white lg:flex">
           <div>
-            <div className="mb-8 inline-flex items-center justify-center rounded-2xl bg-black border border-[#D9A62E]/70 p-1.5 shadow-xl overflow-hidden"><img src={BRAND_LOGO} alt={`${BRAND_EN} logo`} className="h-12 w-12 rounded-xl object-cover" /></div>
-            <p className="text-[11px] font-black uppercase tracking-[0.28em] text-[#D9A62E]">{BRAND_SUBTITLE}</p>
+            <div className="mb-8 inline-flex items-center justify-center rounded-2xl bg-black border border-[#E2503B]/70 p-1.5 shadow-xl overflow-hidden"><img src={BRAND_LOGO} alt={`${BRAND_EN} logo`} className="h-12 w-12 rounded-xl object-cover" /></div>
+            <p className="text-[11px] font-black uppercase tracking-[0.28em] text-[#E2503B]">{BRAND_SUBTITLE}</p>
             <h2 className="mt-4 max-w-xs text-4xl font-black leading-tight tracking-tight">Everything you need to run billing clearly.</h2>
             <p className="mt-5 max-w-sm text-sm leading-7 text-white/70">Manage products, bills, orders, invoices, and WhatsApp customer communication from one secure portal.</p>
           </div>
-          <div className="flex items-center gap-2 text-xs font-bold text-white/60"><ShieldCheck size={16} className="text-[#D9A62E]" /> Secure admin workspace</div>
+          <div className="flex items-center gap-2 text-xs font-bold text-white/60"><ShieldCheck size={16} className="text-[#E2503B]" /> Secure admin workspace</div>
         </div>
         <div className="p-6 sm:p-10 lg:p-12">
         {/* Brand */}
         <div className="mb-8 flex flex-col items-center text-center lg:items-start lg:text-left">
-          <div className="mb-5 inline-flex items-center justify-center rounded-2xl bg-black border border-[#D9A62E]/70 p-1.5 shadow-xl overflow-hidden lg:hidden"><img src={BRAND_LOGO} alt={`${BRAND_EN} logo`} className="h-12 w-12 rounded-xl object-cover" /></div>
-          <p className="text-[11px] font-black uppercase tracking-[0.24em] text-[#B08A1C]">{BRAND_SUBTITLE}</p>
+          <div className="mb-5 inline-flex items-center justify-center rounded-2xl bg-black border border-[#E2503B]/70 p-1.5 shadow-xl overflow-hidden lg:hidden"><img src={BRAND_LOGO} alt={`${BRAND_EN} logo`} className="h-12 w-12 rounded-xl object-cover" /></div>
+          <p className="text-[11px] font-black uppercase tracking-[0.24em] text-[#D6402E]">{BRAND_SUBTITLE}</p>
           <h1 className="mt-2 text-3xl font-black tracking-tight text-[#111111]">{BRAND_EN}</h1>
-          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#B08A1C]">
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#D6402E]">
             <ShieldCheck size={13} />
             {l('Admin Access', 'நிர்வாக அணுகல்')}
           </p>
@@ -82,7 +82,7 @@ export default function AdminLogin() {
               type="text"
               autoComplete="username"
               placeholder="Enter portal ID"
-              className="w-full rounded-2xl border-2 border-[#DFC98A] bg-[#FBFAF6] px-4 py-3.5 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
+              className="w-full rounded-2xl border-2 border-[#E7B6AC] bg-[#FBFAF6] px-4 py-3.5 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
               value={portalId}
               onChange={(e) => { setPortalId(e.target.value); setError('') }}
               disabled={loading}
@@ -101,7 +101,7 @@ export default function AdminLogin() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="Enter portal password"
-                className="w-full rounded-2xl border-2 border-[#DFC98A] bg-[#FBFAF6] px-4 py-3.5 pr-12 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
+                className="w-full rounded-2xl border-2 border-[#E7B6AC] bg-[#FBFAF6] px-4 py-3.5 pr-12 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); setError('') }}
                 disabled={loading}
@@ -121,11 +121,11 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#141414] border border-[#D9A62E] py-3.5 font-black text-[#D9A62E] shadow-lg shadow-black/10 transition-colors hover:bg-black disabled:opacity-60"
+            className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#141414] border border-[#E2503B] py-3.5 font-black text-[#E2503B] shadow-lg shadow-black/10 transition-colors hover:bg-black disabled:opacity-60"
           >
             {loading ? (
               <>
-                <span className="w-4 h-4 border-2 border-[#D9A62E]/30 border-t-[#D9A62E] rounded-full animate-spin inline-block" />
+                <span className="w-4 h-4 border-2 border-[#E2503B]/30 border-t-[#E2503B] rounded-full animate-spin inline-block" />
                 {l('Signing in...', 'உள்நுழைகிறது...')}
               </>
             ) : (

@@ -725,7 +725,7 @@ export default function ProductDetailModal({
                                     className={[
                                       'rounded-full border px-4 py-2 text-[12px] font-black transition-all whitespace-nowrap',
                                       isSel ? 'border-[#111111] bg-[#111111] text-white'
-                                            : 'border-[#ead7b7]/80 bg-[#f7f4ed] text-[#111111] hover:border-[#B08A1C]',
+                                            : 'border-[#ead7b7]/80 bg-[#f7f4ed] text-[#111111] hover:border-[#D6402E]',
                                     ].join(' ')}
                                   >
                                     {g}
@@ -757,7 +757,7 @@ export default function ProductDetailModal({
                                           ? 'border-[#111111] bg-[#111111] text-white'
                                           : oos
                                           ? 'cursor-not-allowed opacity-40 border-gray-200 text-[#999]'
-                                          : 'border-[#ead7b7]/80 bg-[#f7f4ed] text-[#111111] hover:border-[#B08A1C]',
+                                          : 'border-[#ead7b7]/80 bg-[#f7f4ed] text-[#111111] hover:border-[#D6402E]',
                                       ].join(' ')}
                                     >
                                       {v.variantName}
@@ -843,10 +843,10 @@ export default function ProductDetailModal({
 
                 <section className="mt-5 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
                   {[
-                    { icon: Leaf, title: 'Custom Fit', subtitle: 'Measured to Perfection' },
-                    { icon: Sparkles, title: 'Premium Fabric', subtitle: 'Handpicked Materials' },
-                    { icon: Flower2, title: 'Skilled Tailoring', subtitle: 'Expert Craftsmanship' },
-                    { icon: ShieldCheck, title: 'Quality Checked', subtitle: 'Every Stitch Verified' },
+                    { icon: Leaf, title: 'Fresh Ingredients', subtitle: 'Sourced Daily' },
+                    { icon: Sparkles, title: 'Bold Flavours', subtitle: 'Signature Spice Blends' },
+                    { icon: Flower2, title: 'Expert Chefs', subtitle: 'Culinary Craftsmanship' },
+                    { icon: ShieldCheck, title: 'Quality Checked', subtitle: 'Every Dish Verified' },
                   ].map((item) => {
                     const Icon = item.icon
                     return (
@@ -867,7 +867,7 @@ export default function ProductDetailModal({
                       <span>Product Details</span>
                       <ChevronDown size={16} className="text-[#7daa8f] transition-transform group-open:rotate-180" />
                     </summary>
-                    <p className="mt-3 text-sm leading-relaxed text-[#5f6d59]">{product.description || 'Carefully crafted by JJ Signature.'}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-[#5f6d59]">{product.description || "Carefully prepared by Rice n' Rooster."}</p>
                   </details>
 
                   <details className={accordionClass}>
@@ -876,7 +876,7 @@ export default function ProductDetailModal({
                       <ChevronDown size={16} className="text-[#7daa8f] transition-transform group-open:rotate-180" />
                     </summary>
                     <div className="mt-3 space-y-2 text-sm leading-relaxed text-[#5f6d59]">
-                      <p className="whitespace-pre-line">{product.benefits || "Prepared with care by JJ Signature."}</p>
+                      <p className="whitespace-pre-line">{product.benefits || "Prepared with care by Rice n' Rooster."}</p>
                       <p>{buildUsageNote(product)}</p>
                     </div>
                   </details>

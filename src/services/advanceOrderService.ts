@@ -34,9 +34,9 @@ export type AdvanceOrder = {
 export type AdvanceTimeline = { id: number; advance_order_id: string; event_type: string; label: string; remarks: string; created_at: string }
 export type AdvancePayment = { id: string; advance_order_id: string; payment_type: 'deposit' | 'remaining'; amount: number; payment_method: string; remarks: string; received_at: string }
 
-const STORAGE_ORDERS_KEY = 'jj_signature_advance_orders_v1'
-const STORAGE_TIMELINE_KEY = 'jj_signature_advance_timeline_v1'
-const STORAGE_PAYMENTS_KEY = 'jj_signature_advance_payments_v1'
+const STORAGE_ORDERS_KEY = 'rice_n_rooster_advance_orders_v1'
+const STORAGE_TIMELINE_KEY = 'rice_n_rooster_advance_timeline_v1'
+const STORAGE_PAYMENTS_KEY = 'rice_n_rooster_advance_payments_v1'
 
 const loadLocalOrders = (): AdvanceOrder[] => {
   try {
@@ -265,7 +265,7 @@ export async function updateAdvanceStatus(orderId: string, status: AdvanceStatus
   const existing = localOrders.find(o => o.id === orderId)
   if (!updatedOrder && existing) {
     const now = new Date().toISOString()
-    const label = status === 'ready_for_delivery' ? 'Tailoring Completed' : status === 'waiting_final_payment' ? 'Customer Contacted' : status === 'cancelled' ? 'Cancelled' : 'Pending Deposit'
+    const label = status === 'ready_for_delivery' ? 'Order Completed' : status === 'waiting_final_payment' ? 'Customer Contacted' : status === 'cancelled' ? 'Cancelled' : 'Pending Deposit'
     updatedOrder = { ...existing, status, remarks: remarks || existing.remarks, updated_at: now }
 
     const timeline = loadLocalTimeline()

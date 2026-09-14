@@ -40,7 +40,7 @@ interface CustomerReview {
 }
 
 // localStorage fallback (only used when Supabase is not configured)
-const LS_KEY = 'jj_signature_customer_reviews'
+const LS_KEY = 'rice_n_rooster_customer_reviews'
 function lsGetReviews(): CustomerReview[] {
   try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]') } catch { return [] }
 }
@@ -56,36 +56,36 @@ const CAT_FALLBACK: [string, string, string] = [CAT_PLACEHOLDER, CAT_PLACEHOLDER
 
 // ── Occasion chips — static (not tied to per-product tagging data) ────
 const OCCASIONS: Array<{ label: string; emoji: string; bg: string; border: string }> = [
-  { label: 'Bridal',  emoji: '👰', bg: '#FFF1F2', border: '#FDA4AF' },
-  { label: 'Festive', emoji: '🪔', bg: '#FFFBF0', border: '#FDE68A' },
-  { label: 'Party',   emoji: '✨', bg: '#FAF5FF', border: '#C4B5FD' },
-  { label: 'Casual',  emoji: '👗', bg: '#F0FDF4', border: '#86EFAC' },
-  { label: 'Kids',    emoji: '🧒', bg: '#EFF6FF', border: '#93C5FD' },
-  { label: 'Fabric',  emoji: '🧵', bg: '#FFF7ED', border: '#FDBA74' },
+  { label: 'Fried Rice',      emoji: '🍚', bg: '#FFF1F0', border: '#F3A79A' },
+  { label: 'Chicken Combo',   emoji: '🍗', bg: '#FFF7ED', border: '#FDBA74' },
+  { label: 'Spicy',           emoji: '🌶️', bg: '#FEF2F2', border: '#FCA5A5' },
+  { label: 'Korean',          emoji: '🥢', bg: '#FAF5FF', border: '#C4B5FD' },
+  { label: 'Middle Eastern',  emoji: '🧆', bg: '#FFFBEB', border: '#FDE68A' },
+  { label: 'Bestseller',      emoji: '⭐', bg: '#F0FDF4', border: '#86EFAC' },
 ]
 
 const TESTIMONIALS = [
   {
     name: 'Priya Krishnamurthy',
-    location: 'Tirunelveli',
+    location: 'Chennai',
     rating: 5,
-    text: 'Exceptional quality and friendly service. The blouse fitting was perfect on the first try — smooth from start to finish.',
+    text: 'Exceptional flavour and friendly service. The Gochujang Korean fried chicken combo was perfect on the first order — smooth from start to finish.',
     initials: 'PK',
-    color: '#B08A1C',
+    color: '#D6402E',
   },
   {
     name: 'Ramesh Murugan',
-    location: 'Nagercoil',
+    location: 'Chennai',
     rating: 5,
-    text: 'Got a Punjabi suit stitched here for a family function. The finishing was neat and it was ready right on time.',
+    text: 'Ordered Chicken 65 with Ghee rice for a family get-together. The taste was spot on and it arrived hot and right on time.',
     initials: 'RM ',
     color: '#8B7355',
   },
   {
     name: 'Kavitha Sundaram',
-    location: 'Madurai',
+    location: 'Chennai',
     rating: 5,
-    text: 'Beautiful boutique selections at reasonable prices. Customer service through WhatsApp is very responsive.',
+    text: 'Great tasting fried rice at reasonable prices. Customer service through WhatsApp is very responsive.',
     initials: 'KS',
     color: '#5e8c72',
   },
@@ -93,7 +93,7 @@ const TESTIMONIALS = [
     name: 'Anand Thiagarajan',
     location: 'Chennai',
     rating: 5,
-    text: 'Ordered an Aari work blouse for my daughter\'s wedding — the detailing was outstanding. Have been recommending JJ Signature to all my friends and relatives.',
+    text: 'Got the Jerk chicken with Garlic fried rice for a get-together — everyone loved it. Have been recommending Rice n\' Rooster to all my friends and relatives.',
     initials: 'AT',
     color: '#C4845C',
   },
@@ -228,7 +228,7 @@ export default function Home() {
         {/* Ambient background glows — very subtle, premium feel */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden hidden sm:block">
           <div className="absolute -top-24 -right-12 w-[480px] h-[480px] rounded-full blur-[140px] opacity-[0.055]"
-            style={{ background: '#B08A1C' }} />
+            style={{ background: '#D6402E' }} />
           <div className="absolute -bottom-16 -left-16 w-[380px] h-[380px] rounded-full blur-[120px] opacity-[0.04]"
             style={{ background: '#FDDBB4' }} />
         </div>
@@ -243,7 +243,7 @@ export default function Home() {
           >
             {/* Eyebrow badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6
-              bg-[#B08A1C]/10 border border-[#B08A1C]/20">
+              bg-[#D6402E]/10 border border-[#D6402E]/20">
               <Sparkles size={11} className="text-[#5e8c72]" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5e8c72]">
                 {t('hero.badge')}
@@ -252,7 +252,7 @@ export default function Home() {
 
             <h1 className="font-black mb-5 break-words font-headline text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] tracking-[-0.02em]">
               <span className="block text-[#111111]">{t('hero.title1')}</span>
-              <span className="block text-[#B08A1C]">{t('hero.title2')}</span>
+              <span className="block text-[#D6402E]">{t('hero.title2')}</span>
             </h1>
 
             {/* Subtitle */}
@@ -288,7 +288,7 @@ export default function Home() {
                   hover:bg-[#F9FAFB] hover:border-[#111111]/20
                   transition-all duration-200"
               >
-                <Leaf size={13} className="text-[#B08A1C]" />
+                <Leaf size={13} className="text-[#D6402E]" />
                 {t('remedy.title')}
               </a>
             </div>
@@ -322,11 +322,11 @@ export default function Home() {
                 shadow-[0_6px_28px_rgba(44,57,42,0.11)]
                 border border-[#FDDBB4]/50
                 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-[#B08A1C] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-[#D6402E] flex items-center justify-center shrink-0">
                   <Award size={14} className="text-white" />
                 </div>
                 <div>
-                  <p className="text-[12px] font-black text-[#111111] leading-tight">Custom Tailoring</p>
+                  <p className="text-[12px] font-black text-[#111111] leading-tight">Freshly Cooked</p>
                   <p className="text-[10px] text-[#374151] font-medium mt-0.5">Made to Order</p>
                 </div>
               </div>
@@ -371,7 +371,7 @@ export default function Home() {
                 shadow-sm
                 hover:-translate-y-0.5 transition-transform duration-200"
             >
-              <div className="w-9 h-9 rounded-xl bg-[#B08A1C]/12 flex items-center justify-center shrink-0 text-[#B08A1C]">
+              <div className="w-9 h-9 rounded-xl bg-[#D6402E]/12 flex items-center justify-center shrink-0 text-[#D6402E]">
                 {item.icon}
               </div>
               <div className="min-w-0">
@@ -387,11 +387,11 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
         <div className="flex justify-between items-end mb-10">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#B08A1C] mb-2">Browse Collection</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D6402E] mb-2">Browse Collection</p>
             <h2 className="font-black text-[#111111] break-words text-3xl sm:text-[38px] tracking-tight">{t('cat.title')}</h2>
           </div>
           <Link to="/products"
-            className="text-[13px] font-bold text-[#B08A1C] flex items-center gap-1 group hover:text-[#5e8c72] transition-colors">
+            className="text-[13px] font-bold text-[#D6402E] flex items-center gap-1 group hover:text-[#5e8c72] transition-colors">
             {t('cat.view_all')}
             <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
@@ -443,7 +443,7 @@ export default function Home() {
                   </div>
                 </div>
                 <span className="text-[10px] sm:text-[11px] font-bold text-[#111111] text-center leading-tight
-                  group-hover:text-[#B08A1C] transition-colors duration-200">
+                  group-hover:text-[#D6402E] transition-colors duration-200">
                   {c.name}
                 </span>
               </Link>
@@ -465,7 +465,7 @@ export default function Home() {
                 </div>
               </div>
               <span className="text-[10px] sm:text-[11px] font-bold text-[#111111] text-center leading-tight
-                group-hover:text-[#B08A1C] transition-colors duration-200">
+                group-hover:text-[#D6402E] transition-colors duration-200">
                 All Products
               </span>
             </Link>
@@ -480,7 +480,7 @@ export default function Home() {
       <section id="concerns" className="bg-white py-16 sm:py-24 border-y border-[#FDDBB4]/30 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <div className="mb-12">
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#B08A1C]">{t('remedy.badge')}</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D6402E]">{t('remedy.badge')}</p>
             <h2 className="font-black mt-3 mb-3 text-[#111111] break-words text-3xl sm:text-[38px] tracking-tight">{t('remedy.title')}</h2>
             <p className="text-[15px] text-[#374151] mx-auto font-medium leading-relaxed max-w-xl">{t('remedy.sub')}</p>
           </div>
@@ -511,12 +511,12 @@ export default function Home() {
               <TrendingUp size={19} />
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#B08A1C]">Customer Favourites</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#D6402E]">Customer Favourites</p>
               <h2 className="font-black text-[#111111] break-words text-2xl sm:text-3xl tracking-tight">{t('top.title')}</h2>
             </div>
           </div>
           <Link to="/products"
-            className="text-[13px] font-bold text-[#B08A1C] hover:text-[#5e8c72] flex items-center gap-1 transition-colors">
+            className="text-[13px] font-bold text-[#D6402E] hover:text-[#5e8c72] flex items-center gap-1 transition-colors">
             {t('cat.view_all')} <ChevronRight size={15} />
           </Link>
         </div>
@@ -530,7 +530,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#B08A1C]">Customer Reviews</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D6402E]">Customer Reviews</p>
               <h2 className="text-3xl sm:text-[38px] font-black mt-3 mb-2 tracking-tight text-[#111111]">
                 Trusted by Thousands
               </h2>
@@ -580,7 +580,7 @@ export default function Home() {
                     <input
                       required
                       placeholder="e.g. Priya S."
-                      className="w-full px-4 py-2.5 rounded-xl border-2 border-[#FDDBB4] focus:border-[#B08A1C] outline-none bg-white text-[13px]"
+                      className="w-full px-4 py-2.5 rounded-xl border-2 border-[#FDDBB4] focus:border-[#D6402E] outline-none bg-white text-[13px]"
                       value={reviewForm.name}
                       onChange={e => setReviewForm(f => ({ ...f, name: e.target.value }))}
                     />
@@ -589,7 +589,7 @@ export default function Home() {
                     <label className="block text-xs font-bold text-[#374151] mb-1.5 uppercase tracking-wide">City / Location</label>
                     <input
                       placeholder="e.g. Chennai"
-                      className="w-full px-4 py-2.5 rounded-xl border-2 border-[#FDDBB4] focus:border-[#B08A1C] outline-none bg-white text-[13px]"
+                      className="w-full px-4 py-2.5 rounded-xl border-2 border-[#FDDBB4] focus:border-[#D6402E] outline-none bg-white text-[13px]"
                       value={reviewForm.location}
                       onChange={e => setReviewForm(f => ({ ...f, location: e.target.value }))}
                     />
@@ -621,7 +621,7 @@ export default function Home() {
                     required
                     rows={3}
                     placeholder="Tell others about your experience with our products..."
-                    className="w-full px-4 py-2.5 rounded-xl border-2 border-[#FDDBB4] focus:border-[#B08A1C] outline-none bg-white text-[13px] resize-none"
+                    className="w-full px-4 py-2.5 rounded-xl border-2 border-[#FDDBB4] focus:border-[#D6402E] outline-none bg-white text-[13px] resize-none"
                     value={reviewForm.text}
                     onChange={e => setReviewForm(f => ({ ...f, text: e.target.value }))}
                   />
@@ -633,7 +633,7 @@ export default function Home() {
 
                 <div className="flex gap-3">
                   <button type="submit" disabled={submitting}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#B08A1C] hover:bg-[#5e8c72] text-white font-bold text-[13px] transition-colors disabled:opacity-60">
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#D6402E] hover:bg-[#5e8c72] text-white font-bold text-[13px] transition-colors disabled:opacity-60">
                     {submitting
                       ? <><span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Posting…</>
                       : <><Send size={14} /> Post Review</>
@@ -695,14 +695,14 @@ export default function Home() {
 
             {/* Customer-submitted reviews from Supabase */}
             {customerReviews.slice(0, 8).map((review) => {
-              const colors = ['#B08A1C', '#C4845C', '#8B7355', '#5e8c72']
+              const colors = ['#D6402E', '#C4845C', '#8B7355', '#5e8c72']
               const color = colors[review.name.charCodeAt(0) % colors.length]
               return (
                 <motion.div
                   key={review.id}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-[#F9FAFB] rounded-2xl p-5 sm:p-6 border border-[#B08A1C]/20 flex flex-col gap-3.5 hover:shadow-md transition-shadow duration-300"
+                  className="bg-[#F9FAFB] rounded-2xl p-5 sm:p-6 border border-[#D6402E]/20 flex flex-col gap-3.5 hover:shadow-md transition-shadow duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-0.5">
@@ -710,7 +710,7 @@ export default function Home() {
                         <Star key={i} size={13} className="text-amber-400 fill-amber-400" />
                       ))}
                     </div>
-                    <span className="text-[9px] font-bold text-[#B08A1C] bg-[#B08A1C]/10 px-2 py-0.5 rounded-full">Verified</span>
+                    <span className="text-[9px] font-bold text-[#D6402E] bg-[#D6402E]/10 px-2 py-0.5 rounded-full">Verified</span>
                   </div>
                   <p className="text-[13px] text-[#374151] leading-[1.65] flex-grow">&ldquo;{review.text}&rdquo;</p>
                   <div className="flex items-center gap-2.5 pt-3 border-t border-[#FDDBB4]/40">
@@ -802,7 +802,7 @@ export default function Home() {
               </div>
               <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl
                 bg-[#111111] text-white text-[12px] font-bold
-                group-hover:bg-[#B08A1C] transition-colors duration-300">
+                group-hover:bg-[#D6402E] transition-colors duration-300">
                 <ExternalLink size={12} /> Open in Google Maps
               </div>
             </div>
@@ -813,18 +813,18 @@ export default function Home() {
             border border-[#FDDBB4]/40 shadow-sm
             flex flex-col justify-between gap-6">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#B08A1C]">Find Us</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D6402E]">Find Us</p>
               <h2 className="text-2xl sm:text-3xl font-black mt-2.5 mb-4 text-[#111111] tracking-tight">
                 Visit Our Store
               </h2>
               <p className="text-[#374151] text-[14px] leading-[1.7] font-medium mb-6">
-                Visit JJ Signature for custom tailoring, sarees, salwars, and nighties. Our team will help you find the right option for your needs.
+                Visit Rice n' Rooster for freshly wok-tossed fried rice and specialty chicken combos. Our team will help you find the right option for your needs.
               </p>
 
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#B08A1C]/12 flex items-center justify-center shrink-0">
-                    <MapPin size={16} className="text-[#B08A1C]" />
+                  <div className="w-9 h-9 rounded-xl bg-[#D6402E]/12 flex items-center justify-center shrink-0">
+                    <MapPin size={16} className="text-[#D6402E]" />
                   </div>
                   <div>
                     <p className="font-bold text-[13px] text-[#111111] leading-tight">Store Location</p>
@@ -832,8 +832,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#B08A1C]/12 flex items-center justify-center shrink-0">
-                    <Phone size={16} className="text-[#B08A1C]" />
+                  <div className="w-9 h-9 rounded-xl bg-[#D6402E]/12 flex items-center justify-center shrink-0">
+                    <Phone size={16} className="text-[#D6402E]" />
                   </div>
                   <div>
                     <p className="font-bold text-[13px] text-[#111111] leading-tight">Call / WhatsApp</p>
@@ -884,7 +884,7 @@ export default function Home() {
         <Link
           to="/products"
           className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full
-            bg-[#B08A1C] text-white font-black
+            bg-[#D6402E] text-white font-black
             shadow-[0_4px_20px_rgba(125,170,143,0.35)]
             hover:bg-[#5e8c72] hover:scale-[1.02] hover:shadow-[0_6px_28px_rgba(125,170,143,0.45)]
             transition-all duration-200

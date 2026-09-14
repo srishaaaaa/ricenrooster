@@ -16,13 +16,13 @@ const pdfMoney = (value: number): string => {
 
 export function advanceReceiptPdf(order: AdvanceOrder) {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
-  doc.setFillColor('#B08A1C'); doc.rect(0, 0, 210, 5, 'F')
+  doc.setFillColor('#D6402E'); doc.rect(0, 0, 210, 5, 'F')
   try { doc.addImage(LOGO_BASE64, 'PNG', 16, 10, 12, 12) } catch (err) { console.warn('Advance receipt: logo image failed to load', err) }
-  doc.setTextColor('#B08A1C'); doc.setFont('helvetica', 'bold'); doc.setFontSize(18); doc.text(BRAND_EN.toUpperCase(), 38, 20)
+  doc.setTextColor('#D6402E'); doc.setFont('helvetica', 'bold'); doc.setFontSize(18); doc.text(BRAND_EN.toUpperCase(), 38, 20)
   doc.setTextColor('#6b7280'); doc.setFontSize(8); doc.text('ADVANCE RECEIPT - NOT A TAX INVOICE', 38, 26)
 
   doc.setFont('helvetica', 'normal'); doc.text(BRAND_ADDRESS, 194, 20, { align: 'right', maxWidth: 76 }); doc.text(BRAND_PHONE_DISPLAY, 194, 30, { align: 'right' })
-  doc.setDrawColor('#B08A1C'); doc.line(16, 38, 194, 38)
+  doc.setDrawColor('#D6402E'); doc.line(16, 38, 194, 38)
   doc.setTextColor('#111827'); doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.text(order.deposit_id, 16, 51)
   doc.setFontSize(9); doc.setFont('helvetica', 'normal'); doc.setTextColor('#6b7280'); doc.text(`Created: ${new Date(order.created_at).toLocaleString('en-MY')}`, 194, 51, { align: 'right' })
   const rows = [

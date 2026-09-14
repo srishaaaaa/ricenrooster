@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             leftIcon ? 'pl-9' : undefined,
             error
               ? 'border-red-300 focus:border-red-500'
-              : 'border-[#FDDBB4]/60 focus:border-[#B08A1C]',
+              : 'border-[#FDDBB4]/60 focus:border-[#D6402E]',
             className,
           )}
           {...rest}

@@ -48,7 +48,7 @@ function getHeaders(auth = false): HeadersInit {
   }
 
   if (auth) {
-    const token = localStorage.getItem('jj-signature-token')
+    const token = localStorage.getItem('rice-n-rooster-token')
     if (token) {
       headers.Authorization = `Bearer ${token}`
     }

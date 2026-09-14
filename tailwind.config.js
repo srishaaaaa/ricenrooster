@@ -7,24 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        bgMain:    '#FFF8F2',
+        bgMain:    '#F7EAD0',
         cardBg:    '#FFFFFF',
         maroon: {
-          DEFAULT: '#B08A1C', // Signature Gold
+          DEFAULT: '#D6402E', // Rooster Red
           dark: '#141414', // Signature Black
         },
         textMain:  '#111111',
         textMuted: '#6B7280',
-        borderLight: '#DFC98A', // Soft Gold
+        borderLight: '#E7B6AC', // Soft Rose
         // Storefront palette — used throughout Navbar/Footer/Cart/Checkout/
         // Login/Products/Profile/Favorites/Drawers but never previously
         // defined here, so every bg-sage/text-sageDark/border-sand/etc.
         // class in those files was silently rendering with no color at all.
-        forestDark: '#1C2E22',
-        sage:       '#8CA88A',
-        sageDark:   '#3A5F47',
-        sageDeep:   '#28402F',
-        sand:       '#E8DFC8',
+        forestDark: '#2B1108',
+        sage:       '#C8523D',
+        sageDark:   '#8C2A1E',
+        sageDeep:   '#5C1710',
+        sand:       '#EFE1C8',
       },
       fontFamily: {
         sans:      ['Inter', 'sans-serif'],

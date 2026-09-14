@@ -4,7 +4,7 @@ import { isSupabaseConfigured } from '../lib/supabase'
 import { supabase } from '../lib/supabase'
 import { fetchAllCategories, fetchAllProducts } from '../services/productService'
 import { fetchAllVariants, type ProductVariant } from '../services/variantService'
-import { BRAND_ADDRESS, BRAND_EN, BRAND_PHONE_DISPLAY } from '../lib/brand'
+import { BRAND_ADDRESS, BRAND_EN, BRAND_OWNER_NAME, BRAND_PHONE_DISPLAY } from '../lib/brand'
 import {
   calculateLineTotal,
   normalizeSelectedQuantity,
@@ -340,7 +340,7 @@ export const useAuthStore = create<AuthState>()(
         }
       }
     }),
-    { name: 'jj-signature-auth' }
+    { name: 'rice-n-rooster-auth' }
   )
 )
 
@@ -464,7 +464,7 @@ export const useCartStore = create<CartState>()(
       count: () => get().totalItems(),
       total: () => get().cartSubtotal(),
     }),
-    { name: 'jj-signature-cart' }
+    { name: 'rice-n-rooster-cart' }
   )
 )
 
@@ -483,7 +483,7 @@ export const useFavStore = create<FavState>()(
       isFav: (productId) => get().items.some((p) => p.id === productId),
       clear: () => set({ items: [] }),
     }),
-    { name: 'jj-signature-favorites' },
+    { name: 'rice-n-rooster-favorites' },
   ),
 )
 
@@ -560,7 +560,7 @@ export const useSettingsStore = create<SettingsState>()((set) => ({
     set({
       settings: {
         name: BRAND_EN,
-        ownerName: BRAND_EN,
+        ownerName: BRAND_OWNER_NAME,
         phone: BRAND_PHONE_DISPLAY,
         address: BRAND_ADDRESS,
         gstEnabled: false
@@ -600,12 +600,12 @@ export const useAdminAuthStore = create<AdminAuthState>()(
         const id = portalId.trim()
         const pwd = password.trim()
         if (ADMIN_PORTAL_ID && ADMIN_PORTAL_PASSWORD && id === ADMIN_PORTAL_ID && pwd === ADMIN_PORTAL_PASSWORD) {
-          try { sessionStorage.setItem('jj_signature_fresh_login', '1') } catch { /* ignore */ }
+          try { sessionStorage.setItem('rice_n_rooster_fresh_login', '1') } catch { /* ignore */ }
           set({ isLoggedIn: true, role: 'admin' })
           return 'admin'
         }
         if (STAFF_PORTAL_ID && STAFF_PORTAL_PASSWORD && id === STAFF_PORTAL_ID && pwd === STAFF_PORTAL_PASSWORD) {
-          try { sessionStorage.setItem('jj_signature_fresh_login', '1') } catch { /* ignore */ }
+          try { sessionStorage.setItem('rice_n_rooster_fresh_login', '1') } catch { /* ignore */ }
           set({ isLoggedIn: true, role: 'staff' })
           return 'staff'
         }
@@ -614,7 +614,7 @@ export const useAdminAuthStore = create<AdminAuthState>()(
       logout: () => set({ isLoggedIn: false, role: null }),
     }),
     {
-      name: 'jj-signature-admin-session',
+      name: 'rice-n-rooster-admin-session',
       // Using sessionStorage so the session is cleared when the tab is closed
       storage: {
         getItem: (name) => {

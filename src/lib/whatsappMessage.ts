@@ -41,7 +41,7 @@ export const publicInvoiceUrl = (invoiceNumber: string) => {
   const origin =
     typeof window !== 'undefined' && window.location?.origin && !window.location.origin.includes('localhost')
       ? window.location.origin
-      : 'https://jj-signature.vercel.app'
+      : 'https://ricenrooster.vercel.app'
   return `${origin}/invoice/${encodeURIComponent(formatted)}`
 }
 
@@ -86,12 +86,12 @@ export const buildProfessionalWhatsAppMessage = (input: BuildWhatsAppMessageInpu
 
   const totalsText = totalsLines.join('\n')
 
-  return `✨ *JJ SIGNATURE* ✨
-🧵 *Official Purchase Invoice & Receipt* 🧵
+  return `✨ *RICE N' ROOSTER* ✨
+🍗 *Official Purchase Invoice & Receipt* 🍗
 
 Dear ${customerName},
 
-Thank you for shopping with JJ Signature! We truly appreciate your order.
+Thank you for shopping with Rice n' Rooster! We truly appreciate your order.
 
 🧾 *INVOICE DETAILS*
 📌 *Invoice No:* #${formattedNo}
@@ -103,7 +103,7 @@ ${itemsText ? `📦 *ITEMS ORDERED:*\n${itemsText}\n\n${totalsText}\n` : input.t
 🙏 Thank you, and we hope to see you again soon!
 
 Follow us on Instagram:
-https://www.instagram.com/jj.signature_`
+https://www.instagram.com/ricenrooster`
 }
 
 export const buildAdvanceDepositWhatsAppMessage = (input: AdvanceDepositWhatsAppInput) => {
@@ -122,15 +122,15 @@ export const buildAdvanceDepositWhatsAppMessage = (input: AdvanceDepositWhatsApp
       })()
     : '-'
 
-  return `🧵 Thank You for Your Advance Order with JJ Signature! 🧵
+  return `🍗 Thank You for Your Advance Order with Rice n' Rooster! 🍗
 
 Dear ${customerName},
 
-✨ Thank you for choosing JJ Signature. We have successfully received your initial advance payment!
+✨ Thank you for choosing Rice n' Rooster. We have successfully received your initial advance payment!
 
 🧾 Advance Deposit Details 👇
 📦 Deposit ID: ${input.depositId}
-👗 Product: ${input.productName}
+🍽️ Product: ${input.productName}
 💵 Total Order Amount: ₹${input.totalAmount}
 💰 Advance Paid: ₹${input.depositAmount}${input.paymentMethod ? ` (${input.paymentMethod.toLowerCase() === 'upi' ? 'QR' : input.paymentMethod.toUpperCase()})` : ''}
 🔴 Balance to Pay on Delivery: ₹${input.remainingBalance}
@@ -138,11 +138,11 @@ Dear ${customerName},
 
 .
 
-✂️ Tailoring & preparation for your clothes is now underway. We will have everything ready on or before ${deliveryDateFormatted} for final payment and delivery/pickup!
+🍳 Preparation for your order is now underway. We will have everything ready on or before ${deliveryDateFormatted} for final payment and delivery/pickup!
 
 .
 
 🙏 Thank you for paying the initial amount as advance!`
 }
 
-export const BUSINESS_PHONE = '916379048966'
+export const BUSINESS_PHONE = '919363400210'

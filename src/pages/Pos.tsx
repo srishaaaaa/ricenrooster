@@ -779,7 +779,7 @@ export default function Pos(props: PosProps = {}) {
               <MessageCircle size={16} /> <span className="text-[11px] font-black">WhatsApp</span>
             </button>
             <button onClick={clearAll}
-              className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-[#D9A62E] bg-[#141414] py-3 text-[#D9A62E] hover:bg-black transition-colors">
+              className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-[#E2503B] bg-[#141414] py-3 text-[#E2503B] hover:bg-black transition-colors">
               <RefreshCw size={16} /> <span className="text-[11px] font-black">New Sale</span>
             </button>
           </div>
@@ -828,8 +828,8 @@ export default function Pos(props: PosProps = {}) {
       {/* Header */}
       <div className="px-4 pt-4 pb-3 md:px-6 md:pt-6 md:pb-4 shrink-0 flex flex-col gap-4 min-[480px]:flex-row min-[480px]:items-start min-[480px]:justify-between">
         <div className="min-w-0">
-          <h2 className="text-[28px] md:text-[22px] font-black text-[#B08A1C] flex items-start gap-2 leading-tight">
-            <div className="w-1.5 h-6 bg-[#B08A1C] rounded-full"></div>
+          <h2 className="text-[28px] md:text-[22px] font-black text-[#D6402E] flex items-start gap-2 leading-tight">
+            <div className="w-1.5 h-6 bg-[#D6402E] rounded-full"></div>
             POS Billing Panel
           </h2>
           <p className="text-[13px] md:text-[12px] text-gray-500 font-medium ml-3.5 mt-1 pr-2">Quick Invoice generator & database synced checkout</p>
@@ -840,13 +840,13 @@ export default function Pos(props: PosProps = {}) {
           <div className="grid grid-cols-2 bg-white rounded-xl border border-[#FDDBB4]/60 p-1 shadow-sm flex-1 min-[480px]:flex-none">
             <button
               onClick={() => setOrdermode('offline')}
-              className={`h-9 px-4 rounded-lg text-[11px] font-black tracking-wider uppercase transition-colors ${ordermode === 'offline' ? 'bg-[#141414] text-[#D9A62E]' : 'text-[#374151] hover:bg-[#F9FAFB]'}`}
+              className={`h-9 px-4 rounded-lg text-[11px] font-black tracking-wider uppercase transition-colors ${ordermode === 'offline' ? 'bg-[#141414] text-[#E2503B]' : 'text-[#374151] hover:bg-[#F9FAFB]'}`}
             >
               Offline
             </button>
             <button
               onClick={() => setOrdermode('online')}
-              className={`h-9 px-4 rounded-lg text-[11px] font-black tracking-wider uppercase transition-colors ${ordermode === 'online' ? 'bg-[#141414] text-[#D9A62E]' : 'text-[#374151] hover:bg-[#F9FAFB]'}`}
+              className={`h-9 px-4 rounded-lg text-[11px] font-black tracking-wider uppercase transition-colors ${ordermode === 'online' ? 'bg-[#141414] text-[#E2503B]' : 'text-[#374151] hover:bg-[#F9FAFB]'}`}
             >
               Online
             </button>
@@ -875,7 +875,7 @@ export default function Pos(props: PosProps = {}) {
           {/* Customer Details Card */}
           <Card padding="md">
             <h3 className="text-[14px] font-black text-[#111111] flex items-center gap-2 mb-4">
-              <User size={16} className="text-[#B08A1C]" />
+              <User size={16} className="text-[#D6402E]" />
               Customer Details
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -934,7 +934,7 @@ export default function Pos(props: PosProps = {}) {
             {/* Card Header */}
             <div className="flex flex-col gap-4 p-4 md:p-5 border-b border-[#FDDBB4]/40">
               <h3 className="text-[14px] font-black text-[#111111] flex items-center gap-2">
-                <Receipt size={16} className="text-[#B08A1C]" />
+                <Receipt size={16} className="text-[#D6402E]" />
                 Order Items
               </h3>
               <div className="grid grid-cols-2 md:flex md:items-stretch gap-2">
@@ -996,7 +996,7 @@ export default function Pos(props: PosProps = {}) {
                             value={item.name}
                             onChange={e => updateItem(item.id, 'name', e.target.value)}
                             placeholder="Item name"
-                            className="w-full h-12 px-3 bg-[#FAFAFA] border border-[#FDDBB4]/40 rounded-xl text-[16px] font-bold text-[#111111] focus:outline-none focus:border-[#B08A1C]"
+                            className="w-full h-12 px-3 bg-[#FAFAFA] border border-[#FDDBB4]/40 rounded-xl text-[16px] font-bold text-[#111111] focus:outline-none focus:border-[#D6402E]"
                           />
                         ) : (
                           <div className="rounded-xl border border-[#FDDBB4]/30 bg-white px-3 py-3">
@@ -1022,7 +1022,7 @@ export default function Pos(props: PosProps = {}) {
                           value={item.basePrice === 0 ? '' : item.basePrice}
                           onChange={e => updateItem(item.id, 'basePrice', e.target.value)}
                           placeholder="0"
-                          className={`w-full h-12 px-3 border rounded-xl text-[16px] font-black text-right focus:outline-none focus:border-[#B08A1C] ${
+                          className={`w-full h-12 px-3 border rounded-xl text-[16px] font-black text-right focus:outline-none focus:border-[#D6402E] ${
                             item.source === 'manual'
                               ? 'bg-[#FAFAFA] border-[#FDDBB4]/40 text-[#111111]'
                               : 'bg-white border-[#D9E4D7] text-[#111111]'
@@ -1031,7 +1031,7 @@ export default function Pos(props: PosProps = {}) {
                       </div>
                       <div>
                         <p className="text-[13px] font-black uppercase tracking-wider text-[#374151] mb-1">Total</p>
-                        <div className="h-12 rounded-xl border border-[#FDDBB4]/30 bg-white px-3 flex items-center justify-end text-[16px] font-black text-[#B08A1C]">
+                        <div className="h-12 rounded-xl border border-[#FDDBB4]/30 bg-white px-3 flex items-center justify-end text-[16px] font-black text-[#D6402E]">
                           {formatCurrency(item.lineTotal)}
                         </div>
                       </div>
@@ -1047,7 +1047,7 @@ export default function Pos(props: PosProps = {}) {
                     </div>
                   </div>
 
-                  <div className="hidden md:grid grid-cols-[1fr_100px_120px_40px] items-center gap-3 p-2 bg-white border border-[#FDDBB4]/30 rounded-xl hover:border-[#B08A1C]/30 transition-colors">
+                  <div className="hidden md:grid grid-cols-[1fr_100px_120px_40px] items-center gap-3 p-2 bg-white border border-[#FDDBB4]/30 rounded-xl hover:border-[#D6402E]/30 transition-colors">
                     {/* Item Name */}
                     <div className="min-w-0 flex items-center gap-2">
                       {item.source === 'manual' ? (
@@ -1056,7 +1056,7 @@ export default function Pos(props: PosProps = {}) {
                           value={item.name}
                           onChange={e => updateItem(item.id, 'name', e.target.value)}
                           placeholder="Item name"
-                          className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#FDDBB4]/40 rounded-lg text-[13px] font-bold text-[#111111] focus:outline-none focus:border-[#B08A1C]"
+                          className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#FDDBB4]/40 rounded-lg text-[13px] font-bold text-[#111111] focus:outline-none focus:border-[#D6402E]"
                         />
                       ) : (
                         <div className="px-3 py-2 w-full truncate border border-transparent flex items-center gap-2">
@@ -1064,7 +1064,7 @@ export default function Pos(props: PosProps = {}) {
                         </div>
                       )}
                       {item.source !== 'manual' && (
-                        <span className="hidden sm:inline-flex px-2 py-0.5 rounded border border-[#B08A1C]/20 text-[#B08A1C] text-[9px] font-black tracking-wider uppercase shrink-0 bg-[#B08A1C]/5">
+                        <span className="hidden sm:inline-flex px-2 py-0.5 rounded border border-[#D6402E]/20 text-[#D6402E] text-[9px] font-black tracking-wider uppercase shrink-0 bg-[#D6402E]/5">
                           CATALOG
                         </span>
                       )}
@@ -1077,7 +1077,7 @@ export default function Pos(props: PosProps = {}) {
                         value={item.basePrice === 0 ? '' : item.basePrice}
                         onChange={e => updateItem(item.id, 'basePrice', e.target.value)}
                         placeholder="0"
-                        className={`w-full px-3 py-2 border rounded-lg text-[13px] font-black text-right focus:outline-none focus:border-[#B08A1C] ${
+                        className={`w-full px-3 py-2 border rounded-lg text-[13px] font-black text-right focus:outline-none focus:border-[#D6402E] ${
                           item.source === 'manual'
                             ? 'bg-[#FAFAFA] border-[#FDDBB4]/40 text-[#111111]'
                             : 'bg-white border-[#D9E4D7] text-[#111111]'
@@ -1115,7 +1115,7 @@ export default function Pos(props: PosProps = {}) {
             {/* Header */}
             <div className="flex items-center justify-between p-3 border-b border-[#FDDBB4]/60 bg-white shrink-0">
               <h3 className="text-[18px] md:text-[14px] font-black text-[#111111] flex items-center gap-2">
-                <Receipt size={16} className="text-[#B08A1C]" />
+                <Receipt size={16} className="text-[#D6402E]" />
                 Current Order
               </h3>
               <span className={`px-2 py-1 rounded-full border text-[9px] font-black tracking-wider uppercase flex items-center gap-1.5 ${ordermode === 'offline' ? 'border-red-200 text-red-600 bg-red-50' : 'border-green-200 text-green-600 bg-green-50'}`}>
@@ -1131,11 +1131,11 @@ export default function Pos(props: PosProps = {}) {
               <div className="border border-[#FDDBB4]/40 rounded-xl overflow-hidden text-[11px] font-bold">
                 <div className="flex justify-between px-3 py-2 border-b border-[#FDDBB4]/40 bg-[#FAFAFA]">
                   <span className="text-[#374151] uppercase">Source</span>
-                  <span className="text-[#B08A1C] border border-[#B08A1C]/30 bg-[#B08A1C]/5 px-1.5 rounded uppercase">{ordermode.toUpperCase()}</span>
+                  <span className="text-[#D6402E] border border-[#D6402E]/30 bg-[#D6402E]/5 px-1.5 rounded uppercase">{ordermode.toUpperCase()}</span>
                 </div>
                 <div className="flex items-center justify-between gap-2 px-3 py-2 border-b border-[#FDDBB4]/40">
                   <div className="min-w-0 flex items-center gap-1.5 text-[#111111]">
-                    <User size={12} className="shrink-0 text-[#B08A1C]" />
+                    <User size={12} className="shrink-0 text-[#D6402E]" />
                     <span className="truncate">{customer.name || 'Walk-in Customer'}</span>
                   </div>
                   <span className={customer.phone && !normalizePhone(customer.phone) ? 'text-red-500' : 'text-[#6B7280]'}>
@@ -1199,7 +1199,7 @@ export default function Pos(props: PosProps = {}) {
                     <select
                       value={manualDiscountType}
                       onChange={e => setManualDiscountType(e.target.value as 'flat'|'percent')}
-                      className="h-9 w-16 appearance-none rounded-xl border border-[#FDDBB4]/60 bg-white pl-3 pr-7 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="h-9 w-16 appearance-none rounded-xl border border-[#FDDBB4]/60 bg-white pl-3 pr-7 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                     >
                       <option value="flat">₹</option>
                       <option value="percent">%</option>
@@ -1228,7 +1228,7 @@ export default function Pos(props: PosProps = {}) {
                     <select
                       value={gstType}
                       onChange={e => setGstType(e.target.value as 'flat'|'percent')}
-                      className="h-9 w-16 appearance-none rounded-xl border border-[#FDDBB4]/60 bg-white pl-3 pr-7 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="h-9 w-16 appearance-none rounded-xl border border-[#FDDBB4]/60 bg-white pl-3 pr-7 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                     >
                       <option value="percent">%</option>
                       <option value="flat">₹</option>
@@ -1266,7 +1266,7 @@ export default function Pos(props: PosProps = {}) {
                     type="number" onWheel={(e) => (e.target as HTMLInputElement).blur()}
                     value={shipping}
                     onChange={e => setShipping(e.target.value)}
-                    className="h-9 w-20 shrink-0 box-border rounded-xl border border-[#FDDBB4]/60 bg-white px-2 text-[12px] font-bold text-[#111111] text-right outline-none transition-colors focus:border-[#B08A1C]"
+                    className="h-9 w-20 shrink-0 box-border rounded-xl border border-[#FDDBB4]/60 bg-white px-2 text-[12px] font-bold text-[#111111] text-right outline-none transition-colors focus:border-[#D6402E]"
                   />
                 </div>
 
@@ -1275,7 +1275,7 @@ export default function Pos(props: PosProps = {}) {
                 {/* Grand Total */}
                 <div className="flex items-center justify-between pt-0.5">
                   <span className="text-[12px] font-black text-[#111111] uppercase tracking-wider">Grand Total</span>
-                  <span className="text-2xl font-black text-[#B08A1C] tracking-tight">{formatCurrency(total)}</span>
+                  <span className="text-2xl font-black text-[#D6402E] tracking-tight">{formatCurrency(total)}</span>
                 </div>
               </div>
 

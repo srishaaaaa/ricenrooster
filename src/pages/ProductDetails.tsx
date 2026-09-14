@@ -383,7 +383,7 @@ export default function ProductDetails() {
                 <span>Description</span>
                 <ChevronDown size={16} className="text-[#7daa8f] transition-transform group-open:rotate-180" />
               </summary>
-              <p className="mt-3 text-sm leading-relaxed text-[#5f6d59]">{displayDesc || 'Carefully crafted by JJ Signature.'}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[#5f6d59]">{displayDesc || "Carefully prepared by Rice n' Rooster."}</p>
             </details>
 
             <details className={accordionClass}>
@@ -392,7 +392,7 @@ export default function ProductDetails() {
                 <ChevronDown size={16} className="text-[#7daa8f] transition-transform group-open:rotate-180" />
               </summary>
               <div className="mt-3 space-y-2 text-sm leading-relaxed text-[#5f6d59]">
-                <p className="whitespace-pre-line">{displayBen || "Prepared with care by JJ Signature."}</p>
+                <p className="whitespace-pre-line">{displayBen || "Prepared with care by Rice n' Rooster."}</p>
                 <p>{buildUsageNote(product)}</p>
               </div>
             </details>

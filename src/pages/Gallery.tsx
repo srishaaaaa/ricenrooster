@@ -169,18 +169,18 @@ export default function Gallery() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#B08A1C] mb-4">
-            JJ Signature
+          <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#D6402E] mb-4">
+            Rice n' Rooster
           </p>
           <h1 className="text-[2.8rem] sm:text-[3.6rem] font-black text-[#111111] tracking-tight leading-[1.02] mb-4">
             Inside Our Store
           </h1>
-          <p className="text-[16px] sm:text-[18px] font-black text-[#B08A1C] mb-4">
-            Tailoring & Boutique, Tirunelveli
+          <p className="text-[16px] sm:text-[18px] font-black text-[#D6402E] mb-4">
+            Fried Rice & Chicken Combos, Chennai
           </p>
           <p className="text-[15px] text-[#374151] font-medium leading-[1.7] max-w-lg mx-auto">
-            Explore our tailoring and boutique store through real photographs
-            from our shop. Every corner reflects our craftsmanship and care.
+            Explore our kitchen through real photographs from our shop. Every
+            plate reflects our flavour and care.
           </p>
         </motion.div>
       </div>
@@ -191,9 +191,9 @@ export default function Gallery() {
         {/* Stats bar */}
         <div className="flex flex-wrap justify-center gap-8 sm:gap-14 mb-12 sm:mb-16">
           {[
-            { value: '35+', label: 'Tailoring Services' },
+            { value: '13+', label: 'Menu Items' },
             { value: '500+', label: 'Happy Customers' },
-            { value: '100%', label: 'Custom Fit' },
+            { value: '100%', label: 'Fresh Daily' },
             { value: '4.9★', label: 'Customer Rating' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">

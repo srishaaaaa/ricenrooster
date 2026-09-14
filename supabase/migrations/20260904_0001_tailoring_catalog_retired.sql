@@ -1,14 +1,14 @@
--- Rebrand store settings and replace the tailoring catalog for JJ Signature.
+-- Rebrand store settings and replace the tailoring catalog for Rice n' Rooster.
 
 -- 1. Store settings (name, contact, address shown across invoices/UI)
 INSERT INTO public.store_settings (id, name, owner_name, phone, email, address)
 VALUES (
   1,
-  'JJ Signature',
-  'Fyasa',
-  '+91 63790 48966',
-  'safasignora@gmail.com',
-  '31 A, Blue Star Building, Madurai Road Junction, Tirunelveli - 627001'
+  'Rice n'' Rooster',
+  'Sankaranarayanan. S',
+  '+91 93634 00210',
+  'ricenrooster@gmail.com',
+  '1st floor, 14/A, Water Tank Rd, MMDA Colony, Arumbakkam, Chennai, Tamil Nadu 600106'
 )
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
@@ -36,7 +36,7 @@ WHERE p.category_id = c.id
     'silk fabric per mtr', 'readymade blouse'
   );
 
--- 3. Retire categories not on the JJ Signature list — only Tailoring, Saree, Salwar,
+-- 3. Retire categories not on the Rice n' Rooster list — only Tailoring, Saree, Salwar,
 -- and Nighty should remain. Jewellery & Accessories and Posstore came from the old
 -- placeholder catalog and are not part of this business.
 UPDATE public.products p
@@ -70,7 +70,7 @@ WHERE c.name_en IN ('Saree', 'Salwar', 'Nighty')
   AND LOWER(BTRIM(p.name)) = LOWER(c.name_en)
   AND p.category_id IS DISTINCT FROM c.id;
 
--- 5. JJ Signature tailoring price list, split across Tailoring / Saree / Salwar /
+-- 5. Rice n' Rooster tailoring price list, split across Tailoring / Saree / Salwar /
 -- Nighty per the confirmed category mapping.
 WITH catalog(category_name, product_name, price, unit, unit_label, allow_decimal, sort_order) AS (
   VALUES

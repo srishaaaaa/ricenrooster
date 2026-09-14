@@ -56,12 +56,12 @@ const getAlarmAudio = (): HTMLAudioElement | null => {
 
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [soundEnabled, setSoundEnabled] = useState(() => {
-    const saved = localStorage.getItem('jj_signature_sounds');
+    const saved = localStorage.getItem('rice_n_rooster_sounds');
     return saved !== null ? JSON.parse(saved) : true;
   });
 
   useEffect(() => {
-    localStorage.setItem('jj_signature_sounds', JSON.stringify(soundEnabled));
+    localStorage.setItem('rice_n_rooster_sounds', JSON.stringify(soundEnabled));
   }, [soundEnabled]);
 
   // Browsers only allow an AudioContext to start/resume in direct response to

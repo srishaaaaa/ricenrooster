@@ -31,7 +31,7 @@ export default function Footer() {
 
     return derived.length > 0
       ? derived.slice(0, 6)
-      : ['Tailoring', 'Saree', 'Salwar', 'Nighty']
+      : ['Fried Rice', 'Specialty Chicken Combos']
   }, [products])
 
   const contactNumbers = [

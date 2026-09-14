@@ -208,8 +208,8 @@ export default function Dashboard() {
   const [isFreshLogin, setIsFreshLogin] = useState(false)
   useEffect(() => {
     try {
-      if (sessionStorage.getItem('jj_signature_fresh_login')) {
-        sessionStorage.removeItem('jj_signature_fresh_login')
+      if (sessionStorage.getItem('rice_n_rooster_fresh_login')) {
+        sessionStorage.removeItem('rice_n_rooster_fresh_login')
         setIsFreshLogin(true)
       }
     } catch { /* ignore */ }
@@ -865,7 +865,7 @@ export default function Dashboard() {
   }
 
   const generateCouponCode = () => {
-    const prefixes = ['SAVE', 'STYLE', 'BOUTIQUE', 'SHOP', 'SPECIAL', 'FASHION', 'NEW']
+    const prefixes = ['SAVE', 'TASTY', 'FEAST', 'SHOP', 'SPECIAL', 'FRESH', 'NEW']
     const prefix = prefixes[Math.floor(Math.random() * prefixes.length)]
     const suffix = Math.floor(Math.random() * 90 + 10)
     setCouponForm(f => ({ ...f, code: `${prefix}${suffix}` }))
@@ -1134,7 +1134,7 @@ export default function Dashboard() {
       <div className="bg-white p-8 rounded-3xl shadow-xl text-center max-w-sm">
         <AlertCircle className="mx-auto text-red-400 mb-4" size={48} />
         <h2 className="text-2xl font-black mb-2">{l('Unauthorized', 'அன� மதி இல� லை')}</h2>
-        <Link to="/" className="px-6 py-3 bg-[#141414] border border-[#D9A62E] text-[#D9A62E] rounded-xl font-bold inline-block mt-4 hover:bg-black">{l('Go Home', 'ம� கப� பிற� க� ')}</Link>
+        <Link to="/" className="px-6 py-3 bg-[#141414] border border-[#E2503B] text-[#E2503B] rounded-xl font-bold inline-block mt-4 hover:bg-black">{l('Go Home', 'ம� கப� பிற� க� ')}</Link>
       </div>
     </div>
   )
@@ -1167,11 +1167,11 @@ export default function Dashboard() {
         {/* Desktop brand header */}
         <div className={`hidden lg:flex items-center relative transition-all duration-300 ${sidebarCollapsed ? 'flex-col items-center pt-5 pb-4 px-2 gap-3' : 'px-5 py-5 justify-between'}`}>
           <Link to="/pos" title="Go to Billing Panel" className={`flex items-center gap-3 min-w-0 transition-all duration-300 ${sidebarCollapsed ? 'justify-center' : 'flex-1'}`}>
-            <div className="flex items-center justify-center shrink-0 w-11 h-11 rounded-xl bg-black border border-[#D9A62E]/70 shadow-sm overflow-hidden p-1 hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="JJ Signature logo" className="w-full h-full object-cover" />
+            <div className="flex items-center justify-center shrink-0 w-11 h-11 rounded-xl bg-black border border-[#E2503B]/70 shadow-sm overflow-hidden p-1 hover:scale-105 transition-transform">
+              <img src="/logo.png" alt="Rice n' Rooster logo" className="w-full h-full object-cover" />
             </div>
             {!sidebarCollapsed && (
-              <h1 className="text-[20px] font-black text-white truncate tracking-tight">JJ Signature</h1>
+              <h1 className="text-[20px] font-black text-white truncate tracking-tight">Rice n' Rooster</h1>
             )}
           </Link>
           <button
@@ -1187,11 +1187,11 @@ export default function Dashboard() {
         {/* Mobile mini-header */}
         <div className="flex lg:hidden items-center justify-between gap-2 px-3.5 py-2.5 border-b border-white/10">
           <Link to="/pos" title="Go to Billing Panel" className="flex items-center gap-2 min-w-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black border border-[#D9A62E]/70 shrink-0 overflow-hidden shadow-sm p-1 hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="JJ Signature logo" className="w-full h-full object-cover" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black border border-[#E2503B]/70 shrink-0 overflow-hidden shadow-sm p-1 hover:scale-105 transition-transform">
+              <img src="/logo.png" alt="Rice n' Rooster logo" className="w-full h-full object-cover" />
             </div>
-            <span className="text-[14px] font-black text-white truncate">JJ Signature</span>
-            <span className="shrink-0 rounded-full border border-[#D9A62E]/50 bg-[#D9A62E]/10 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider text-[#D9A62E]">
+            <span className="text-[14px] font-black text-white truncate">Rice n' Rooster</span>
+            <span className="shrink-0 rounded-full border border-[#E2503B]/50 bg-[#E2503B]/10 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider text-[#E2503B]">
               {role === 'admin' ? 'Admin' : 'Staff'}
             </span>
           </Link>
@@ -1221,7 +1221,7 @@ export default function Dashboard() {
                 sidebarCollapsed ? 'lg:w-[48px] lg:justify-center mx-auto' : 'lg:px-4',
                 'px-0 py-1 lg:py-0',
                 'rounded-lg lg:rounded-xl font-bold text-[10px] lg:text-[14px] transition-all overflow-hidden',
-                tab === item.id ? 'bg-[#D9A62E] text-[#141414] shadow-sm' : 'text-white/70 hover:bg-white/10 hover:text-white',
+                tab === item.id ? 'bg-[#E2503B] text-[#141414] shadow-sm' : 'text-white/70 hover:bg-white/10 hover:text-white',
               ].join(' ')}
             >
               <span className="shrink-0 flex items-center gap-1">
@@ -1267,7 +1267,7 @@ export default function Dashboard() {
           return (
           <div className="space-y-6 rounded-[28px] bg-maroon-dark p-5 sm:p-6 lg:p-7 shadow-2xl border border-white/10 text-white">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-xl font-black text-[#D9A62E]">{l('Analytics Dashboard', 'பகுப்பாய்வு தட்டு')}</h2>
+              <h2 className="text-xl font-black text-[#E2503B]">{l('Analytics Dashboard', 'பகுப்பாய்வு தட்டு')}</h2>
               <div className="flex items-center gap-2">
                 <button onClick={() => void loadData()}
                   className="flex items-center gap-1.5 px-3 py-2 bg-white border border-[#FDDBB4]/40 rounded-xl text-[12px] font-bold text-[#374151] hover:bg-[#F9FAFB]">
@@ -1821,7 +1821,7 @@ export default function Dashboard() {
                   { id: 'coupons' as const,    label: 'Coupons' },
                 ]).map(({ id, label }) => (
                   <button key={id} onClick={() => setPosAnalyticsTab(id as PosAnalyticsTab)}
-                    className={`px-4 py-2 rounded-xl text-[12px] font-black tracking-wide transition-all whitespace-nowrap ${posAnalyticsTab === id ? 'bg-white text-[#B08A1C] shadow-sm' : 'text-[#6B7280] hover:text-[#111111]'}`}>
+                    className={`px-4 py-2 rounded-xl text-[12px] font-black tracking-wide transition-all whitespace-nowrap ${posAnalyticsTab === id ? 'bg-white text-[#D6402E] shadow-sm' : 'text-[#6B7280] hover:text-[#111111]'}`}>
                     {label}
                   </button>
                 ))}
@@ -1859,7 +1859,7 @@ export default function Dashboard() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
                   {[
                     { label: 'NET PROFIT',       helper: 'Total - COGS - Expenses', value: formatCurrency(analytics.netProfit),             icon: <TrendingUp size={16} />,  color: 'text-emerald-600', bg: 'bg-emerald-100' },
-                    { label: 'TOTAL REVENUE',    helper: 'POS + Tailoring',         value: formatCurrency(analytics.totalCompletedRevenue), icon: <RMIcon size={16} />,      color: 'text-blue-500',    bg: 'bg-blue-50' },
+                    { label: 'TOTAL REVENUE',    helper: 'POS + Advance Orders',    value: formatCurrency(analytics.totalCompletedRevenue), icon: <RMIcon size={16} />,      color: 'text-blue-500',    bg: 'bg-blue-50' },
                     { label: 'PRODUCT REVENUE',  helper: 'POS Retail Sales',        value: formatCurrency(analytics.productRevenue),        icon: <Package size={16} />,     color: 'text-orange-500',  bg: 'bg-orange-50' },
                     { label: 'SERVICE REVENUE',  helper: 'Advance Orders',          value: formatCurrency(analytics.serviceRevenue),        icon: <FileText size={16} />,    color: 'text-cyan-500',    bg: 'bg-cyan-50' },
                     { label: 'TOTAL EXPENSES',   helper: 'All logged expenses',     value: formatCurrency(analytics.totalExpenses),         icon: <Receipt size={16} />,     color: 'text-red-500',     bg: 'bg-red-50' },
@@ -1911,7 +1911,7 @@ export default function Dashboard() {
                           <XAxis dataKey="month" tick={{ fill: '#6B7280', fontSize: 11, fontWeight: 700 }} axisLine={false} tickLine={false} interval={0} angle={-45} textAnchor="end" height={60} />
                           <YAxis hide />
                           <Tooltip cursor={{ fill: '#F9FAFB' }} formatter={(value) => formatCurrency(toNumber(value as number | string, 0))} />
-                          <Bar dataKey="revenue" fill="#B08A1C" radius={[4, 4, 0, 0]} maxBarSize={32} />
+                          <Bar dataKey="revenue" fill="#D6402E" radius={[4, 4, 0, 0]} maxBarSize={32} />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
@@ -1969,10 +1969,10 @@ export default function Dashboard() {
                         <p className="mt-1 text-[12px] text-[#6B7280]">Monday to Sunday sales view for the current week.</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="rounded-full bg-[#F9FAFB] px-3 py-1 text-[11px] font-bold text-[#B08A1C]">
+                        <span className="rounded-full bg-[#F9FAFB] px-3 py-1 text-[11px] font-bold text-[#D6402E]">
                           Week {(() => { const now = new Date(); const start = new Date(now.getFullYear(), 0, 1); const diff = Math.floor((now.getTime() - start.getTime()) / 86400000); return Math.ceil((diff + start.getDay() + 1) / 7) })()} of {new Date().getFullYear()}
                         </span>
-                        <span className="rounded-full bg-[#F9FAFB] px-3 py-1 text-[11px] font-bold text-[#B08A1C]">
+                        <span className="rounded-full bg-[#F9FAFB] px-3 py-1 text-[11px] font-bold text-[#D6402E]">
                           Today: {formatCurrency(analytics.todaySales)}
                         </span>
                       </div>
@@ -2075,7 +2075,7 @@ export default function Dashboard() {
                       placeholder="Search by invoice number..."
                       value={todayBillsSearch}
                       onChange={e => setTodayBillsSearch(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl text-[13px] font-bold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:border-[#B08A1C] transition-colors"
+                      className="w-full px-4 py-2.5 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl text-[13px] font-bold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:border-[#D6402E] transition-colors"
                     />
                   </div>
                   {(() => {
@@ -2161,7 +2161,7 @@ export default function Dashboard() {
                       placeholder="Search by Product Name, SKU, or Category..."
                       value={productAnalyticsSearch}
                       onChange={e => setProductAnalyticsSearch(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl text-[13px] font-bold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:border-[#B08A1C] transition-colors"
+                      className="w-full px-4 py-2.5 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl text-[13px] font-bold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:border-[#D6402E] transition-colors"
                     />
                   </div>
                   {(() => {
@@ -2440,38 +2440,38 @@ export default function Dashboard() {
                 <div className="flex flex-wrap gap-2 items-center">
                   {(['today', 'week', 'month', 'custom'] as const).map(preset => (
                     <button key={preset} type="button" onClick={() => applyDatePreset(preset)}
-                      className={`min-h-[44px] px-3 py-1.5 rounded-xl text-[12px] font-black transition-colors ${datePreset === preset ? 'bg-[#141414] text-[#D9A62E] shadow-sm' : 'bg-[#F9FAFB] text-[#374151] hover:bg-[#FDDBB4]/40'}`}>
+                      className={`min-h-[44px] px-3 py-1.5 rounded-xl text-[12px] font-black transition-colors ${datePreset === preset ? 'bg-[#141414] text-[#E2503B] shadow-sm' : 'bg-[#F9FAFB] text-[#374151] hover:bg-[#FDDBB4]/40'}`}>
                       {preset === 'today' ? l('Today','இன்று') : preset === 'week' ? l('This Week','இந்த வாரம்') : preset === 'month' ? l('This Month','இந்த மாதம்') : l('Custom Range','தேர்வு')}
                     </button>
                   ))}
                   {(search.dateFrom || search.dateTo || datePreset) && (
                     <button type="button" onClick={() => { setDatePreset(''); setSearch(s => ({ ...s, dateFrom: '', dateTo: '' })); setTimeout(() => void runSearch(undefined, '', ''), 0) }}
-                      className="min-h-[44px] px-3 py-1.5 rounded-xl text-[12px] font-black text-[#B08A1C] hover:bg-[#B08A1C]/5">{l('Clear Dates', 'தேதி அழி')}</button>
+                      className="min-h-[44px] px-3 py-1.5 rounded-xl text-[12px] font-black text-[#D6402E] hover:bg-[#D6402E]/5">{l('Clear Dates', 'தேதி அழி')}</button>
                   )}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                  <input className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:ring-2 focus:ring-[#B08A1C]/15" placeholder={l('Invoice / Bill No', 'பில் எண்')}
+                  <input className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:ring-2 focus:ring-[#D6402E]/15" placeholder={l('Invoice / Bill No', 'பில் எண்')}
                     value={search.invoiceNo} onChange={e => setSearch(s => ({ ...s, invoiceNo: e.target.value }))} />
-                  <input className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:ring-2 focus:ring-[#B08A1C]/15" placeholder={l('Customer Name', 'வாடிக்கையாளர் பெயர்')}
+                  <input className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:ring-2 focus:ring-[#D6402E]/15" placeholder={l('Customer Name', 'வாடிக்கையாளர் பெயர்')}
                     value={search.customerName} onChange={e => setSearch(s => ({ ...s, customerName: e.target.value }))} />
-                  <input className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:ring-2 focus:ring-[#B08A1C]/15" placeholder={l('Mobile Number', 'மொபைல் எண்')}
+                  <input className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] placeholder:text-[#8A9384] focus:outline-none focus:ring-2 focus:ring-[#D6402E]/15" placeholder={l('Mobile Number', 'மொபைல் எண்')}
                     value={search.phone} onChange={e => setSearch(s => ({ ...s, phone: e.target.value }))} />
                   {datePreset === 'custom' ? (
                     <>
-                      <input type="date" className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#B08A1C]/15"
+                      <input type="date" className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D6402E]/15"
                         value={search.dateFrom} onChange={e => setSearch(s => ({ ...s, dateFrom: e.target.value }))} />
-                      <input type="date" className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#B08A1C]/15"
+                      <input type="date" className="min-h-[48px] rounded-xl bg-[#F9FAFB] px-3 py-2.5 text-[16px] md:text-[13px] font-semibold text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D6402E]/15"
                         value={search.dateTo} onChange={e => setSearch(s => ({ ...s, dateTo: e.target.value }))} />
                     </>
                   ) : (
                     <button type="submit" disabled={searchLoading}
-                      className="sm:col-span-2 min-h-[48px] flex items-center justify-center gap-2 rounded-xl bg-[#141414] border border-[#D9A62E] py-2.5 text-[13px] font-bold text-[#D9A62E] shadow-sm transition-colors hover:bg-black disabled:opacity-60">
+                      className="sm:col-span-2 min-h-[48px] flex items-center justify-center gap-2 rounded-xl bg-[#141414] border border-[#E2503B] py-2.5 text-[13px] font-bold text-[#E2503B] shadow-sm transition-colors hover:bg-black disabled:opacity-60">
                       <Search size={14} /> {searchLoading ? l('Searching...','தேடுகிறது...') : l('Search Bills','தேடு')}
                     </button>
                   )}
                   {datePreset === 'custom' && (
                     <button type="submit" disabled={searchLoading}
-                      className="sm:col-span-2 lg:col-span-4 min-h-[48px] flex items-center justify-center gap-2 rounded-xl bg-[#141414] border border-[#D9A62E] py-2.5 text-[13px] font-bold text-[#D9A62E] shadow-sm transition-colors hover:bg-black disabled:opacity-60">
+                      className="sm:col-span-2 lg:col-span-4 min-h-[48px] flex items-center justify-center gap-2 rounded-xl bg-[#141414] border border-[#E2503B] py-2.5 text-[13px] font-bold text-[#E2503B] shadow-sm transition-colors hover:bg-black disabled:opacity-60">
                       <Search size={14} /> {searchLoading ? l('Searching...','தேடுகிறது...') : l('Search Bills','தேடு')}
                     </button>
                   )}
@@ -2481,7 +2481,7 @@ export default function Dashboard() {
                 <p className="text-[11px] font-semibold text-[#374151]">{filteredSearchResults.length} {l('result(s)', 'முடிவுகள்')}</p>
                 {filteredSearchResults.length > 0 && (
                   <button onClick={() => exportCSV(filteredSearchResults)}
-                    className="flex items-center gap-1 text-[11px] font-bold text-[#B08A1C] hover:underline">
+                    className="flex items-center gap-1 text-[11px] font-bold text-[#D6402E] hover:underline">
                     <Download size={11} /> Export CSV
                   </button>
                 )}
@@ -2551,7 +2551,7 @@ export default function Dashboard() {
                             <MessageCircle size={14} /> Share
                           </button>
                           {role === 'admin' && (
-                            <button onClick={() => void deleteOrder(o.id, o.invoice_no)} className="h-10 w-10 shrink-0 rounded-xl border border-[#FDDBB4]/60 text-[#B08A1C] transition-colors hover:bg-[#B08A1C]/5" title="Delete Order">
+                            <button onClick={() => void deleteOrder(o.id, o.invoice_no)} className="h-10 w-10 shrink-0 rounded-xl border border-[#FDDBB4]/60 text-[#D6402E] transition-colors hover:bg-[#D6402E]/5" title="Delete Order">
                               <Trash2 size={14} className="mx-auto" />
                             </button>
                           )}
@@ -2603,7 +2603,7 @@ export default function Dashboard() {
                                 <option value="completed">{l('Completed', 'முடிந்தது')}</option>
                               </select>
                               {role === 'admin' && (
-                                <button onClick={() => void deleteOrder(o.id, o.invoice_no)} className="rounded-lg p-1 text-[#B08A1C] transition-colors hover:bg-[#B08A1C]/5" title="Delete Order">
+                                <button onClick={() => void deleteOrder(o.id, o.invoice_no)} className="rounded-lg p-1 text-[#D6402E] transition-colors hover:bg-[#D6402E]/5" title="Delete Order">
                                   <Trash2 size={13} />
                                 </button>
                               )}
@@ -2638,7 +2638,7 @@ export default function Dashboard() {
                             <td colSpan={12} className="px-4 py-4">
                               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-[12px]">
                                 <div>
-                                  <p className="text-[10px] font-black uppercase text-[#9BAB9A] tracking-wider mb-1">Tailor Name</p>
+                                  <p className="text-[10px] font-black uppercase text-[#9BAB9A] tracking-wider mb-1">Prepared By</p>
                                   <p className="font-semibold text-[#111111]">{(o as unknown as Record<string,unknown>).tailor_name as string || '—'}</p>
                                 </div>
                                 <div>
@@ -2689,7 +2689,7 @@ export default function Dashboard() {
                 </div>
                 <button
                   onClick={() => void loadCoupons()}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-2 text-[11px] font-black text-[#B08A1C] shadow-sm transition-colors hover:bg-[#F7F1E7]"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-2 text-[11px] font-black text-[#D6402E] shadow-sm transition-colors hover:bg-[#F7F1E7]"
                 >
                   <RefreshCw size={12} />
                   Refresh
@@ -2698,7 +2698,7 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {[
-                  { label: 'Total Coupons', value: coupons.length, Icon: Tag, iconBg: 'bg-[#FFF8F2]', iconColor: 'text-[#B08A1C]' },
+                  { label: 'Total Coupons', value: coupons.length, Icon: Tag, iconBg: 'bg-[#FFF8F2]', iconColor: 'text-[#D6402E]' },
                   { label: 'Active', value: coupons.filter(c => c.is_active).length, Icon: CheckCircle2, iconBg: 'bg-emerald-50', iconColor: 'text-emerald-600' },
                   { label: 'Used', value: coupons.reduce((acc, c) => acc + (c.usage_count || 0), 0), Icon: Repeat, iconBg: 'bg-blue-50', iconColor: 'text-blue-600' },
                 ].map((c, i) => (
@@ -2714,7 +2714,7 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              <div className="rounded-xl border border-[#E7CFAA] bg-[#FFF6E7] px-3 py-2 text-[11px] font-bold text-[#B08A1C] shadow-sm">
+              <div className="rounded-xl border border-[#E7CFAA] bg-[#FFF6E7] px-3 py-2 text-[11px] font-bold text-[#D6402E] shadow-sm">
                 {l('Coupon discount applies to product subtotal only - not delivery charge.', 'கூப்பன் தள்ளுபடி பொருட்களின் subtotal-க்கு மட்டும் பொருந்தும்.')}
               </div>
             </div>
@@ -2723,7 +2723,7 @@ export default function Dashboard() {
               <form onSubmit={saveCoupon} className="rounded-2xl border border-[#FDDBB4] bg-[#FFFCF6] p-4 shadow-sm space-y-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#B08A1C]">{editingCouponId !== null ? 'Edit mode' : 'New coupon'}</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#D6402E]">{editingCouponId !== null ? 'Edit mode' : 'New coupon'}</p>
                     <h3 className="mt-1 text-[17px] font-black text-[#111111]">
                       {editingCouponId !== null ? l('Edit Coupon', 'கூப்பனை திருத்து') : l('Create Coupon', 'புதிய கூப்பன்')}
                     </h3>
@@ -2732,7 +2732,7 @@ export default function Dashboard() {
                     <button
                       type="button"
                       onClick={cancelEditCoupon}
-                      className="rounded-full border border-[#E7CFAA] bg-[#FFF6E7] px-2.5 py-1 text-[11px] font-black text-[#B08A1C] transition-colors hover:bg-[#FBEBD3]"
+                      className="rounded-full border border-[#E7CFAA] bg-[#FFF6E7] px-2.5 py-1 text-[11px] font-black text-[#D6402E] transition-colors hover:bg-[#FBEBD3]"
                     >
                       Cancel
                     </button>
@@ -2754,7 +2754,7 @@ export default function Dashboard() {
                   <label className="block text-[10px] font-black uppercase tracking-[0.15em] text-[#6B7280]">{l('Coupon Code', 'கூப்பன் குறியீடு')} *</label>
                   <div className="flex gap-2">
                     <input
-                      className="flex-1 rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-black uppercase tracking-[0.12em] text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="flex-1 rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-black uppercase tracking-[0.12em] text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                       placeholder="WELCOME10"
                       value={couponForm.code}
                       disabled={editingCouponId !== null}
@@ -2764,7 +2764,7 @@ export default function Dashboard() {
                       <button
                         type="button"
                         onClick={generateCouponCode}
-                        className="shrink-0 rounded-xl border border-[#D9A62E] bg-[#141414] px-3 py-2.5 text-[11px] font-black text-[#D9A62E] transition-colors hover:bg-black"
+                        className="shrink-0 rounded-xl border border-[#E2503B] bg-[#141414] px-3 py-2.5 text-[11px] font-black text-[#E2503B] transition-colors hover:bg-black"
                       >
                         Generate
                       </button>
@@ -2782,7 +2782,7 @@ export default function Dashboard() {
                       type="number"
                       min="1"
                       max="100"
-                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                       placeholder="10"
                       value={couponForm.percentage}
                       onChange={e => setCouponForm(f => ({ ...f, percentage: Number(e.target.value) }))}
@@ -2793,7 +2793,7 @@ export default function Dashboard() {
                     <input
                       type="number"
                       min="0"
-                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                       placeholder="0 = no minimum"
                       value={couponForm.min_order_value}
                       onChange={e => setCouponForm(f => ({ ...f, min_order_value: e.target.value }))}
@@ -2806,7 +2806,7 @@ export default function Dashboard() {
                     <label className="block text-[10px] font-black uppercase tracking-[0.15em] text-[#6B7280]">{l('Expiry Date', 'காலாவதி தேதி')}</label>
                     <input
                       type="date"
-                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                       value={couponForm.expiry_date}
                       onChange={e => setCouponForm(f => ({ ...f, expiry_date: e.target.value }))}
                     />
@@ -2816,7 +2816,7 @@ export default function Dashboard() {
                     <input
                       type="number"
                       min="1"
-                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#B08A1C]"
+                      className="w-full rounded-xl border border-[#FDDBB4] bg-white px-3 py-2.5 text-[12px] font-bold text-[#111111] outline-none transition-colors focus:border-[#D6402E]"
                       placeholder="Unlimited"
                       value={couponForm.usage_limit}
                       onChange={e => setCouponForm(f => ({ ...f, usage_limit: e.target.value }))}
@@ -2826,7 +2826,7 @@ export default function Dashboard() {
 
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-[#141414] border border-[#D9A62E] py-3 text-[13px] font-black text-[#D9A62E] shadow-sm transition-colors hover:bg-black"
+                  className="w-full rounded-xl bg-[#141414] border border-[#E2503B] py-3 text-[13px] font-black text-[#E2503B] shadow-sm transition-colors hover:bg-black"
                 >
                   {editingCouponId !== null ? l('Update Coupon', 'கூப்பனை புதுப்பி') : l('Create Coupon', 'கூப்பனை உருவாக்கு')}
                 </button>
@@ -2840,7 +2840,7 @@ export default function Dashboard() {
                       {l('All Coupons', 'அனைத்து கூப்பன்கள்')} <span className="text-[#6B7280]">({coupons.length})</span>
                     </h3>
                   </div>
-                  <span className="rounded-full border border-[#E7CFAA] bg-[#FFF6E7] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#B08A1C]">
+                  <span className="rounded-full border border-[#E7CFAA] bg-[#FFF6E7] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#D6402E]">
                     {l('Admin only', 'அட்மின் மட்டும்')}
                   </span>
                 </div>
@@ -2855,7 +2855,7 @@ export default function Dashboard() {
                         key={coupon.id}
                         className={`rounded-xl border p-3 shadow-sm transition-all ${
                           isEditing
-                            ? 'border-[#B08A1C] bg-[#FFF8F3] ring-1 ring-[#B08A1C]/15'
+                            ? 'border-[#D6402E] bg-[#FFF8F3] ring-1 ring-[#D6402E]/15'
                             : 'border-[#F0E2C8] bg-white hover:border-[#D8BA8A]'
                         }`}
                       >
@@ -2863,7 +2863,7 @@ export default function Dashboard() {
                           <div className="min-w-0 space-y-1.5">
                             <div className="flex flex-wrap items-center gap-1.5">
                               <p className="truncate text-[15px] font-black uppercase tracking-[0.14em] text-[#111111]">{coupon.code}</p>
-                              <span className={`rounded-full px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.14em] ${coupon.is_active ? 'bg-[#FCE7EA] text-[#B08A1C]' : 'bg-[#F8EDD9] text-[#9A6700]'}`}>
+                              <span className={`rounded-full px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.14em] ${coupon.is_active ? 'bg-[#FCE7EA] text-[#D6402E]' : 'bg-[#F8EDD9] text-[#9A6700]'}`}>
                                 {coupon.is_active ? l('Active', 'செயலில்') : l('Inactive', 'செயலற்ற')}
                               </span>
                               {isExpired && (
@@ -2878,7 +2878,7 @@ export default function Dashboard() {
                               )}
                             </div>
 
-                            <p className="text-[12px] font-semibold text-[#B08A1C]">
+                            <p className="text-[12px] font-semibold text-[#D6402E]">
                               {coupon.percentage}% off
                               {coupon.min_order_value > 0 && ` • min ₹${coupon.min_order_value}`}
                             </p>
@@ -2893,14 +2893,14 @@ export default function Dashboard() {
                             <button
                               onClick={() => void toggleCoupon(coupon)}
                               className={`rounded-full px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] transition-colors ${
-                                coupon.is_active ? 'bg-[#FCE7EA] text-[#B08A1C] hover:bg-[#F8D7DD]' : 'bg-[#F8EDD9] text-[#9A6700] hover:bg-[#F2E0B9]'
+                                coupon.is_active ? 'bg-[#FCE7EA] text-[#D6402E] hover:bg-[#F8D7DD]' : 'bg-[#F8EDD9] text-[#9A6700] hover:bg-[#F2E0B9]'
                               }`}
                             >
                               {coupon.is_active ? l('Active', 'செயலில்') : l('Off', 'ஆஃப்')}
                             </button>
                             <button
                               onClick={() => startEditCoupon(coupon)}
-                              className="rounded-full border border-[#FDDBB4] bg-white p-2 text-[#B08A1C] transition-colors hover:border-[#B08A1C] hover:text-[#111111]"
+                              className="rounded-full border border-[#FDDBB4] bg-white p-2 text-[#D6402E] transition-colors hover:border-[#D6402E] hover:text-[#111111]"
                             >
                               <Edit2 size={14} />
                             </button>
@@ -2917,7 +2917,7 @@ export default function Dashboard() {
                   })}
 
                   {coupons.length === 0 && (
-                    <div className="rounded-[22px] border border-dashed border-[#E7CFAA] bg-[#FFF8F3] py-12 text-center text-[14px] font-bold text-[#B08A1C]">
+                    <div className="rounded-[22px] border border-dashed border-[#E7CFAA] bg-[#FFF8F3] py-12 text-center text-[14px] font-bold text-[#D6402E]">
                       {l('No coupons yet. Create your first coupon!', 'இன்னும் கூப்பன் இல்லை. முதல் கூப்பனை உருவாக்குங்கள்!')}
                     </div>
                   )}

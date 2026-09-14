@@ -33,8 +33,8 @@
     touch-action: pan-x pan-y;
     background-color: #141414;
     background-image:
-      radial-gradient(circle at top left, rgba(176, 138, 28, 0.06), transparent 34%),
-      radial-gradient(circle at top right, rgba(176, 138, 28, 0.05), transparent 28%);
+      radial-gradient(circle at top left, rgba(214, 64, 46, 0.06), transparent 34%),
+      radial-gradient(circle at top right, rgba(214, 64, 46, 0.05), transparent 28%);
     color: #111111;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -84,7 +84,7 @@
   }
 
   .mobile-section-title {
-    @apply text-[11px] font-black uppercase tracking-[0.24em] text-[#B08A1C];
+    @apply text-[11px] font-black uppercase tracking-[0.24em] text-[#D6402E];
   }
 
   .mobile-page-shell {

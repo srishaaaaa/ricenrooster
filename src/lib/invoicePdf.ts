@@ -33,7 +33,7 @@ export function createInvoicePdf(data: InvoicePdfData): Blob {
   const pageWidth = 210
   const left = 16
   const right = 194
-  const primaryColor = '#B08A1C' // Brand Gold
+  const primaryColor = '#D6402E' // Brand Gold
   const ink = '#18202a'
   const muted = '#68717c'
   let y = 16
@@ -102,7 +102,7 @@ export function createInvoicePdf(data: InvoicePdfData): Blob {
   doc.rect(left, y, right - left, 9, 'F')
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(7)
-  doc.setTextColor('#D9A62E')
+  doc.setTextColor('#E2503B')
   doc.text('#', left + 4, y + 6)
   doc.text('ITEM DESCRIPTION', left + 14, y + 6)
   doc.text('QTY', 140, y + 6, { align: 'right' })
@@ -136,8 +136,8 @@ export function createInvoicePdf(data: InvoicePdfData): Blob {
 
   y = Math.max(y + 6, 150)
   const rows: Array<[string, string, string]> = [['Subtotal', money(data.subtotal), ink]]
-  if ((data.discountAmount || 0) > 0) rows.push([`Coupon${data.couponCode ? ` (${data.couponCode})` : ''}`, `-${money(data.discountAmount || 0)}`, '#B08A1C'])
-  if ((data.manualDiscountAmount || 0) > 0) rows.push(['Discount', `-${money(data.manualDiscountAmount || 0)}`, '#B08A1C'])
+  if ((data.discountAmount || 0) > 0) rows.push([`Coupon${data.couponCode ? ` (${data.couponCode})` : ''}`, `-${money(data.discountAmount || 0)}`, '#D6402E'])
+  if ((data.manualDiscountAmount || 0) > 0) rows.push(['Discount', `-${money(data.manualDiscountAmount || 0)}`, '#D6402E'])
   if ((data.gstAmount || 0) > 0) rows.push(['GST', money(data.gstAmount || 0), ink])
   rows.push(['Delivery', (data.shipping || 0) > 0 ? money(data.shipping) : 'FREE', ink])
   doc.setFontSize(9)

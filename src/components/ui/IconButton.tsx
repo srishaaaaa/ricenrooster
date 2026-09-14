@@ -3,7 +3,7 @@ import { cn } from './cn'
 import type { ButtonVariant } from './Button'
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'bg-[#141414] border border-[#D9A62E] text-[#D9A62E] hover:bg-black',
+  primary: 'bg-[#141414] border border-[#E2503B] text-[#E2503B] hover:bg-black',
   secondary: 'bg-white border border-[#FDDBB4]/60 text-[#374151] hover:bg-[#F9FAFB]',
   danger: 'bg-red-50 border border-red-200 text-red-500 hover:bg-red-100 hover:text-red-600',
   ghost: 'bg-transparent border border-transparent text-[#374151] hover:bg-gray-100',

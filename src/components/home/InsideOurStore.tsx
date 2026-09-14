@@ -4,10 +4,10 @@ import { ArrowRight, Check } from 'lucide-react'
 import { galleryImages } from '../../data/galleryImages'
 
 const TRUST_BADGES = [
-  'Custom Tailoring',
-  'Premium Fabrics & Sarees',
-  'Bridal & Festive Wear',
-  'Expert Fitting Guidance',
+  'Freshly Cooked to Order',
+  'Bold Flavours & Spices',
+  'Signature Chicken Combos',
+  'Fast, Friendly Service',
   'Trusted By Thousands',
 ]
 
@@ -32,15 +32,15 @@ export default function InsideOurStore() {
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: EASE }}
         >
-          <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#B08A1C] mb-3">
+          <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[#D6402E] mb-3">
             A Glimpse of Our Craftsmanship
           </p>
           <h2 className="text-[2rem] sm:text-[2.6rem] font-black text-[#111111] tracking-tight leading-[1.05] mb-4">
             Inside Our Store
           </h2>
           <p className="text-[15px] text-[#374151] font-medium leading-[1.7] max-w-lg mx-auto">
-            Explore our tailoring and boutique store, where craftsmanship and
-            quality are stitched into every piece.
+            Explore our kitchen and dining space, where flavour and
+            quality go into every plate.
           </p>
         </motion.div>
 
@@ -54,7 +54,7 @@ export default function InsideOurStore() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="hidden lg:block text-[10px] font-black uppercase tracking-[0.26em] text-[#B08A1C] mb-4"
+              className="hidden lg:block text-[10px] font-black uppercase tracking-[0.26em] text-[#D6402E] mb-4"
             >
               A Glimpse of Our Craftsmanship
             </motion.p>
@@ -76,8 +76,8 @@ export default function InsideOurStore() {
               transition={{ duration: 0.55, delay: 0.12, ease: EASE }}
               className="hidden lg:block text-[15px] xl:text-[16px] text-[#374151] font-medium leading-[1.75] mb-8"
             >
-              Explore our tailoring and boutique store, where craftsmanship
-              and quality are stitched into every piece.
+              Explore our kitchen and dining space, where flavour
+              and quality go into every plate.
             </motion.p>
 
             {/* Trust badges */}

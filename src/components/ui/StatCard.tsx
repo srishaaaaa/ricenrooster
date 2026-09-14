@@ -4,7 +4,7 @@ import { cn } from './cn'
 export type StatAccent = 'gold' | 'green' | 'red' | 'blue' | 'violet' | 'amber'
 
 const ACCENT_CLASSES: Record<StatAccent, string> = {
-  gold: 'bg-[#FFF8E8] text-[#B08A1C]',
+  gold: 'bg-[#FFF8E8] text-[#D6402E]',
   green: 'bg-emerald-50 text-emerald-600',
   red: 'bg-red-50 text-red-600',
   blue: 'bg-blue-50 text-blue-600',

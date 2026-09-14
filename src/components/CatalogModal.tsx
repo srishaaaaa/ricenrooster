@@ -141,14 +141,14 @@ export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalPro
                 <label className="block text-[10px] font-black text-[#374151] tracking-wider uppercase mb-1.5">Product Name</label>
                 <input type="text" value={editForm.name}
                   onChange={e => setEditForm({...editForm, name: e.target.value})}
-                  className="w-full px-4 py-3 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#B08A1C] text-[13px] font-bold" />
+                  className="w-full px-4 py-3 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#D6402E] text-[13px] font-bold" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] font-black text-[#374151] tracking-wider uppercase mb-1.5">Category</label>
                   <select value={editForm.category}
                     onChange={e => setEditForm({...editForm, category: e.target.value})}
-                    className="w-full min-w-0 h-12 px-4 py-3 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#B08A1C] text-[13px] font-bold touch-manipulation">
+                    className="w-full min-w-0 h-12 px-4 py-3 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#D6402E] text-[13px] font-bold touch-manipulation">
                     <option value="">Select category</option>
                     {allCategoryOptions.map(category => <option key={category.id} value={category.name_en}>{category.name_en}</option>)}
                     {!allCategoryOptions.some(category => category.name_en === editForm.category) && editForm.category && (
@@ -160,11 +160,11 @@ export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalPro
                   <label className="block text-[10px] font-black text-[#374151] tracking-wider uppercase mb-1.5">Price (₹)</label>
                   <input type="number" value={editForm.price}
                     onChange={e => setEditForm({...editForm, price: e.target.value})}
-                    className="w-full px-4 py-3 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#B08A1C] text-[13px] font-bold text-right" placeholder="0" />
+                    className="w-full px-4 py-3 bg-[#F9FAFB] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#D6402E] text-[13px] font-bold text-right" placeholder="0" />
                 </div>
               </div>
               <button type="submit" disabled={editLoading}
-                className="mt-4 w-full py-3.5 bg-[#141414] border border-[#D9A62E] text-[#D9A62E] hover:bg-black rounded-xl text-[13px] font-black uppercase tracking-wider transition-colors disabled:opacity-50">
+                className="mt-4 w-full py-3.5 bg-[#141414] border border-[#E2503B] text-[#E2503B] hover:bg-black rounded-xl text-[13px] font-black uppercase tracking-wider transition-colors disabled:opacity-50">
                 {editLoading ? 'Saving...' : 'Save Changes'}
               </button>
             </form>
@@ -173,7 +173,7 @@ export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalPro
           <>
             <div className="flex items-center justify-between p-5 border-b border-[#FDDBB4]/40 bg-[#F9FAFB]">
               <h2 className="text-[18px] font-black text-[#111111] flex items-center gap-2">
-                <Search size={18} className="text-[#B08A1C]" />
+                <Search size={18} className="text-[#D6402E]" />
                 Search Catalog
               </h2>
               <button onClick={onClose} className="p-2 rounded-xl hover:bg-black/5 text-[#374151]">
@@ -186,12 +186,12 @@ export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalPro
                 <input type="text" value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Search by product name, Tamil name, or category..."
-                  className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#B08A1C] text-[13px] font-bold text-[#111111]" />
+                  className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#FDDBB4]/60 rounded-xl focus:outline-none focus:border-[#D6402E] text-[13px] font-bold text-[#111111]" />
               </div>
               <div className="flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
                 {categories.map(cat => (
                   <button key={cat} onClick={() => setActiveCategory(cat)}
-                    className={`px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-wider whitespace-nowrap transition-colors ${activeCategory === cat ? 'bg-[#141414] text-[#D9A62E]' : 'bg-[#FAFAFA] text-[#374151] hover:bg-[#F9FAFB] border border-[#FDDBB4]/60'}`}>
+                    className={`px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-wider whitespace-nowrap transition-colors ${activeCategory === cat ? 'bg-[#141414] text-[#E2503B]' : 'bg-[#FAFAFA] text-[#374151] hover:bg-[#F9FAFB] border border-[#FDDBB4]/60'}`}>
                     {cat}
                   </button>
                 ))}
@@ -200,13 +200,13 @@ export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalPro
             <div className="min-h-0 flex-1 overflow-y-auto hide-scrollbar p-3 sm:p-4 bg-[#FAFAFA]">
               {loading ? (
                 <div className="flex min-h-48 flex-col items-center justify-center gap-3 text-[#374151]/70">
-                  <span className="h-7 w-7 animate-spin rounded-full border-2 border-[#FDDBB4] border-t-[#B08A1C]" />
+                  <span className="h-7 w-7 animate-spin rounded-full border-2 border-[#FDDBB4] border-t-[#D6402E]" />
                   <p className="text-[13px] font-bold">Loading catalog...</p>
                 </div>
               ) : error ? (
                 <div className="flex min-h-48 flex-col items-center justify-center gap-2 px-4 text-center text-red-500">
                   <p className="text-[13px] font-bold">Unable to load catalog items.</p>
-                  <button type="button" onClick={() => void fetchProducts(true)} className="rounded-lg bg-[#141414] border border-[#D9A62E] px-3 py-2 text-[11px] font-black text-[#D9A62E] hover:bg-black">Try again</button>
+                  <button type="button" onClick={() => void fetchProducts(true)} className="rounded-lg bg-[#141414] border border-[#E2503B] px-3 py-2 text-[11px] font-black text-[#E2503B] hover:bg-black">Try again</button>
                 </div>
               ) : filtered.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-[#374151]/60 py-12">
@@ -217,12 +217,12 @@ export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalPro
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                   {filtered.map(product => (
                     <div key={product.id}
-                      className="bg-white border border-[#FDDBB4]/60 rounded-2xl p-3 flex flex-col gap-2 hover:border-[#B08A1C]/40 hover:shadow-md transition-all group relative">
+                      className="bg-white border border-[#FDDBB4]/60 rounded-2xl p-3 flex flex-col gap-2 hover:border-[#D6402E]/40 hover:shadow-md transition-all group relative">
                       <div className="flex items-start justify-between gap-2">
-                        <h4 onClick={() => onAdd(product)} className="min-w-0 flex-1 cursor-pointer text-[13px] font-black text-[#111111] leading-tight group-hover:text-[#B08A1C] transition-colors">{product.name}</h4>
+                        <h4 onClick={() => onAdd(product)} className="min-w-0 flex-1 cursor-pointer text-[13px] font-black text-[#111111] leading-tight group-hover:text-[#D6402E] transition-colors">{product.name}</h4>
                         <div className="flex shrink-0 gap-1">
                           <button onClick={(e) => { e.stopPropagation(); startEdit(product) }} title="Edit product"
-                            className="p-1.5 rounded-lg bg-white border border-[#FDDBB4]/60 text-[#374151] hover:text-[#B08A1C] hover:border-[#B08A1C]/40 shadow-sm transition-colors">
+                            className="p-1.5 rounded-lg bg-white border border-[#FDDBB4]/60 text-[#374151] hover:text-[#D6402E] hover:border-[#D6402E]/40 shadow-sm transition-colors">
                             <Edit2 size={14} />
                           </button>
                           <button onClick={(e) => { e.stopPropagation(); void handleDelete(product) }} title="Delete product"

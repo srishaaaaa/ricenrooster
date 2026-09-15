@@ -1958,10 +1958,10 @@ export default function Dashboard() {
                       <h3 className="text-[16px] font-bold text-[#111111] mb-4">Top Items by Revenue</h3>
                       <div className="space-y-3">
                         {analytics.topProducts.slice(0, 3).map((p, i) => (
-                          <div key={i} className="flex items-center justify-between gap-2 text-[13px] min-w-0">
-                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <div key={i} className="flex items-start justify-between gap-2 text-[13px] min-w-0">
+                            <div className="flex items-start gap-3 min-w-0 flex-1">
                               <span className="font-bold text-[#6B7280] w-4 shrink-0">{i + 1}</span>
-                              <span className="font-bold text-[#111111] truncate">{p.name}</span>
+                              <span className="font-bold text-[#111111] break-words">{p.name}</span>
                             </div>
                             <div className="flex items-center gap-4 shrink-0">
                               <span className="font-bold text-maroon-dark">{formatCurrency(p.revenue)}</span>

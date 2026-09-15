@@ -140,6 +140,7 @@ export default function Pos(props: PosProps = {}) {
   const [remarks, setRemarks] = useState('')
   const [referenceNumber, setReferenceNumber] = useState('')
   const [billingDate, setBillingDate] = useState('') // '' = use current date/time
+  const [billingTime, setBillingTime] = useState('') // '' = midnight when a date is set, else current time
   const [paymentType, setPaymentType] = useState<string>('Cash')
   const [saving, setSaving] = useState(false)
   const [shipping, setShipping] = useState<string>('0')
@@ -386,6 +387,7 @@ export default function Pos(props: PosProps = {}) {
     setRemarks('')
     setReferenceNumber('')
     setBillingDate('')
+    setBillingTime('')
     setBillGstEnabled(false)
     setGstInput('')
     setGstType('percent')
@@ -559,7 +561,7 @@ export default function Pos(props: PosProps = {}) {
       // This guarantees the correct client-computed values are always saved.
       // Determine the effective billing date/time
       const effectiveBillingDate = billingDate.trim()
-        ? new Date(billingDate).toISOString()
+        ? new Date(`${billingDate}T${billingTime.trim() || '00:00'}`).toISOString()
         : new Date().toISOString()
       await supabase.from('orders').update({
         subtotal,
@@ -579,7 +581,7 @@ export default function Pos(props: PosProps = {}) {
         id: created.orderId,
         invoiceNo: created.invoiceNo,
         orderType: getOrderType(),
-        date: billingDate.trim() ? new Date(billingDate).toISOString() : created.createdAt,
+        date: billingDate.trim() ? new Date(`${billingDate}T${billingTime.trim() || '00:00'}`).toISOString() : created.createdAt,
         items: [...items],
         subtotal,
         shipping: Number(shipping || 0),
@@ -916,14 +918,23 @@ export default function Pos(props: PosProps = {}) {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-black text-[#374151] tracking-wider uppercase mb-1.5">Billing Date (Optional)</label>
-                <Input
-                  id="pos-billing-date"
-                  type="date"
-                  className="text-left"
-                  value={billingDate}
-                  onChange={e => setBillingDate(e.target.value)}
-                />
+                <label className="block text-[10px] font-black text-[#374151] tracking-wider uppercase mb-1.5">Billing Date &amp; Time (Optional)</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input
+                    id="pos-billing-date"
+                    type="date"
+                    className="text-left"
+                    value={billingDate}
+                    onChange={e => setBillingDate(e.target.value)}
+                  />
+                  <Input
+                    id="pos-billing-time"
+                    type="time"
+                    className="text-left"
+                    value={billingTime}
+                    onChange={e => setBillingTime(e.target.value)}
+                  />
+                </div>
                 <p className="mt-1 text-[10px] text-gray-400 font-medium">Leave blank to use today's date &amp; time</p>
               </div>
             </div>
@@ -1333,7 +1344,7 @@ export default function Pos(props: PosProps = {}) {
                   variant="secondary"
                   onClick={openDepositOrder}
                   disabled={saving || items.length === 0}
-                  className="!border-violet-600 !bg-violet-50 !text-violet-700 hover:!bg-violet-100"
+                  className="!border-gray-300 !bg-white !text-gray-500 hover:!bg-gray-50"
                 >
                   Save as Deposit Order
                 </Button>
@@ -1342,6 +1353,7 @@ export default function Pos(props: PosProps = {}) {
                   variant="primary"
                   onClick={generateBill}
                   loading={saving}
+                  className="!border-emerald-600 !bg-emerald-600 !text-white hover:!bg-emerald-700"
                 >
                   Complete Sale
                 </Button>

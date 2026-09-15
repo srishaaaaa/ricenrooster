@@ -143,6 +143,7 @@ export default function Dashboard() {
   const location = useLocation()
   const navigate = useNavigate()
   const role = useAdminAuthStore(state => state.role)
+  const adminLoggedIn = useAdminAuthStore(state => state.isLoggedIn)
   const [tab, setTab] = useState<TabKey>(() => {
     if (location.pathname === '/whatsapp-center') return 'whatsapp'
     if (location.pathname === '/pos-analytics' && role === 'admin') return 'pos_analytics'
@@ -223,7 +224,7 @@ export default function Dashboard() {
     setAckedLowStockIds(prev => new Set([...prev, ...loginLowStockItems.map(i => i.id)]))
   }
 
-  const isAdmin = true // bypassed for local demo
+  const isAdmin = adminLoggedIn && (role === 'admin' || role === 'staff')
   const l = (en: string, _ta?: string) => en
 
   const handleTabClick = (tabKey: TabKey) => {
@@ -969,6 +970,8 @@ export default function Dashboard() {
   useEffect(() => {
     if (tab === 'users') void loadUsers()
     if (tab === 'coupons') void loadCoupons()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runSearch is redefined every render; only re-fetch when the tab itself changes to 'history'
+    if (tab === 'history') void runSearch()
   }, [tab, loadUsers, loadCoupons])
 
   const applyAnalyticsPreset = (preset: 'all' | 'today' | 'week' | 'month' | 'year' | 'custom') => {

@@ -818,12 +818,16 @@ export default function Inventory() {
                         <td className="px-4 py-3 whitespace-nowrap">
                           <div className="flex items-center gap-1.5">
                             <button onClick={() => openAdjust(p)}
-                              className="flex items-center gap-1 bg-[#FFF8F2] text-[#D6402E] border border-[#FDDBB4] px-2.5 py-1.5 rounded-lg text-[11px] font-black hover:bg-orange-100">
-                              <RefreshCw size={11} /> Adjust
+                              className="flex items-center gap-1.5 bg-white text-[#374151] border border-gray-200 px-2.5 py-1.5 rounded-lg text-[11px] font-black hover:bg-gray-50">
+                              <SlidersHorizontal size={12} /> Adjust
                             </button>
                             <button onClick={() => void openHistory(p)} title="Stock history"
-                              className="p-1.5 bg-gray-50 text-gray-500 hover:text-[#D6402E] hover:bg-[#FFF8F2] rounded-lg border border-transparent hover:border-[#FDDBB4]">
+                              className="p-1.5 bg-white text-gray-500 hover:text-[#D6402E] rounded-full border border-gray-200 hover:border-[#FDDBB4]">
                               <History size={13} />
+                            </button>
+                            <button onClick={() => void handleDeleteProduct(p)} title="Delete product"
+                              className="p-1.5 bg-white text-red-400 hover:text-red-600 rounded-full border border-gray-200 hover:border-red-200">
+                              <Trash2 size={13} />
                             </button>
                           </div>
                         </td>

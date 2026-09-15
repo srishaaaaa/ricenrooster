@@ -176,8 +176,7 @@ export function printThermalReceipt(data: ThermalReceiptData) {
   doc.write(html)
   doc.close()
 
-  // Wait for resources to load
-  setTimeout(() => {
+  const runPrint = () => {
     iframe.contentWindow?.focus()
     iframe.contentWindow?.print()
 
@@ -185,5 +184,24 @@ export function printThermalReceipt(data: ThermalReceiptData) {
     setTimeout(() => {
       document.body.removeChild(iframe)
     }, 1000)
-  }, 250)
+  }
+
+  // Wait for the logo image to actually finish loading (it's larger than the
+  // rest of the receipt) before printing — a fixed short delay was racing
+  // against the image decode and printing a blank logo slot.
+  const logoImg = doc.querySelector('img')
+  if (logoImg && !logoImg.complete) {
+    let printed = false
+    const done = () => {
+      if (printed) return
+      printed = true
+      runPrint()
+    }
+    logoImg.addEventListener('load', done, { once: true })
+    logoImg.addEventListener('error', done, { once: true })
+    // Safety net in case neither event fires (e.g. offline with no cached image)
+    setTimeout(done, 1500)
+  } else {
+    setTimeout(runPrint, 250)
+  }
 }

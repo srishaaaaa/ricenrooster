@@ -340,11 +340,11 @@ function InventoryAnalytics({ products, downloadCSV }: { products: InventoryProd
             {products.filter(p => p.stock_quantity > 0)
               .sort((a, b) => (b.stock_quantity * b.price) - (a.stock_quantity * a.price))
               .slice(0, 5).map((p, i) => (
-                <div key={p.id} className="flex justify-between items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-100 min-w-0">
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                <div key={p.id} className="flex justify-between items-start gap-2 p-3 rounded-xl bg-slate-50 border border-slate-100 min-w-0">
+                  <div className="flex items-start gap-3 min-w-0 flex-1">
                     <span className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-white font-black text-xs text-slate-400 shadow-sm">{i + 1}</span>
                     <div className="min-w-0 flex-1">
-                      <p className="font-bold text-sm text-slate-800 truncate">{p.name}</p>
+                      <p className="font-bold text-sm text-slate-800 break-words">{p.name}</p>
                       <p className="text-[10px] text-slate-500 truncate">{p.stock_quantity} units • {formatCurrency(p.price)}/unit</p>
                     </div>
                   </div>

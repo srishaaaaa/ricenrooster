@@ -601,25 +601,7 @@ export default function Pos(props: PosProps = {}) {
         paymentMethod: paymentMode,
       }
       setInvoice(createdInvoice)
-      // Low stock check — toast (no sound; the low-stock alarm is reserved
-      // for login and opening the Inventory tab, not routine billing)
-      const lowStockItems = items.flatMap(item => {
-        const product = products.find(p => p.id.toString() === item.id?.toString())
-        if (!product) return []
-        const newStock = (product.stockQuantity || 0) - item.qty
-        if (newStock <= (product.lowStockAlert || 5)) {
-          return [{ name: item.name, stock: Math.max(0, newStock) }]
-        }
-        return []
-      })
-      if (lowStockItems.length > 0) {
-        toast.warning(
-          'Low stock alert',
-          lowStockItems.map(i => `${i.name} — ${i.stock <= 0 ? 'out of stock' : `${i.stock} left`}`).join(', '),
-        )
-      } else {
-        toast.success('Bill generated successfully')
-      }
+      toast.success('Bill generated successfully')
 
       void persistInvoicePdf(createdInvoice)
       setItems([])

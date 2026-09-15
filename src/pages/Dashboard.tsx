@@ -165,6 +165,19 @@ export default function Dashboard() {
 
   const [invoicePreviewOrder, setInvoicePreviewOrder] = useState<DashboardOrder | null>(null)
   useBodyScrollLock(!!invoicePreviewOrder)
+  const invoicePreviewRef = useRef<HTMLDivElement>(null)
+  // A4 is 210x297mm — mirror that ratio as a *minimum* height so the
+  // previewed invoice reads as a full page, like the live digital invoice.
+  const [invoicePreviewMinHeight, setInvoicePreviewMinHeight] = useState<number>()
+  useEffect(() => {
+    const el = invoicePreviewRef.current
+    if (!el) return
+    const updateMinHeight = () => setInvoicePreviewMinHeight(el.offsetWidth * (297 / 210))
+    updateMinHeight()
+    const observer = new ResizeObserver(updateMinHeight)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [invoicePreviewOrder])
 
   // WA detail expansion
   const [waExpandedId, setWaExpandedId] = useState<string | null>(null)
@@ -3097,7 +3110,11 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="overflow-y-auto hide-scrollbar p-2 sm:p-5">
-                <div className="mx-auto max-w-3xl overflow-hidden rounded-xl bg-white shadow-sm">
+                <div
+                  ref={invoicePreviewRef}
+                  className="mx-auto flex max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-sm"
+                  style={{ minHeight: invoicePreviewMinHeight }}
+                >
                   <Invoice
                     invoiceNo={formatInvoiceNo(invoicePreviewOrder.invoice_no || invoicePreviewOrder.id)}
                     date={invoicePreviewOrder.created_at}

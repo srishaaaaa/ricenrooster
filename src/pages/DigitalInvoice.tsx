@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import { Invoice } from '../components/Invoice'
-import { Printer, ArrowLeft, MessageCircle } from 'lucide-react'
+import { Printer, ArrowLeft, MessageCircle, Download } from 'lucide-react'
 import { printThermalReceipt } from '../lib/thermalPrint'
 import { invoicePdfFile, invoicePdfFileFromElement } from '../lib/invoicePdf'
 import { uploadInvoicePdf } from '../lib/storage'
@@ -114,7 +114,7 @@ export default function DigitalInvoice() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fcf3e4] flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <span className="w-8 h-8 border-4 border-[#FDDBB4] border-t-[#D6402E] rounded-full animate-spin" />
       </div>
     )
@@ -122,7 +122,7 @@ export default function DigitalInvoice() {
 
   if (error || !invoice) {
     return (
-      <div className="min-h-screen bg-[#fcf3e4] flex flex-col items-center justify-center text-center p-6">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center text-center p-6">
         <h1 className="text-2xl font-bold text-[#111111] mb-2">Invoice Not Found</h1>
         <p className="text-gray-500 mb-6">The requested invoice could not be found.</p>
         <button
@@ -269,9 +269,9 @@ export default function DigitalInvoice() {
   }
 
   return (
-    <div className="app-scroll-root h-full overflow-y-auto hide-scrollbar bg-[#fcf3e4] font-sans pb-12 print:bg-white print:pb-0">
+    <div className="app-scroll-root h-full overflow-y-auto hide-scrollbar bg-white font-sans pb-12 print:bg-white print:pb-0">
       {/* Top action bar */}
-      <div className="bg-[#fcf3e4] p-3 sm:p-4 sticky top-0 z-50 print:hidden flex flex-wrap items-center justify-between gap-2 max-w-4xl mx-auto">
+      <div className="bg-white border-b border-[#FDDBB4]/40 p-3 sm:p-4 sticky top-0 z-50 print:hidden flex flex-wrap items-center justify-between gap-2 max-w-4xl mx-auto">
         <button onClick={handleBack} className="flex items-center gap-2 text-[#374151] hover:text-[#111111] font-semibold text-sm transition-colors bg-white border border-[#FDDBB4]/60 px-3 sm:px-4 py-2 rounded-full shadow-sm cursor-pointer">
           <ArrowLeft size={16} /> Back
         </button>
@@ -280,7 +280,13 @@ export default function DigitalInvoice() {
             onClick={downloadPdf}
             className="flex items-center gap-2 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-4 sm:px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-black transition-colors"
           >
-            <Printer size={16} /> PDF
+            <Download size={16} /> PDF
+          </button>
+          <button
+            onClick={printReceipt}
+            className="flex items-center gap-2 bg-white border border-[#FDDBB4]/60 text-[#374151] px-4 sm:px-5 py-2 rounded-full font-bold text-sm shadow-sm hover:bg-[#F9FAFB] transition-colors"
+          >
+            <Printer size={16} /> Print
           </button>
           <button
             onClick={shareViaWhatsApp}
@@ -311,9 +317,12 @@ export default function DigitalInvoice() {
             gstAmount={invoice.total_gst || invoice.gst_amount || 0}
             couponCode={invoice.coupon_code}
             total={invoice.total > 0 ? invoice.total : (subtotal + (invoice.delivery_charge || 0) + (invoice.total_gst || invoice.gst_amount || 0) - (invoice.discount_amount || 0) - (invoice.manual_discount_amount || 0))}
-            status={invoice.status}
+            // Status pill and the in-card "Print Receipt" button are left out
+            // of the WhatsApp-shared invoice: Print now lives in the action
+            // bar above (outside the captured PDF/screenshot area), and the
+            // status badge cluttered the plain document look customers see.
+            status=""
             paymentMode={invoice.payment_mode || invoice.payment_method}
-            onPrintReceipt={printReceipt}
           />
         </div>
       </div>

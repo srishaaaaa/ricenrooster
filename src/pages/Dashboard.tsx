@@ -3078,7 +3078,7 @@ export default function Dashboard() {
               if (event.target === event.currentTarget) setInvoicePreviewOrder(null)
             }}
           >
-            <div className="flex max-h-[95vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-[#F9FAFB] shadow-2xl">
+            <div className="flex max-h-[97vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-[#F9FAFB] shadow-2xl">
               <div className="flex shrink-0 items-center justify-between border-b border-[#FDDBB4]/60 bg-white px-4 py-3 sm:px-6">
                 <div>
                   <h2 className="text-base font-black text-[#111111]">Invoice Preview</h2>
@@ -3112,7 +3112,7 @@ export default function Dashboard() {
               <div className="overflow-y-auto hide-scrollbar p-2 sm:p-5">
                 <div
                   ref={invoicePreviewRef}
-                  className="mx-auto flex max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-sm"
+                  className="mx-auto flex max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-sm"
                   style={{ minHeight: invoicePreviewMinHeight }}
                 >
                   <Invoice

@@ -82,11 +82,16 @@ export const Invoice: React.FC<InvoiceProps> = ({
   return (
     <div
       id="invoice-print-root"
-      className="w-full max-w-[680px] mx-auto bg-white box-border flex flex-col print:p-0 print:max-w-full overflow-hidden"
+      className="w-full max-w-[680px] mx-auto bg-white box-border flex flex-col flex-1 print:p-0 print:max-w-full overflow-hidden"
       style={{
         fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
         fontSize: 13,
         color: '#1a1a2e',
+        // Fills the parent's height (when the parent sets one, e.g. the A4
+        // page-shaped wrapper on the digital invoice) so the footer's
+        // marginTop: 'auto' below has room to push into and actually lands
+        // at the bottom of the page instead of right under the totals.
+        height: '100%',
         // Extra top clearance: mobile PDF viewers (e.g. WhatsApp's in-app
         // browser opening a shared invoice) draw their own "1 of 1" page
         // badge over the top-left corner of the page, which otherwise
@@ -323,9 +328,13 @@ export const Invoice: React.FC<InvoiceProps> = ({
       </div>
 
       {/* ── FOOTER ────────────────────────────────────────────────── */}
+      {/* marginTop: 'auto' pins this to the bottom of the page instead of
+          floating right under the totals — the invoice card is sized to a
+          full A4 page, so short invoices leave a lot of empty space above
+          a fixed-offset footer otherwise. */}
       <div
         style={{
-          marginTop: 32,
+          marginTop: 'auto',
           paddingTop: 14,
           borderTop: '1px dashed #d0d0d0',
           display: 'flex',

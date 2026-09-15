@@ -294,7 +294,7 @@ export default function DigitalInvoice() {
       <div className="max-w-3xl mx-auto mt-4 print:mt-0 px-2 sm:px-0">
         <div
           ref={invoiceElementRef}
-          className="bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:rounded-none border border-[#FDDBB4]/40 print:border-none print:!min-h-0"
+          className="flex flex-col bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:rounded-none border border-[#FDDBB4]/40 print:border-none print:!min-h-0"
           style={{ minHeight: pageMinHeight }}
         >
           <Invoice

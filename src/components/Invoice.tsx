@@ -83,7 +83,12 @@ export const Invoice: React.FC<InvoiceProps> = ({
     <div
       id="invoice-print-root"
       className="w-full max-w-[680px] mx-auto bg-white box-border flex flex-col print:p-0 print:max-w-full overflow-hidden"
-      style={{ fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif", fontSize: 13, color: '#1a1a2e', padding: '24px 28px' }}
+      style={{
+        fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
+        fontSize: 13,
+        color: '#1a1a2e',
+        padding: 'clamp(14px, 4vw, 24px) clamp(12px, 4vw, 28px)',
+      }}
     >
       {/* ── TOP BAR: TAX INVOICE | Invoice # ─────────────────────── */}
       <div
@@ -209,14 +214,14 @@ export const Invoice: React.FC<InvoiceProps> = ({
 
       {/* ── ITEMS TABLE ───────────────────────────────────────────── */}
       <div className="w-full overflow-x-auto">
-        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 320 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 280 }}>
           <thead>
             <tr style={{ background: DARK }}>
-              <th style={{ padding: '9px 10px', textAlign: 'left',   fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 28 }}>#</th>
-              <th style={{ padding: '9px 10px', textAlign: 'left',   fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8 }}>Item Description</th>
-              <th style={{ padding: '9px 10px', textAlign: 'center', fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 75 }}>Qty</th>
-              <th style={{ padding: '9px 10px', textAlign: 'right',  fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 85 }}>Rate</th>
-              <th style={{ padding: '9px 10px', textAlign: 'right',  fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 90 }}>Amount</th>
+              <th style={{ padding: '9px 6px', textAlign: 'left',   fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 22 }}>#</th>
+              <th style={{ padding: '9px 6px', textAlign: 'left',   fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8 }}>Item Description</th>
+              <th style={{ padding: '9px 6px', textAlign: 'center', fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 58 }}>Qty</th>
+              <th style={{ padding: '9px 6px', textAlign: 'right',  fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 68 }}>Rate</th>
+              <th style={{ padding: '9px 6px', textAlign: 'right',  fontSize: 10, fontWeight: 800, color: RED, textTransform: 'uppercase', letterSpacing: 0.8, width: 72 }}>Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -226,8 +231,8 @@ export const Invoice: React.FC<InvoiceProps> = ({
               const rowBg = idx % 2 === 0 ? '#ffffff' : '#fafafa'
               return (
                 <tr key={idx} style={{ borderBottom: '1px solid #f0f0f0', background: rowBg }}>
-                  <td style={{ padding: '10px 10px', fontSize: 11, color: '#999', verticalAlign: 'top' }}>{idx + 1}</td>
-                  <td style={{ padding: '10px 10px', verticalAlign: 'top' }}>
+                  <td style={{ padding: '10px 6px', fontSize: 11, color: '#999', verticalAlign: 'top' }}>{idx + 1}</td>
+                  <td style={{ padding: '10px 6px', verticalAlign: 'top' }}>
                     <div style={{ fontSize: 12, fontWeight: 700, color: '#1a1a2e' }}>{normalized.name}</div>
                     {displayName && displayName !== normalized.name && (
                       <div style={{ fontSize: 10, color: '#888', marginTop: 2 }}>{displayName}</div>
@@ -238,13 +243,13 @@ export const Invoice: React.FC<InvoiceProps> = ({
                       </div>
                     )}
                   </td>
-                  <td style={{ padding: '10px 10px', fontSize: 12, fontWeight: 600, color: '#555', textAlign: 'center', verticalAlign: 'top' }}>
+                  <td style={{ padding: '10px 6px', fontSize: 12, fontWeight: 600, color: '#555', textAlign: 'center', verticalAlign: 'top' }}>
                     {formatQuantityDisplay(normalized.quantity, normalized.unit, normalized.unit_type)}
                   </td>
-                  <td style={{ padding: '10px 10px', fontSize: 12, fontWeight: 600, color: GRAY, textAlign: 'right', verticalAlign: 'top' }}>
+                  <td style={{ padding: '10px 6px', fontSize: 12, fontWeight: 600, color: GRAY, textAlign: 'right', verticalAlign: 'top' }}>
                     {fmtRs(normalized.base_price)}
                   </td>
-                  <td style={{ padding: '10px 10px', fontSize: 13, fontWeight: 800, color: RED, textAlign: 'right', verticalAlign: 'top' }}>
+                  <td style={{ padding: '10px 6px', fontSize: 13, fontWeight: 800, color: RED, textAlign: 'right', verticalAlign: 'top' }}>
                     {fmtRs(normalized.line_total)}
                   </td>
                 </tr>

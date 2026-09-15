@@ -18,6 +18,11 @@ export default function DigitalInvoice() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const invoiceElementRef = useRef<HTMLDivElement>(null)
+  // A4 is 210x297mm — mirror that ratio as a *minimum* height (not a fixed
+  // aspect-ratio, which clips instead of growing) so the on-screen card and
+  // the PDF captured from it both read as a full page, while still letting
+  // longer invoices push past one page's worth of content instead of clipping.
+  const [pageMinHeight, setPageMinHeight] = useState<number>()
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -97,6 +102,16 @@ export default function DigitalInvoice() {
     if (id) loadInvoice()
   }, [id])
 
+  useEffect(() => {
+    const el = invoiceElementRef.current
+    if (!el) return
+    const updateMinHeight = () => setPageMinHeight(el.offsetWidth * (297 / 210))
+    updateMinHeight()
+    const observer = new ResizeObserver(updateMinHeight)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [invoice])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f9faf6] flex items-center justify-center">
@@ -126,83 +141,109 @@ export default function DigitalInvoice() {
 
   const downloadPdf = async () => {
     if (!invoiceElementRef.current) return
-    const file = await invoicePdfFileFromElement(invoiceElementRef.current, invoice.invoice_no)
-    const url = URL.createObjectURL(file)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = file.name
-    link.click()
-    setTimeout(() => URL.revokeObjectURL(url), 1000)
+    try {
+      const file = await invoicePdfFileFromElement(invoiceElementRef.current, invoice.invoice_no)
+      const url = URL.createObjectURL(file)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = file.name
+      link.click()
+      setTimeout(() => URL.revokeObjectURL(url), 1000)
+    } catch (err) {
+      console.error('Failed to generate invoice PDF:', err)
+      alert('Could not generate the PDF. Please try again.')
+    }
   }
 
   const shareViaWhatsApp = async () => {
-    const items = invoiceItems.map((item: ReturnType<typeof normalizeStructuredOrderItem>) => ({
-      name: item.name,
-      qty: item.quantity,
-      unit: item.unit,
-      unitType: item.unit_type,
-      rate: item.base_price,
-      lineTotal: item.line_total,
-    }))
-    const message = buildProfessionalWhatsAppMessage({
-      customerName: invoice.customer_name,
-      phone: invoice.phone,
-      invoiceNumber: invoice.invoice_no,
-      invoiceDate: invoice.created_at,
-      items,
-      subtotal,
-      couponDiscount: invoice.discount_amount,
-      manualDiscountAmount: invoice.manual_discount_amount,
-      shipping: invoice.delivery_charge,
-      gstAmount: invoice.total_gst || invoice.gst_amount || 0,
-      total: invoice.total,
-      paymentMode: invoice.payment_mode || invoice.payment_method,
-    })
+    // Open the tab synchronously, in direct response to the click, so
+    // Safari/Chrome popup blockers don't swallow it — everything below is
+    // async (canvas render, upload), and by the time it resolves the
+    // browser no longer considers this a user-gesture-initiated window.open.
+    // No `noopener` here: that flag makes window.open() return null, which
+    // would defeat the whole point of keeping a handle to navigate later.
+    const shareWindow = window.open('', '_blank')
 
-    const file = invoiceElementRef.current
-      ? await invoicePdfFileFromElement(invoiceElementRef.current, invoice.invoice_no)
-      : invoicePdfFile({
-      invoiceNo: invoice.invoice_no,
-      date: invoice.created_at,
-      customerName: invoice.customer_name,
-      phone: invoice.phone,
-      address: invoice.address,
-      items: invoiceItems as unknown as Array<Record<string, unknown>>,
-      subtotal,
-      shipping: Number(invoice.delivery_charge || 0),
-      total: Number(invoice.total || 0),
-      discountAmount: Number(invoice.discount_amount || 0),
-      manualDiscountAmount: Number(invoice.manual_discount_amount || 0),
-      gstAmount: Number(invoice.total_gst || invoice.gst_amount || 0),
-      couponCode: invoice.coupon_code || undefined,
-      paymentMode: invoice.payment_mode || invoice.payment_method || undefined,
+    try {
+      const items = invoiceItems.map((item: ReturnType<typeof normalizeStructuredOrderItem>) => ({
+        name: item.name,
+        qty: item.quantity,
+        unit: item.unit,
+        unitType: item.unit_type,
+        rate: item.base_price,
+        lineTotal: item.line_total,
+      }))
+      const message = buildProfessionalWhatsAppMessage({
+        customerName: invoice.customer_name,
+        phone: invoice.phone,
+        invoiceNumber: invoice.invoice_no,
+        invoiceDate: invoice.created_at,
+        items,
+        subtotal,
+        couponDiscount: invoice.discount_amount,
+        manualDiscountAmount: invoice.manual_discount_amount,
+        shipping: invoice.delivery_charge,
+        gstAmount: invoice.total_gst || invoice.gst_amount || 0,
+        total: invoice.total,
+        paymentMode: invoice.payment_mode || invoice.payment_method,
       })
 
-    let downloadLink = ''
-    try {
-      downloadLink = await uploadInvoicePdf(file, invoice.invoice_no)
-    } catch (err) {
-      console.warn('Failed to upload invoice PDF:', err)
-    }
+      const file = invoiceElementRef.current
+        ? await invoicePdfFileFromElement(invoiceElementRef.current, invoice.invoice_no)
+        : invoicePdfFile({
+        invoiceNo: invoice.invoice_no,
+        date: invoice.created_at,
+        customerName: invoice.customer_name,
+        phone: invoice.phone,
+        address: invoice.address,
+        items: invoiceItems as unknown as Array<Record<string, unknown>>,
+        subtotal,
+        shipping: Number(invoice.delivery_charge || 0),
+        total: Number(invoice.total || 0),
+        discountAmount: Number(invoice.discount_amount || 0),
+        manualDiscountAmount: Number(invoice.manual_discount_amount || 0),
+        gstAmount: Number(invoice.total_gst || invoice.gst_amount || 0),
+        couponCode: invoice.coupon_code || undefined,
+        paymentMode: invoice.payment_mode || invoice.payment_method || undefined,
+        })
 
-    const whatsappMessage = downloadLink
-      ? `${message}\n\n📄 Download Invoice: ${downloadLink}`
-      : `${message}\n\nThe PDF was downloaded. Please attach it in this chat before sending.`
-
-    if (navigator.share && navigator.canShare?.({ files: [file] })) {
+      let downloadLink = ''
       try {
-        await navigator.share({ files: [file], title: `Invoice ${invoice.invoice_no}`, text: whatsappMessage })
-        return
-      } catch { /* fall through */ }
-    }
+        downloadLink = await uploadInvoicePdf(file, invoice.invoice_no)
+      } catch (err) {
+        console.warn('Failed to upload invoice PDF:', err)
+      }
 
-    const downloadUrl = URL.createObjectURL(file)
-    const link = document.createElement('a')
-    link.href = downloadUrl
-    link.download = file.name
-    link.click()
-    setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
-    window.open(toWhatsAppUrl(invoice.phone, whatsappMessage), '_blank', 'noopener,noreferrer')
+      const whatsappMessage = downloadLink
+        ? `${message}\n\n📄 Download Invoice: ${downloadLink}`
+        : `${message}\n\nThe PDF was downloaded. Please attach it in this chat before sending.`
+
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        shareWindow?.close()
+        try {
+          await navigator.share({ files: [file], title: `Invoice ${invoice.invoice_no}`, text: whatsappMessage })
+          return
+        } catch { /* fall through to the WhatsApp web link below */ }
+      }
+
+      const downloadUrl = URL.createObjectURL(file)
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.download = file.name
+      link.click()
+      setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
+
+      const waUrl = toWhatsAppUrl(invoice.phone, whatsappMessage)
+      if (shareWindow && !shareWindow.closed) {
+        shareWindow.location.href = waUrl
+      } else {
+        window.open(waUrl, '_blank', 'noopener,noreferrer')
+      }
+    } catch (err) {
+      console.error('Failed to share invoice via WhatsApp:', err)
+      shareWindow?.close()
+      alert('Could not prepare the invoice for WhatsApp. Please try again.')
+    }
   }
 
   const printReceipt = () => {
@@ -230,20 +271,20 @@ export default function DigitalInvoice() {
   return (
     <div className="h-full overflow-y-auto hide-scrollbar bg-[#f9faf6] font-sans pb-12 print:bg-white print:pb-0">
       {/* Top action bar */}
-      <div className="bg-[#f9faf6] p-4 sticky top-0 z-50 print:hidden flex items-center justify-between max-w-4xl mx-auto">
-        <button onClick={handleBack} className="flex items-center gap-2 text-[#374151] hover:text-[#111111] font-semibold text-sm transition-colors bg-white border border-[#FDDBB4]/60 px-4 py-2 rounded-full shadow-sm cursor-pointer">
+      <div className="bg-[#f9faf6] p-3 sm:p-4 sticky top-0 z-50 print:hidden flex flex-wrap items-center justify-between gap-2 max-w-4xl mx-auto">
+        <button onClick={handleBack} className="flex items-center gap-2 text-[#374151] hover:text-[#111111] font-semibold text-sm transition-colors bg-white border border-[#FDDBB4]/60 px-3 sm:px-4 py-2 rounded-full shadow-sm cursor-pointer">
           <ArrowLeft size={16} /> Back
         </button>
         <div className="flex items-center gap-2">
           <button
             onClick={downloadPdf}
-            className="flex items-center gap-2 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-black transition-colors"
+            className="flex items-center gap-2 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-4 sm:px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-black transition-colors"
           >
             <Printer size={16} /> PDF
           </button>
           <button
             onClick={shareViaWhatsApp}
-            className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-green-600 transition-colors"
+            className="flex items-center gap-2 bg-green-500 text-white px-4 sm:px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-green-600 transition-colors"
           >
             <MessageCircle size={16} /> WhatsApp
           </button>
@@ -251,7 +292,11 @@ export default function DigitalInvoice() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-4 print:mt-0 px-2 sm:px-0">
-        <div ref={invoiceElementRef} className="bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:rounded-none border border-[#FDDBB4]/40 print:border-none">
+        <div
+          ref={invoiceElementRef}
+          className="bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:rounded-none border border-[#FDDBB4]/40 print:border-none print:!min-h-0"
+          style={{ minHeight: pageMinHeight }}
+        >
           <Invoice
             invoiceNo={invoice.invoice_no}
             date={invoice.created_at}

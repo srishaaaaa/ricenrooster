@@ -114,7 +114,7 @@ export default function DigitalInvoice() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f9faf6] flex items-center justify-center">
+      <div className="min-h-screen bg-[#fcf3e4] flex items-center justify-center">
         <span className="w-8 h-8 border-4 border-[#FDDBB4] border-t-[#D6402E] rounded-full animate-spin" />
       </div>
     )
@@ -122,7 +122,7 @@ export default function DigitalInvoice() {
 
   if (error || !invoice) {
     return (
-      <div className="min-h-screen bg-[#f9faf6] flex flex-col items-center justify-center text-center p-6">
+      <div className="min-h-screen bg-[#fcf3e4] flex flex-col items-center justify-center text-center p-6">
         <h1 className="text-2xl font-bold text-[#111111] mb-2">Invoice Not Found</h1>
         <p className="text-gray-500 mb-6">The requested invoice could not be found.</p>
         <button
@@ -269,9 +269,9 @@ export default function DigitalInvoice() {
   }
 
   return (
-    <div className="h-full overflow-y-auto hide-scrollbar bg-[#f9faf6] font-sans pb-12 print:bg-white print:pb-0">
+    <div className="h-full overflow-y-auto hide-scrollbar bg-[#fcf3e4] font-sans pb-12 print:bg-white print:pb-0">
       {/* Top action bar */}
-      <div className="bg-[#f9faf6] p-3 sm:p-4 sticky top-0 z-50 print:hidden flex flex-wrap items-center justify-between gap-2 max-w-4xl mx-auto">
+      <div className="bg-[#fcf3e4] p-3 sm:p-4 sticky top-0 z-50 print:hidden flex flex-wrap items-center justify-between gap-2 max-w-4xl mx-auto">
         <button onClick={handleBack} className="flex items-center gap-2 text-[#374151] hover:text-[#111111] font-semibold text-sm transition-colors bg-white border border-[#FDDBB4]/60 px-3 sm:px-4 py-2 rounded-full shadow-sm cursor-pointer">
           <ArrowLeft size={16} /> Back
         </button>

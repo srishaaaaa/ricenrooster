@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        bgMain:    '#F7EAD0',
+        bgMain:    '#FCF3E4',
         cardBg:    '#FFFFFF',
         maroon: {
           DEFAULT: '#D6402E', // Rooster Red

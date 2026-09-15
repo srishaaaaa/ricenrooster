@@ -2404,7 +2404,7 @@ export default function Dashboard() {
                       <>
                       <div className="space-y-3 md:hidden">
                         {filteredProds.slice(0, 50).map((p, i) => (
-                          <div key={`${p.name}-${p.variant || i}`} className="rounded-2xl border border-[#FDDBB4]/30 bg-[#FBFAF6] p-4">
+                          <div key={`${p.name}-${p.variant || i}`} className="rounded-2xl border border-[#FDDBB4]/30 bg-[#FCF3E4] p-4">
                             <div className="flex items-start justify-between gap-3">
                               <div className="min-w-0">
                                 <p className="text-[13px] font-black text-[#9BAB9A]">#{i + 1}</p>
@@ -2475,7 +2475,7 @@ export default function Dashboard() {
                   <>
                   <div className="space-y-3 md:hidden">
                     {analytics.topCategories.map((c, i) => (
-                      <div key={c.name} className="rounded-2xl border border-[#FDDBB4]/30 bg-[#FBFAF6] p-4">
+                      <div key={c.name} className="rounded-2xl border border-[#FDDBB4]/30 bg-[#FCF3E4] p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <p className="text-[13px] font-black text-[#9BAB9A]">#{i + 1}</p>
@@ -2604,7 +2604,7 @@ export default function Dashboard() {
                     </div>
                     <div className="space-y-3 md:hidden">
                       {analytics.topCoupons.map((coupon, i) => (
-                        <div key={coupon.code} className="rounded-2xl border border-[#FDDBB4]/30 bg-[#FBFAF6] p-4">
+                        <div key={coupon.code} className="rounded-2xl border border-[#FDDBB4]/30 bg-[#FCF3E4] p-4">
                           <div className="flex items-start justify-between gap-3">
                             <div>
                               <p className="text-[13px] font-black text-[#9BAB9A]">#{i + 1}</p>
@@ -2667,7 +2667,7 @@ export default function Dashboard() {
 
         {/* ── ORDER MANAGEMENT ── */}
         {tab === 'history' && (
-          <div className="space-y-4 sm:space-y-6 rounded-[20px] sm:rounded-[28px] border border-[#FDDBB4]/60 bg-[#FBFAF6] p-3 sm:p-6 lg:p-7 shadow-sm">
+          <div className="space-y-4 sm:space-y-6 rounded-[20px] sm:rounded-[28px] border border-[#FDDBB4]/60 bg-[#FCF3E4] p-3 sm:p-6 lg:p-7 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] font-black uppercase tracking-[0.24em] text-[#10B981]">{l('Billing history', 'பில் வரலாறு')}</p>
@@ -2749,7 +2749,7 @@ export default function Dashboard() {
                   const billTypeLabel = normalizeOrderType(o.order_type) === 'manual_sale' ? 'MANUAL' : normalizeOrderMode(o.order_mode) === 'online' ? 'ONLINE' : 'OFFLINE'
                   const billTypeClass = normalizeOrderType(o.order_type) === 'manual_sale' ? 'bg-purple-50 text-purple-700' : normalizeOrderMode(o.order_mode) === 'online' ? 'bg-blue-50 text-blue-700' : 'bg-orange-50 text-orange-700'
                   return (
-                    <div key={o.id} className="rounded-2xl border border-[#FDDBB4]/60 bg-[#FBFAF6] p-3 sm:p-4 space-y-3">
+                    <div key={o.id} className="rounded-2xl border border-[#FDDBB4]/60 bg-[#FCF3E4] p-3 sm:p-4 space-y-3">
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <p className="text-[13px] font-black text-[#111111] break-words">{formatInvoiceNo(o.invoice_no)}</p>
@@ -2821,10 +2821,10 @@ export default function Dashboard() {
                   )
                 })}
                 {filteredSearchResults.length === 0 && (
-                  <div className="rounded-2xl border border-[#FDDBB4]/60 bg-[#FBFAF6] px-4 py-8 text-center text-[#374151]">{l('No matching bills', 'பில்கள் இல்லை')}</div>
+                  <div className="rounded-2xl border border-[#FDDBB4]/60 bg-[#FCF3E4] px-4 py-8 text-center text-[#374151]">{l('No matching bills', 'பில்கள் இல்லை')}</div>
                 )}
               </div>
-              <div className="hidden md:block overflow-x-auto rounded-xl border border-[#FDDBB4]/60 bg-[#FBFAF6]">
+              <div className="hidden md:block overflow-x-auto rounded-xl border border-[#FDDBB4]/60 bg-[#FCF3E4]">
                 <table className="w-full text-left text-[13px]">
                   <thead className="bg-[#F9FAFB] text-[10px] uppercase tracking-wider text-[#374151]">
                     <tr>
@@ -3473,7 +3473,7 @@ export default function Dashboard() {
                 </div>
                 <button
                   onClick={() => void loadCoupons()}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-2 text-[11px] font-black text-[#D6402E] shadow-sm transition-colors hover:bg-[#F7F1E7]"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FCF3E4] px-3 py-2 text-[11px] font-black text-[#D6402E] shadow-sm transition-colors hover:bg-[#F7F1E7]"
                 >
                   <RefreshCw size={12} />
                   Refresh
@@ -3481,15 +3481,15 @@ export default function Dashboard() {
               </div>
 
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                <div className="rounded-xl border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-3 shadow-sm">
+                <div className="rounded-xl border border-[#FDDBB4] bg-[#FCF3E4] px-3 py-3 shadow-sm">
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#D6402E]">Total Coupons</p>
                   <p className="mt-1 text-[20px] font-black text-[#111111]">{coupons.length}</p>
                 </div>
-                <div className="rounded-xl border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-3 shadow-sm">
+                <div className="rounded-xl border border-[#FDDBB4] bg-[#FCF3E4] px-3 py-3 shadow-sm">
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#D6402E]">Active</p>
                   <p className="mt-1 text-[20px] font-black text-[#D6402E]">{coupons.filter(c => c.is_active).length}</p>
                 </div>
-                <div className="rounded-xl border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-3 shadow-sm">
+                <div className="rounded-xl border border-[#FDDBB4] bg-[#FCF3E4] px-3 py-3 shadow-sm">
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#D6402E]">Used</p>
                   <p className="mt-1 text-[20px] font-black text-[#111111]">{coupons.reduce((acc, c) => acc + (c.usage_count || 0), 0)}</p>
                 </div>

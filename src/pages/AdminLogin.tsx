@@ -54,7 +54,7 @@ export default function AdminLogin() {
           <div className="mb-5 inline-flex items-center justify-center rounded-2xl bg-black border border-[#E2503B]/70 p-1.5 shadow-xl overflow-hidden lg:hidden"><img src={BRAND_LOGO} alt={`${BRAND_EN} logo`} className="h-12 w-12 rounded-xl object-cover" /></div>
           <p className="text-[11px] font-black uppercase tracking-[0.24em] text-[#D6402E]">{BRAND_SUBTITLE}</p>
           <h1 className="mt-2 text-3xl font-black tracking-tight text-[#111111]">{BRAND_EN}</h1>
-          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FBFAF6] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#D6402E]">
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#FDDBB4] bg-[#FCF3E4] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#D6402E]">
             <ShieldCheck size={13} />
             {l('Admin Access', 'நிர்வாக அணுகல்')}
           </p>
@@ -82,7 +82,7 @@ export default function AdminLogin() {
               type="text"
               autoComplete="username"
               placeholder="Enter portal ID"
-              className="w-full rounded-2xl border-2 border-[#E7B6AC] bg-[#FBFAF6] px-4 py-3.5 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
+              className="w-full rounded-2xl border-2 border-[#E7B6AC] bg-[#FCF3E4] px-4 py-3.5 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
               value={portalId}
               onChange={(e) => { setPortalId(e.target.value); setError('') }}
               disabled={loading}
@@ -101,7 +101,7 @@ export default function AdminLogin() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="Enter portal password"
-                className="w-full rounded-2xl border-2 border-[#E7B6AC] bg-[#FBFAF6] px-4 py-3.5 pr-12 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
+                className="w-full rounded-2xl border-2 border-[#E7B6AC] bg-[#FCF3E4] px-4 py-3.5 pr-12 text-sm font-semibold outline-none transition-colors placeholder:text-[#AAA69C] focus:border-[#7A5F17] focus:bg-white"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); setError('') }}
                 disabled={loading}

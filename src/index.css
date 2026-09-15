@@ -88,7 +88,7 @@
   }
 
   .mobile-page-shell {
-    @apply bg-[#fbfaf6] min-h-screen;
+    @apply bg-[#fcf3e4] min-h-screen;
   }
 
   /* Consistent button styles */
@@ -122,7 +122,7 @@
   }
 
   /* Keep app surfaces on the warm admin theme used by the sidebar */
-  .bg-bgMain { background-color: #FBFAF6 !important; }
+  .bg-bgMain { background-color: #FCF3E4 !important; }
   .bg-cardBg  { background-color: #FFFFFF !important; }
 }
 
@@ -138,7 +138,7 @@
   touch-action: pan-x pan-y;
   background:
     radial-gradient(circle at top left, rgba(139, 28, 49, 0.05), transparent 30%),
-    #FBFAF6;
+    #FCF3E4;
 }
 
 

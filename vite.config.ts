@@ -22,7 +22,7 @@ export default defineConfig({
         short_name: "Rice n' Rooster",
         description: "Rice n' Rooster Billing – POS, advance orders, catalog, invoices, and analytics.",
         theme_color: '#D6402E',
-        background_color: '#FBFAF6',
+        background_color: '#FCF3E4',
         display: 'standalone',
         orientation: 'any',
         start_url: '/',

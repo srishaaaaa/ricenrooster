@@ -64,7 +64,13 @@ export function printThermalReceipt(data: ThermalReceiptData) {
           body {
             font-family: 'Courier New', Courier, monospace, sans-serif;
             font-size: 12px;
+            font-weight: 600;
             color: #000;
+            /* Thin Courier glyphs at this size print faint on thermal
+               printers; a slight stroke thickens them without changing size. */
+            -webkit-text-stroke: 0.35px #000;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
             margin: 0;
             padding: 4mm;
             width: 80mm;
@@ -73,7 +79,7 @@ export function printThermalReceipt(data: ThermalReceiptData) {
           .text-center { text-align: center; }
           .text-right { text-align: right; }
           .text-left { text-align: left; }
-          .font-bold { font-weight: bold; }
+          .font-bold { font-weight: 800; }
           .mb-1 { margin-bottom: 4px; }
           .mb-2 { margin-bottom: 8px; }
           .mt-2 { margin-top: 8px; }

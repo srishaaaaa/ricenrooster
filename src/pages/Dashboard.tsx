@@ -831,15 +831,10 @@ export default function Dashboard() {
       return
     }
 
-    if (order.invoice_pdf_url) {
-      const link = document.createElement('a')
-      link.href = order.invoice_pdf_url
-      if (mode === 'download') link.download = `Invoice-${order.invoice_no || order.id}.pdf`
-      if (mode === 'download') { link.click(); return }
-      const opened = window.open(order.invoice_pdf_url, '_blank', 'noopener,noreferrer')
-      if (mode === 'print') opened?.addEventListener('load', () => opened.print())
-      return
-    }
+    // Always regenerate from current order data instead of reusing
+    // order.invoice_pdf_url — that file is a one-time snapshot saved at
+    // sale time, so it keeps whatever invoice design existed back then
+    // instead of picking up later layout fixes.
     const preview = getOrderWhatsAppPreview(order)
     if (!preview) { alert('This order has no invoice details available.'); return }
     const file = invoicePdfFile({

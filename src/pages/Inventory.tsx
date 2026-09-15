@@ -5,6 +5,7 @@ import { formatCurrency } from '../lib/retail'
 import LowStockAlarmModal from '../components/LowStockAlarmModal'
 import { BRAND_EN } from '../lib/brand'
 import { useAdminAuthStore } from '../store/store'
+import { useBodyScrollLock } from '../components/ui/useBodyScrollLock'
 
 // inventory_logs has no column for "who made this adjustment" (admin/staff
 // share one login each, not per-person accounts, so there's no real user
@@ -394,6 +395,7 @@ export default function Inventory() {
   const [historyModal, setHistoryModal] = useState<InventoryProduct | null>(null)
   const [historyLogs, setHistoryLogs] = useState<InventoryLog[]>([])
   const [historyLoading, setHistoryLoading] = useState(false)
+  useBodyScrollLock(!!adjustModal || !!historyModal)
 
   // Product form state
   const [productForm, setProductForm] = useState<ProductForm>(EMPTY_FORM)

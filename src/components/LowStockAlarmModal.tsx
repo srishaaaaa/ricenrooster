@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { AlertTriangle, Volume2, VolumeX, Package } from 'lucide-react'
 import { useSound } from '../context/SoundContext'
+import { useBodyScrollLock } from './ui/useBodyScrollLock'
 
 export interface LowStockAlarmItem {
   id: string | number
@@ -16,6 +17,7 @@ interface LowStockAlarmModalProps {
 }
 
 export default function LowStockAlarmModal({ items, onAcknowledge }: LowStockAlarmModalProps) {
+  useBodyScrollLock(items.length > 0)
   const { soundEnabled, startAlarmLoop, stopAlarmLoop } = useSound()
 
   useEffect(() => {

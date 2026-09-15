@@ -44,7 +44,9 @@ export function createInvoicePdf(data: InvoicePdfData): Blob {
   const MUTED = '#555555'
   const LIGHT = '#888888'
 
-  let y = 14
+  // Extra top clearance: mobile PDF viewers (e.g. WhatsApp's in-app browser)
+  // draw their own "1 of 1" page badge over the top-left corner of the page.
+  let y = 20
 
   // ── TOP BAR: TAX INVOICE | Invoice # ─────────────────────────────
   doc.setFont('helvetica', 'bold')

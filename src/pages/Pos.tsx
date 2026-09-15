@@ -825,7 +825,7 @@ export default function Pos(props: PosProps = {}) {
 
   // ══ MAIN POS SCREEN ══════════════════════════════════════════════════
   return (
-    <div data-embedded={embeddedMode} data-panel={mobilePanelView} className={`flex flex-col bg-[#FAFAFA] print:hidden ${embeddedMode ? '' : 'h-full overflow-y-auto overflow-x-hidden hide-scrollbar'}`}>
+    <div data-embedded={embeddedMode} data-panel={mobilePanelView} className={`flex flex-col bg-[#FAFAFA] print:hidden ${embeddedMode ? '' : 'app-scroll-root h-full overflow-y-auto overflow-x-hidden hide-scrollbar'}`}>
 
       {/* Header */}
       <div className="px-4 pt-4 pb-3 md:px-6 md:pt-6 md:pb-4 shrink-0 flex flex-col gap-4 min-[480px]:flex-row min-[480px]:items-start min-[480px]:justify-between">

@@ -18,6 +18,7 @@ import {
 import { supabase } from '../../lib/supabase'
 import { uploadProductImage } from '../../lib/storage'
 import { useProductStore, useVariantStore } from '../../store/store'
+import { useBodyScrollLock } from '../ui/useBodyScrollLock'
 import type { ProductVariant } from '../../services/variantService'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -72,6 +73,7 @@ export default function ImageMappingTool() {
   const [imageFilter, setImageFilter] = useState<'all' | 'mapped' | 'unmapped'>('all')
   const [view, setView] = useState<'map' | 'review'>('map')
   const [confirmUpload, setConfirmUpload] = useState(false)
+  useBodyScrollLock(confirmUpload)
   const [uploading, setUploading] = useState(false)
   const [uploadResults, setUploadResults] = useState<UploadResult[]>([])
   const [uploadProgress, setUploadProgress] = useState({ done: 0, total: 0, current: '' })

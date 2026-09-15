@@ -37,6 +37,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { isSupabaseConfigured, supabase } from '../lib/supabase'
 import { debounce } from '../lib/debounce'
 import { useAuthStore, useProductStore, useAdminAuthStore } from '../store/store'
+import { useBodyScrollLock } from '../components/ui/useBodyScrollLock'
 import { formatCurrency, normalizeOrderMode, toNumber } from '../lib/retail'
 import { normalizeStructuredOrderItem, formatInvoiceNo } from '../lib/retail'
 import { formatPhoneDisplay } from '../lib/phone'
@@ -163,6 +164,7 @@ export default function Dashboard() {
   const [analyticsTab, setAnalyticsTab] = useState('revenue')
 
   const [invoicePreviewOrder, setInvoicePreviewOrder] = useState<DashboardOrder | null>(null)
+  useBodyScrollLock(!!invoicePreviewOrder)
 
   // WA detail expansion
   const [waExpandedId, setWaExpandedId] = useState<string | null>(null)
@@ -1258,7 +1260,7 @@ export default function Dashboard() {
 
       {/* Main */}
       <main className="flex-grow flex flex-col overflow-hidden">
-        <div className="flex-1 p-3 sm:p-6 lg:p-8 overflow-x-hidden overflow-y-auto hide-scrollbar">
+        <div className="app-scroll-root flex-1 p-3 sm:p-6 lg:p-8 overflow-x-hidden overflow-y-auto hide-scrollbar">
         <div className="mx-auto w-full max-w-[1600px]">
 
         {/* ΓöÇΓöÇ ANALYTICS TAB ΓöÇΓöÇ */}

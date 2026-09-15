@@ -87,7 +87,14 @@ export const Invoice: React.FC<InvoiceProps> = ({
         fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
         fontSize: 13,
         color: '#1a1a2e',
-        padding: 'clamp(14px, 4vw, 24px) clamp(12px, 4vw, 28px)',
+        // Extra top clearance: mobile PDF viewers (e.g. WhatsApp's in-app
+        // browser opening a shared invoice) draw their own "1 of 1" page
+        // badge over the top-left corner of the page, which otherwise
+        // lands right on top of the TAX INVOICE heading.
+        paddingTop: 'clamp(34px, 9vw, 48px)',
+        paddingRight: 'clamp(12px, 4vw, 28px)',
+        paddingBottom: 'clamp(14px, 4vw, 24px)',
+        paddingLeft: 'clamp(12px, 4vw, 28px)',
       }}
     >
       {/* ── TOP BAR: TAX INVOICE | Invoice # ─────────────────────── */}

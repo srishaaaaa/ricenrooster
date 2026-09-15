@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { X, Search, ShoppingBag, Edit2, Trash2, Scissors, Package } from 'lucide-react'
 import { useProductStore, type Product } from '../store/store'
 import { supabase } from '../lib/supabase'
+import { useBodyScrollLock } from './ui/useBodyScrollLock'
 
 interface CatalogModalProps {
   isOpen: boolean
@@ -12,6 +13,7 @@ interface CatalogModalProps {
 type CategoryOption = { id: string | number; name_en: string; is_active?: boolean; sort_order?: number }
 
 export default function CatalogModal({ isOpen, onClose, onAdd }: CatalogModalProps) {
+  useBodyScrollLock(isOpen)
   const { fetchProducts, products, loading, error } = useProductStore()
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')

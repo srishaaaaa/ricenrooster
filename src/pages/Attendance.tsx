@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Users, Calendar, AlertTriangle, Plus, X, Edit2, LogIn, LogOut } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { formatCurrency } from '../lib/retail'
+import { useBodyScrollLock } from '../components/ui/useBodyScrollLock'
 
 interface Staff {
   id: string
@@ -35,6 +36,7 @@ export default function Attendance() {
   const [loading, setLoading] = useState(true)
   const [dbError, setDbError] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  useBodyScrollLock(showModal)
   const [editingStaff, setEditingStaff] = useState<Staff | null>(null)
 
   const [form, setForm] = useState({ name: '', role: '', phone: '', base_salary: '' })

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useProductStore } from '../store/store'
 import { supabase } from '../lib/supabase'
+import { useBodyScrollLock } from './ui/useBodyScrollLock'
 
 interface AddProductModalProps {
   isOpen: boolean
@@ -10,6 +11,7 @@ interface AddProductModalProps {
 }
 
 export default function AddProductModal({ isOpen, onClose, onSuccess }: AddProductModalProps) {
+  useBodyScrollLock(isOpen)
   const { fetchProducts, products } = useProductStore()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

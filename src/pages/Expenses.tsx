@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Receipt, Plus, Trash2, X, AlertTriangle, Download, CalendarDays, CalendarRange, CalendarClock, Wallet } from 'lucide-react'
+import { Receipt, Plus, Trash2, Edit2, X, AlertTriangle, Download, CalendarDays, CalendarRange, CalendarClock, Wallet } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { formatCurrency } from '../lib/retail'
+import { useBodyScrollLock } from '../components/ui/useBodyScrollLock'
 
 interface ExpenseCategory {
   id: number
@@ -26,6 +27,8 @@ export default function Expenses() {
   const [categories, setCategories] = useState<ExpenseCategory[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  useBodyScrollLock(showModal)
+  const [editingExpenseId, setEditingExpenseId] = useState<string | null>(null)
   const [form, setForm] = useState({ category_id: '', amount: '', description: '', expense_date: new Date().toISOString().split('T')[0] })
   const [submitting, setSubmitting] = useState(false)
   const [newCatName, setNewCatName] = useState('')
@@ -60,20 +63,46 @@ export default function Expenses() {
 
   useEffect(() => { void fetchData() }, [fetchData])
 
+  const resetExpenseForm = () => {
+    setForm({ category_id: '', amount: '', description: '', expense_date: new Date().toISOString().split('T')[0] })
+    setEditingExpenseId(null)
+  }
+
+  const openAddExpense = () => {
+    resetExpenseForm()
+    setShowModal(true)
+  }
+
+  const openEditExpense = (exp: Expense) => {
+    setForm({
+      category_id: String(exp.category_id),
+      amount: String(exp.amount),
+      description: exp.description || '',
+      expense_date: exp.expense_date.split('T')[0],
+    })
+    setEditingExpenseId(exp.id)
+    setShowModal(true)
+  }
+
   const handleSaveExpense = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.category_id || !form.amount) return
     setSubmitting(true)
-    
+
     try {
-      await supabase.from('expenses').insert({
+      const payload = {
         category_id: parseInt(form.category_id),
         amount: parseFloat(form.amount),
         description: form.description || null,
         expense_date: form.expense_date
-      })
+      }
+      if (editingExpenseId) {
+        await supabase.from('expenses').update(payload).eq('id', editingExpenseId)
+      } else {
+        await supabase.from('expenses').insert(payload)
+      }
       setShowModal(false)
-      setForm({ category_id: '', amount: '', description: '', expense_date: new Date().toISOString().split('T')[0] })
+      resetExpenseForm()
       void fetchData()
     } catch (err) {
       console.error(err)
@@ -246,7 +275,7 @@ export default function Expenses() {
               <button onClick={handleExportCSV} className="flex items-center gap-2 border border-[#E5E7EB] bg-white text-[#374151] px-3 py-2 rounded-xl text-[12px] font-black hover:bg-[#F9FAFB] transition-colors">
                 <Download size={14} /> Export CSV
               </button>
-              <button onClick={() => setShowModal(true)} disabled={dbError} className="h-10 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-4 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-black disabled:opacity-50">
+              <button onClick={openAddExpense} disabled={dbError} className="h-10 bg-[#141414] border border-[#E2503B] text-[#E2503B] px-4 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-black disabled:opacity-50">
                 <Plus size={16} /> Record Expense
               </button>
             </div>
@@ -285,7 +314,10 @@ export default function Expenses() {
                       <td className="px-4 py-3 text-sm text-[#374151] whitespace-nowrap max-w-[220px] truncate">{exp.description || '—'}</td>
                       <td className="px-4 py-3 text-sm font-black text-red-600 whitespace-nowrap">{formatCurrency(exp.amount)}</td>
                       <td className="px-4 py-3 text-right whitespace-nowrap">
-                        <button onClick={() => handleDeleteExpense(exp.id)} className="text-red-400 hover:text-red-600 p-1.5 bg-red-50 rounded-lg"><Trash2 size={14} /></button>
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button onClick={() => openEditExpense(exp)} className="text-[#D6402E] hover:text-[#B23323] p-1.5 bg-[#FFF8F2] rounded-lg" title="Edit expense"><Edit2 size={14} /></button>
+                          <button onClick={() => handleDeleteExpense(exp.id)} className="text-red-400 hover:text-red-600 p-1.5 bg-red-50 rounded-lg" title="Delete expense"><Trash2 size={14} /></button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -336,8 +368,8 @@ export default function Expenses() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
           <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto hide-scrollbar p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-black text-[#111111]">Record Expense</h2>
-              <button onClick={() => setShowModal(false)} className="p-2 rounded-xl hover:bg-gray-100"><X size={18} /></button>
+              <h2 className="text-xl font-black text-[#111111]">{editingExpenseId ? 'Edit Expense' : 'Record Expense'}</h2>
+              <button onClick={() => { setShowModal(false); resetExpenseForm() }} className="p-2 rounded-xl hover:bg-gray-100"><X size={18} /></button>
             </div>
             <form onSubmit={handleSaveExpense} className="space-y-4">
               <div>
@@ -360,8 +392,8 @@ export default function Expenses() {
                 <input type="text" value={form.description} onChange={e => setForm({...form, description: e.target.value})} className="w-full border border-[#FDDBB4]/60 p-2.5 rounded-xl text-sm font-bold outline-none focus:border-[#D6402E]" placeholder="Optional details..." />
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="flex-1 bg-gray-100 p-3 rounded-xl font-bold text-sm hover:bg-gray-200">Cancel</button>
-                <button type="submit" disabled={submitting} className="flex-1 bg-[#141414] border border-[#E2503B] text-[#E2503B] p-3 rounded-xl font-bold text-sm hover:bg-black disabled:opacity-50">{submitting ? 'Saving...' : 'Save Expense'}</button>
+                <button type="button" onClick={() => { setShowModal(false); resetExpenseForm() }} className="flex-1 bg-gray-100 p-3 rounded-xl font-bold text-sm hover:bg-gray-200">Cancel</button>
+                <button type="submit" disabled={submitting} className="flex-1 bg-[#141414] border border-[#E2503B] text-[#E2503B] p-3 rounded-xl font-bold text-sm hover:bg-black disabled:opacity-50">{submitting ? 'Saving...' : editingExpenseId ? 'Update Expense' : 'Save Expense'}</button>
               </div>
             </form>
           </div>

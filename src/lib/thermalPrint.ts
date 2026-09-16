@@ -87,7 +87,7 @@ export function printThermalReceipt(data: ThermalReceiptData) {
           .border-top { border-top: 1px dashed #000; padding-top: 4px; margin-top: 4px; }
           table { width: 100%; border-collapse: collapse; }
           th, td { padding: 2px 0; vertical-align: top; }
-          .item-name { font-size: 11px; padding-right: 4px; }
+          .item-name { font-size: 11px; padding-right: 4px; word-wrap: break-word; }
         </style>
       </head>
       <body>
@@ -105,12 +105,12 @@ export function printThermalReceipt(data: ThermalReceiptData) {
           ${data.phone ? `<div>Tel: ${formatPhoneDisplay(data.phone)}</div>` : ''}
         </div>
 
-        <table class="border-bottom">
+        <table class="border-bottom" style="table-layout: fixed;">
           <thead>
             <tr style="font-size: 10px; border-bottom: 1px dashed #000;">
-              <th class="text-left">Item</th>
-              <th class="text-right">Qty</th>
-              <th class="text-right">Total</th>
+              <th class="text-left" style="width: 55%;">Item</th>
+              <th class="text-right" style="width: 15%;">Qty</th>
+              <th class="text-right" style="width: 30%;">Total</th>
             </tr>
           </thead>
           <tbody>

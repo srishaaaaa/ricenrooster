@@ -82,7 +82,7 @@ export const Invoice: React.FC<InvoiceProps> = ({
   return (
     <div
       id="invoice-print-root"
-      className="w-full max-w-[680px] mx-auto bg-white box-border flex flex-col flex-1 print:p-0 print:max-w-full overflow-hidden"
+      className="w-full max-w-[680px] mx-auto bg-white box-border flex flex-col flex-1 print:p-0 print:max-w-full overflow-y-auto"
       style={{
         fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
         fontSize: 13,

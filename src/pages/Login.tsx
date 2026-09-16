@@ -1435,13 +1435,13 @@ export default function Dashboard() {
         ].join(' ')}
       >
         {/* Desktop brand header */}
-        <div className={`hidden lg:flex items-center relative transition-all duration-300 ${sidebarCollapsed ? 'flex-col items-center pt-5 pb-4 px-2 gap-3' : 'px-5 py-5 justify-between'}`}>
-          <Link to="/pos" title="Go to Billing Panel" className={`flex items-center gap-3 min-w-0 transition-all duration-300 ${sidebarCollapsed ? 'justify-center' : 'flex-1'}`}>
+        <div className={`hidden lg:flex items-center relative transition-all duration-300 ${sidebarCollapsed ? 'flex-col items-center pt-5 pb-4 px-2 gap-3' : 'px-4 py-5 justify-between'}`}>
+          <Link to="/pos" title="Go to Billing Panel" className={`flex items-center gap-2 min-w-0 transition-all duration-300 ${sidebarCollapsed ? 'justify-center' : 'flex-1'}`}>
             <div className="flex items-center justify-center shrink-0 w-11 h-11 rounded-xl bg-white border border-emerald-900/40 shadow-sm overflow-hidden p-1 hover:scale-105 transition-transform">
               <img src="/logo.png" alt="Rice n' Rooster logo" className="w-full h-full object-contain" />
             </div>
             {!sidebarCollapsed && (
-              <h1 className="text-[20px] font-black text-white truncate tracking-tight">Rice n' Rooster</h1>
+              <h1 className="text-[17px] font-black text-white whitespace-nowrap tracking-tight">Rice n' Rooster</h1>
             )}
           </Link>
           <button

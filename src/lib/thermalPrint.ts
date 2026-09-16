@@ -124,7 +124,7 @@ export function printThermalReceipt(data: ThermalReceiptData) {
                     <span style="font-size: 9px;">${formatCurrency(item.price)} ${unit ? ` / ${unit}` : ''}</span>
                   </td>
                   <td class="text-right">${item.qty}</td>
-                  <td class="text-right">${formatCurrency(lineTotal)}</td>
+                  <td class="text-right">${lineTotal.toFixed(2)}</td>
                 </tr>
               `
             }).join('')}

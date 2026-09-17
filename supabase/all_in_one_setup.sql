@@ -1613,37 +1613,24 @@ CREATE TABLE IF NOT EXISTS public.inventory_logs (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Trigger function to automatically deduct stock and log it on order completion
+-- Trigger function to automatically deduct stock and log it on order completion.
+-- Set-based (no PL/pgSQL RECORD loop or scalar variable) so there's no
+-- row-by-row "current_stock" identifier for the planner to ever misresolve.
 CREATE OR REPLACE FUNCTION public.handle_order_inventory_deduction()
 RETURNS TRIGGER AS $function$
-DECLARE
-    item RECORD;
-    current_stock NUMERIC(12,3);
 BEGIN
     IF NEW.status = 'completed' AND (OLD.status IS NULL OR OLD.status != 'completed') THEN
-        FOR item IN SELECT * FROM public.order_items WHERE order_id = NEW.id LOOP
-            -- Get current stock
-            SELECT stock_quantity INTO current_stock FROM public.products WHERE id = item.product_id;
-            
-            IF current_stock IS NOT NULL THEN
-                -- Update product stock
-                UPDATE public.products 
-                SET stock_quantity = stock_quantity - item.quantity,
-                    updated_at = NOW()
-                WHERE id = item.product_id;
-                
-                -- Insert log
-                INSERT INTO public.inventory_logs (product_id, old_quantity, new_quantity, adjustment, reason, reference_id)
-                VALUES (
-                    item.product_id, 
-                    current_stock, 
-                    current_stock - item.quantity, 
-                    -item.quantity, 
-                    'sale', 
-                    NEW.id::text
-                );
-            END IF;
-        END LOOP;
+        INSERT INTO public.inventory_logs (product_id, old_quantity, new_quantity, adjustment, reason, reference_id)
+        SELECT p.id, p.stock_quantity, p.stock_quantity - oi.quantity, -oi.quantity, 'sale', NEW.id::text
+        FROM public.order_items oi
+        JOIN public.products p ON p.id = oi.product_id
+        WHERE oi.order_id = NEW.id;
+
+        UPDATE public.products p
+        SET stock_quantity = p.stock_quantity - oi.quantity,
+            updated_at = NOW()
+        FROM public.order_items oi
+        WHERE oi.order_id = NEW.id AND oi.product_id = p.id;
     END IF;
     RETURN NEW;
 END;
@@ -1660,38 +1647,33 @@ CREATE TRIGGER trigger_order_inventory_deduction
 -- exists on this table ('delivered' isn't in the status CHECK constraint, and the
 -- JSONB column is named 'products', not 'items'), so it silently never ran. The real
 -- terminal status the app sets (via complete_advance_order_v2) is 'completed'.
+-- Set-based (no PL/pgSQL RECORD loop or scalar variable), and note the
+-- set-returning jsonb_array_elements() call lives only in the FROM clause of
+-- the "items" subquery below, never in a WHERE — Postgres rejects that with
+-- "set-returning functions are not allowed in WHERE".
 CREATE OR REPLACE FUNCTION public.handle_advance_order_inventory_deduction()
 RETURNS TRIGGER AS $function$
-DECLARE
-    item RECORD;
-    current_stock NUMERIC(12,3);
 BEGIN
     IF NEW.status = 'completed' AND (OLD.status IS NULL OR OLD.status != 'completed') THEN
-        FOR item IN
-            SELECT (jsonb_array_elements(NEW.products)->>'product_id')::BIGINT AS product_id,
-                   (jsonb_array_elements(NEW.products)->>'quantity')::NUMERIC AS quantity
-            WHERE (jsonb_array_elements(NEW.products)->>'product_id') IS NOT NULL
-        LOOP
-            SELECT stock_quantity INTO current_stock FROM public.products WHERE id = item.product_id;
+        INSERT INTO public.inventory_logs (product_id, old_quantity, new_quantity, adjustment, reason, reference_id)
+        SELECT p.id, p.stock_quantity, GREATEST(p.stock_quantity - i.quantity, 0), -i.quantity, 'sale', NEW.id::text
+        FROM (
+            SELECT (elem->>'product_id')::BIGINT AS product_id, (elem->>'quantity')::NUMERIC AS quantity
+            FROM jsonb_array_elements(NEW.products) AS elem
+            WHERE (elem->>'product_id') IS NOT NULL
+        ) i
+        JOIN public.products p ON p.id = i.product_id;
 
-            IF current_stock IS NOT NULL THEN
-                UPDATE public.products
-                SET stock_quantity = GREATEST(stock_quantity - item.quantity, 0),
-                    stock = GREATEST(FLOOR(stock_quantity - item.quantity), 0)::INTEGER,
-                    updated_at = NOW()
-                WHERE id = item.product_id;
-
-                INSERT INTO public.inventory_logs (product_id, old_quantity, new_quantity, adjustment, reason, reference_id)
-                VALUES (
-                    item.product_id,
-                    current_stock,
-                    GREATEST(current_stock - item.quantity, 0),
-                    -item.quantity,
-                    'sale',
-                    NEW.id::text
-                );
-            END IF;
-        END LOOP;
+        UPDATE public.products p
+        SET stock_quantity = GREATEST(p.stock_quantity - i.quantity, 0),
+            stock = GREATEST(FLOOR(p.stock_quantity - i.quantity), 0)::INTEGER,
+            updated_at = NOW()
+        FROM (
+            SELECT (elem->>'product_id')::BIGINT AS product_id, (elem->>'quantity')::NUMERIC AS quantity
+            FROM jsonb_array_elements(NEW.products) AS elem
+            WHERE (elem->>'product_id') IS NOT NULL
+        ) i
+        WHERE i.product_id = p.id;
     END IF;
     RETURN NEW;
 END;
@@ -2591,39 +2573,33 @@ UPDATE public.products SET remedy = ARRAY['Chicken Combo', 'Spicy'], updated_at 
 -- never in WHERE — this always failed once an order actually reached
 -- 'completed' status.
 
+-- Set-based (no PL/pgSQL RECORD loop or scalar variable) — see the matching
+-- definition earlier in this file for the same reasoning. Kept here as its
+-- own CREATE OR REPLACE so this file still mirrors the migrations/ directory
+-- 1:1, file by file.
 CREATE OR REPLACE FUNCTION public.handle_advance_order_inventory_deduction()
 RETURNS TRIGGER AS $function$
-DECLARE
-    item RECORD;
-    current_stock NUMERIC(12,3);
 BEGIN
     IF NEW.status = 'completed' AND (OLD.status IS NULL OR OLD.status != 'completed') THEN
-        FOR item IN
-            SELECT (elem->>'product_id')::BIGINT AS product_id,
-                   (elem->>'quantity')::NUMERIC AS quantity
+        INSERT INTO public.inventory_logs (product_id, old_quantity, new_quantity, adjustment, reason, reference_id)
+        SELECT p.id, p.stock_quantity, GREATEST(p.stock_quantity - i.quantity, 0), -i.quantity, 'sale', NEW.id::text
+        FROM (
+            SELECT (elem->>'product_id')::BIGINT AS product_id, (elem->>'quantity')::NUMERIC AS quantity
             FROM jsonb_array_elements(NEW.products) AS elem
             WHERE (elem->>'product_id') IS NOT NULL
-        LOOP
-            SELECT stock_quantity INTO current_stock FROM public.products WHERE id = item.product_id;
+        ) i
+        JOIN public.products p ON p.id = i.product_id;
 
-            IF current_stock IS NOT NULL THEN
-                UPDATE public.products
-                SET stock_quantity = GREATEST(stock_quantity - item.quantity, 0),
-                    stock = GREATEST(FLOOR(stock_quantity - item.quantity), 0)::INTEGER,
-                    updated_at = NOW()
-                WHERE id = item.product_id;
-
-                INSERT INTO public.inventory_logs (product_id, old_quantity, new_quantity, adjustment, reason, reference_id)
-                VALUES (
-                    item.product_id,
-                    current_stock,
-                    GREATEST(current_stock - item.quantity, 0),
-                    -item.quantity,
-                    'sale',
-                    NEW.id::text
-                );
-            END IF;
-        END LOOP;
+        UPDATE public.products p
+        SET stock_quantity = GREATEST(p.stock_quantity - i.quantity, 0),
+            stock = GREATEST(FLOOR(p.stock_quantity - i.quantity), 0)::INTEGER,
+            updated_at = NOW()
+        FROM (
+            SELECT (elem->>'product_id')::BIGINT AS product_id, (elem->>'quantity')::NUMERIC AS quantity
+            FROM jsonb_array_elements(NEW.products) AS elem
+            WHERE (elem->>'product_id') IS NOT NULL
+        ) i
+        WHERE i.product_id = p.id;
     END IF;
     RETURN NEW;
 END;

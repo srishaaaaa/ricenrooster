@@ -1178,19 +1178,24 @@ export default function Dashboard() {
         ].join(' ')}
       >
         {/* Desktop brand header */}
-        <div className={`hidden lg:flex items-center relative transition-all duration-300 ${sidebarCollapsed ? 'flex-col items-center pt-5 pb-4 px-2 gap-3' : 'px-4 py-5 justify-between'}`}>
-          <Link to="/pos" title="Go to Billing Panel" className={`flex items-center gap-2 min-w-0 transition-all duration-300 ${sidebarCollapsed ? 'justify-center' : 'flex-1'}`}>
+        <div className={`hidden lg:flex items-center relative transition-all duration-300 ${sidebarCollapsed ? 'flex-col items-center pt-5 pb-4 px-2 gap-3' : 'px-3.5 py-5 justify-between'}`}>
+          <Link to="/pos" title="Go to Billing Panel" className={`flex items-center gap-1.5 min-w-0 transition-all duration-300 ${sidebarCollapsed ? 'justify-center' : 'flex-1'}`}>
             <div className="flex items-center justify-center shrink-0 w-11 h-11 rounded-xl bg-black border border-[#E2503B]/70 shadow-sm overflow-hidden p-1 hover:scale-105 transition-transform">
               <img src="/logo.png" alt="Rice n' Rooster logo" className="w-full h-full object-cover" />
             </div>
             {!sidebarCollapsed && (
-              <h1 className="text-[17px] font-black text-white whitespace-nowrap tracking-tight">Rice n' Rooster</h1>
+              <div className="flex items-center gap-1 min-w-0 overflow-hidden">
+                <h1 className="text-[15px] font-black text-white truncate tracking-tight">Rice n' Rooster</h1>
+                <span className="shrink-0 rounded-full border border-[#E2503B]/50 bg-[#E2503B]/10 px-1 py-0.5 text-[8px] font-black uppercase tracking-wider text-[#E2503B]">
+                  {role === 'admin' ? 'Admin' : 'Staff'}
+                </span>
+              </div>
             )}
           </Link>
           <button
             type="button"
             onClick={() => setSidebarCollapsed((state) => !state)}
-            className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-white/80 hover:bg-white/15 hover:text-white transition-colors shrink-0"
+            className="flex h-7 w-7 items-center justify-center rounded-xl bg-white/10 text-white/80 hover:bg-white/15 hover:text-white transition-colors shrink-0"
             aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >

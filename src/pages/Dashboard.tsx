@@ -980,8 +980,8 @@ export default function Dashboard() {
   useEffect(() => {
     if (tab === 'users') void loadUsers()
     if (tab === 'coupons') void loadCoupons()
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- runSearch is redefined every render; only re-fetch when the tab itself changes to 'history'
     if (tab === 'history') void runSearch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runSearch is redefined every render; only re-fetch when the tab itself changes to 'history'
   }, [tab, loadUsers, loadCoupons])
 
   const applyAnalyticsPreset = (preset: 'all' | 'today' | 'week' | 'month' | 'year' | 'custom') => {

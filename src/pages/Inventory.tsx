@@ -315,12 +315,12 @@ function InventoryAnalytics({ products, downloadCSV }: { products: InventoryProd
                     <tr key={log.id} className="hover:bg-orange-50/30">
                       <td className="px-4 py-3 text-[11px] text-[#6B7280] whitespace-nowrap">{new Date(log.created_at).toLocaleDateString('en-MY')} <span className="opacity-70">{new Date(log.created_at).toLocaleTimeString('en-MY',{hour:'2-digit',minute:'2-digit'})}</span></td>
                       <td className="px-4 py-3 whitespace-nowrap"><span className={`px-2 py-0.5 rounded-lg text-[10px] font-black uppercase ${REASON_COLORS[log.reason] || 'bg-gray-100 text-gray-600'}`}>{log.reason.replace('_',' ')}</span></td>
-                      <td className="px-4 py-3 font-bold text-[#111111] whitespace-nowrap max-w-[200px] truncate">{log.products?.name || '—'}</td>
+                      <td className="px-4 py-3 font-bold text-[#111111] whitespace-normal max-w-[200px] break-words">{log.products?.name || '—'}</td>
                       <td className="px-4 py-3 text-[#6B7280] text-xs whitespace-nowrap">{log.products?.category || '—'}</td>
                       <td className={`px-4 py-3 font-black whitespace-nowrap ${log.adjustment > 0 ? 'text-emerald-600' : 'text-red-600'}`}>{log.adjustment > 0 ? '+' : ''}{log.adjustment}</td>
                       <td className="px-4 py-3 font-bold text-[#374151] whitespace-nowrap">{log.old_quantity} → <span className="text-[#111111]">{log.new_quantity}</span></td>
                       <td className="px-4 py-3 text-xs font-bold text-[#374151] whitespace-nowrap">{user}</td>
-                      <td className="px-4 py-3 text-xs text-[#9CA3AF] whitespace-nowrap max-w-[160px] truncate">{note || '—'}</td>
+                      <td className="px-4 py-3 text-xs text-[#9CA3AF] whitespace-normal max-w-[160px] break-words">{note || '—'}</td>
                     </tr>
                   )
                 })}
@@ -800,7 +800,7 @@ export default function Inventory() {
                     const pillClass = status === 'out' ? 'bg-red-50 text-red-700 border-red-200' : status === 'low' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                     return (
                       <tr key={String(p.id)} className="border-b border-[#FDDBB4]/20 hover:bg-[#FAFAFA]">
-                        <td className="px-4 py-3 font-bold text-[#111111] text-sm whitespace-nowrap max-w-[220px] truncate">{p.name}</td>
+                        <td className="px-4 py-3 font-bold text-[#111111] text-sm whitespace-normal max-w-[220px] break-words">{p.name}</td>
                         <td className="px-4 py-3 text-sm text-[#374151] whitespace-nowrap">{p.category || '—'}</td>
                         <td className="px-4 py-3 whitespace-nowrap">
                           <span className={`inline-flex items-center gap-1 whitespace-nowrap px-2.5 py-1 rounded-full text-[11px] font-black border ${pillClass}`}>
